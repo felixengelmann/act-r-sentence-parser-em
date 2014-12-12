@@ -56,7 +56,7 @@ Information about the parsing state, important interface variables, and model pa
 
 If you wish, you can change the amount of output you want to see in the trace. For example, show only fired productions:  
 `> (setprint firing)`  
-> Instead of firing you can also set it to **condensed**, **full**, **default**, or **off**.
+> Instead of **firing**, you can also set it to **condensed**, **full**, **default**, or **off**.
 
 Now, let’s delete the output files (in LewisVasishth2005/output/), reload the model, and run the Grodner & Gibson (2004) Experiment 1 comparing subject- and object-relative clauses with 60 iterations:  
 `> (delete-output)`  
