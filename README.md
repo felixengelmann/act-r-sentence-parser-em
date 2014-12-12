@@ -10,16 +10,19 @@ This model includes:
 **The model and module code is under heavy development and at the moment in a kind of transition stage containing some redundant or deprecated code. Some things might not work.**
 
 
-#### I. Installing Lisp (on MAC OS X)
+#### I. Installing Lisp (on Mac OS X)
 
 Clozure Common Lisp (formerly OpenMCL)
- 1. Download .dmg from http://trac.clozure.com/ccl/
- 2. Mount dmg and copy contents to /Applications/ccl
- 3. Copy "scripts/ccl" and/or "scripts/ccl64" to "/usr/local/bin/" (with sudo)
- 4. Edit both and replace value in "CCL_DEFAULT_DIRECTORY=" with "/Applications/ccl/"
- 5. Make the script(s) executable: `sudo chmod +x ccl(64)`
 
-NEW ALTERNATIVE:
+ 1. Download .dmg from http://trac.clozure.com/ccl/
+ 2. Mount dmg and copy contents to `/Applications/ccl
+ 3. Copy `scripts/ccl` and/or `scripts/ccl64` to `/usr/local/bin/` (with sudo):  
+   `> sudo cp scripts/ccl* /usr/local/bin/`  
+ 4. Edit both and replace value in `CCL_DEFAULT_DIRECTORY=` with `/Applications/ccl/`
+ 5. Make the script(s) executable:  
+   `> sudo chmod +x ccl(64)`  
+
+New easy alternative for Mac:
  1. Just install Clozure CL from the App Store :)
 
 
