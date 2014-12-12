@@ -1,5 +1,7 @@
 ## An integrated model of eye movements in sentence comprehension ##
 
+> **The model and module code is under heavy development and at the moment in a kind of transition stage containing some redundant or deprecated code. Some things might not work.**
+
 An ACT-R sentence parsing model as described in Lewis & Vasishth (2005), extended to generate eye movements.
 
 This model includes:
@@ -7,35 +9,37 @@ This model includes:
 - a modified version of the EMMA eye movement module
 - a newly developed parsing module
 
-**The model and module code is under heavy development and at the moment in a kind of transition stage containing some redundant or deprecated code. Some things might not work.**
 
+---
 
-#### I. Installing Lisp (on Mac OS X)
+#### I. Installing Lisp
 
-Clozure Common Lisp (formerly OpenMCL)
+I recommend Clozure Common Lisp (formerly OpenMCL):
+ 
+ 1. On Mac, just install Clozure CL from the App Store.
 
- 1. Download .dmg from http://trac.clozure.com/ccl/
- 2. Mount dmg and copy contents to `/Applications/ccl
+Alternatively download the source:
+
+ 1. Download CCL from http://trac.clozure.com/ccl/
+ 2. Copy the contents, e.g., to `/Applications/ccl`
  3. Copy `scripts/ccl` and/or `scripts/ccl64` to `/usr/local/bin/` (with sudo):  
    `> sudo cp scripts/ccl* /usr/local/bin/`  
- 4. Edit both and replace value in `CCL_DEFAULT_DIRECTORY=` with `/Applications/ccl/`
+ 4. Edit both and replace value after `=` of `CCL_DEFAULT_DIRECTORY=...` with `/Applications/ccl/`
  5. Make the script(s) executable:  
-   `> sudo chmod +x ccl(64)`  
-
-New easy alternative for Mac:
- 1. Just install Clozure CL from the App Store :)
+   `> sudo chmod +x ccl*`  
 
 
 #### II. Getting ACT-R
 
-An ACT-R distribution is included, but if you wish to retrieve a newer version, you can use the following sources:
- - SVN: svn://jordan.psy.cmu.edu/usr/local/svnroot/actr6
- - GITHUB: https://github.com/RyanHope/ACT-R
+An ACT-R distribution is included, but if you wish to retrieve a newer version, you can refer to the following sources:
+ - http://act-r.psy.cmu.edu/
+ - https://github.com/RyanHope/ACT-R
+ - `svn://jordan.psy.cmu.edu/usr/local/svnroot/actr6`
 
 
 #### III. Modules
 
-Make sure the following modules (provided in MODULES) are located in actr6/other-files/
+Make sure the following modules (provided in `MODULES/`) are located in `actr6/other-files/`
 - `emma-p.lisp`
 - `parsing-module.lisp`
 - if desired: `chunk-tree.lisp`
@@ -110,8 +114,8 @@ Make sure the following modules (provided in MODULES) are located in actr6/other
 `(delete-output)`  
 
 `(setprint s)`
-Possible values for s:
 
+>Possible values for s:  
  - **full**         - `(:v t :CMDT t :trace-detail high :trace-filter nil :model-warnings t)`
  - **condensed**    - `(:v t :CMDT t :trace-detail low :trace-filter nil :model-warnings nil :buffer-trace nil)`
  - **on**           - `(:v t :CMDT t :trace-detail low :trace-filter nil :model-warnings nil :buffer-trace nil)`
@@ -167,7 +171,7 @@ Possible values for s:
    `#EXPERIMENT   #ITERATION  #COND/SENT/ITEM   #WORDPOS #WORD #VARIABLE   #VALUE`
  - attachments.txt  
    `#EXPERIMENT  #SIMULATION #ITEM   #WN   #WORD   #ATTACHTIME`
- - enctimes.text  
+ - enctimes.txt  
    `#EXPERIMENT   #ITERATION  #COND/SENT/ITEM   #WORDPOS #WORD #ENCTIME #ECCENTRICITY  #FREQUENCY`
  - timeouts.txt  
    `#EXPERIMENT   #ITERATION  #COND/SENT/ITEM   #WORDPOS #WORD #EYELOC`
