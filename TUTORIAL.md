@@ -1,20 +1,21 @@
 Quick start for the demo model of the Lewis & Vasishth (2005) parser extended with eye movement control.
 
 
-#### I. Installing Lisp (on Mac OS X)
+#### I. Installing Lisp
 
-Clozure Common Lisp (formerly OpenMCL)
+I recommend Clozure Common Lisp (formerly OpenMCL):
+ 
+ 1. On Mac, just install Clozure CL from the App Store.
 
- 1. Download .dmg from http://trac.clozure.com/ccl/
- 2. Mount dmg and copy contents to `/Applications/ccl
+Alternatively download the source:
+
+ 1. Download CCL from http://trac.clozure.com/ccl/
+ 2. Copy the contents, e.g., to `/Applications/ccl`
  3. Copy `scripts/ccl` and/or `scripts/ccl64` to `/usr/local/bin/` (with sudo):  
    `> sudo cp scripts/ccl* /usr/local/bin/`  
- 4. Edit both and replace value in `CCL_DEFAULT_DIRECTORY=` with `/Applications/ccl/`
+ 4. Edit both and replace value after `=` of `CCL_DEFAULT_DIRECTORY=...` with `/Applications/ccl/`
  5. Make the script(s) executable:  
-   `> sudo chmod +x ccl(64)`  
-
-New easy alternative for Mac:
- 1. Just install Clozure CL from the App Store :)
+   `> sudo chmod +x ccl*`  
 
 
 #### II. Running demo model
