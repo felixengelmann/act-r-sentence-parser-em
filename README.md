@@ -7,7 +7,7 @@ This model includes:
 - a modified version of the EMMA eye movement module
 - a newly developed parsing module
 
-The model and module code is under heavy development and at the moment in a kind of transition stage containing some redundant or deprecated code. Some things might not work.
+**The model and module code is under heavy development and at the moment in a kind of transition stage containing some redundant or deprecated code. Some things might not work.**
 
 
 #### I. Installing Lisp (on MAC OS X)
