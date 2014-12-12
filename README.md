@@ -79,13 +79,13 @@ Make sure the following modules (provided in MODULES) are located in actr6/other
 #### VI. Useful functions
 
 ###### 1) Interface
- - `(ps (SENTENCE &key (time *max-time*) (params nil)))` => abbr. for `(present-whole-sentence …)` -- Present sentence `SENTENCE`.  
+ - `(ps (SENTENCE &key (time *max-time*) (params nil)))` => abbr. for `(present-whole-sentence …)` - Present sentence `SENTENCE`.  
  - `(pl (&optional (params nil)))` => `(present-sentence-list …)`  
  - `(pn (n &optional (params nil)))` => `(present-sentence-number …)`  
- - `(rl)` => `(reload-sp)` -- Reload model.  
- - `(clear-sp)` -- Reload all files.  
- - `(demo)` -- Run demo sentence.   
- - `(demo1)` -- ...or demo2 or demo3
+ - `(rl)` => `(reload-sp)` - Reload model.  
+ - `(clear-sp)` - Reload all files.  
+ - `(demo)` - Run demo sentence.   
+ - `(demo1)` - ...or demo2 or demo3
 
 
 ###### 2) Experiment control
@@ -109,15 +109,15 @@ Make sure the following modules (provided in MODULES) are located in actr6/other
 `(setprint s)`
 Possible values for s:
 
- - **full**         -- `(:v t :CMDT t :trace-detail high :trace-filter nil :model-warnings t)`
- - **condensed**    -- `(:v t :CMDT t :trace-detail low :trace-filter nil :model-warnings nil :buffer-trace nil)`
- - **on**           -- `(:v t :CMDT t :trace-detail low :trace-filter nil :model-warnings nil :buffer-trace nil)`
- - **default**      -- `(:v t :CMDT t :trace-detail low :trace-filter nil :model-warnings nil :buffer-trace nil)`
- - **notrace**      -- `(:v nil :CMDT t :model-warnings t :buffer-trace nil)`
- - **trace**        -- `(:v t :CMDT nil :trace-detail medium :trace-filter nil :model-warnings nil :buffer-trace nil)`
- - **firing**       -- `(:v t :CMDT nil :trace-detail high :trace-filter production-firing-only :model-warnings nil)`
- - **off**          -- `(:v nil :CMDT nil :model-warnings nil :buffer-trace nil)`
- - **buffertrace**  -- `(:V t :CMDT nil :trace-detail high :model-warnings NIL :trace-filter nil :buffer-trace t)`
+ - **full**         - `(:v t :CMDT t :trace-detail high :trace-filter nil :model-warnings t)`
+ - **condensed**    - `(:v t :CMDT t :trace-detail low :trace-filter nil :model-warnings nil :buffer-trace nil)`
+ - **on**           - `(:v t :CMDT t :trace-detail low :trace-filter nil :model-warnings nil :buffer-trace nil)`
+ - **default**      - `(:v t :CMDT t :trace-detail low :trace-filter nil :model-warnings nil :buffer-trace nil)`
+ - **notrace**      - `(:v nil :CMDT t :model-warnings t :buffer-trace nil)`
+ - **trace**        - `(:v t :CMDT nil :trace-detail medium :trace-filter nil :model-warnings nil :buffer-trace nil)`
+ - **firing**       - `(:v t :CMDT nil :trace-detail high :trace-filter production-firing-only :model-warnings nil)`
+ - **off**          - `(:v nil :CMDT nil :model-warnings nil :buffer-trace nil)`
+ - **buffertrace**  - `(:V t :CMDT nil :trace-detail high :model-warnings NIL :trace-filter nil :buffer-trace t)`
 
 
 
@@ -176,9 +176,9 @@ Possible values for s:
 
 #### IX. Interaction with parsing module
 
-`(parsing-set-begin-time word index location)`  -- Set begin of attachment.
-`(parsing-set-end-time)`  -- Set end of attachment.
-`(parsing-set-end-time-abort)`  -- Set end of attachment, indicating attachment was canceled.
+`(parsing-set-begin-time word index location)`  - Set begin of attachment.
+`(parsing-set-end-time)`  - Set end of attachment.
+`(parsing-set-end-time-abort)`  - Set end of attachment, indicating attachment was canceled.
 
 `(parsing-get-index)`  
 `(parsing-get-word)`  
@@ -189,7 +189,7 @@ Possible values for s:
 `(parsing-get-unattached-positions)`  
 `(parsing-check-attached index)`  
 
-`(parsing-print-info)` -- Displays info about parsing state, current word and location, and attached items.
+`(parsing-print-info)` - Displays info about parsing state, current word and location, and attached items.
 
 
 #### X. Interaction with EMMA module (interface-emma.lisp)
@@ -198,10 +198,4 @@ Possible values for s:
 `(current-eye-loc)`  
 `(get-em-trace)`  
 `(em-trace->fixations em-trace sentence)`  
-`(em-trace->fixations em-trace sentence)`  
-
-
-
-
-
 
