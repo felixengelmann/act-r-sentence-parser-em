@@ -113,10 +113,11 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
     - E.g.: `(search-param-space-subjects-em MV13 20 50 *pspace1*)`
 
 ###### Helpers
-`(print-params)`  
-`(print-interface-params)`  
-`(print-runtime-vars)`  
-`(delete-output)`  
+`(print-params)` - Prints important parameters  
+`(print-interface-params)` - Prints interface parameters  
+`(print-runtime-vars)` -  Prints parsing state (soon obsolete)  
+`(parsing-print-info)` - Displays info about parsing state, current word and location, and attached items  
+`(delete-output)` - Delete output files for fixations etc. in output directory   
 
 `(setprint s)`
 
