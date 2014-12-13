@@ -162,7 +162,6 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
 
 #### Output
 
-###### Output files
  - fixations.txt  
    `#EXPERIMENT   #ITERATION  #COND/SENT/ITEM   #WORDPOS #WORD #FIXTIME`
  - trialmessages.txt  
@@ -201,20 +200,11 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
 `(set-current-ip)`  
 `(check-parsed)` 
 
-
-#### Message formats (helper-functions.lisp)
-
-`(event-message message)` 
-`(info-message message)` 
-`(priority-event-message message)` 
-`(priority-info-message message)` 
-
-
 #### Interaction with parsing module (parsing-module.lisp)
 
-`(parsing-set-begin-time word index location)`  - Set begin of attachment.
-`(parsing-set-end-time)`  - Set end of attachment.
-`(parsing-set-end-time-abort)`  - Set end of attachment, indicating attachment was canceled.
+`(parsing-set-begin-time word index location)`  - Set begin of attachment.  
+`(parsing-set-end-time)`  - Set end of attachment.  
+`(parsing-set-end-time-abort)`  - Set end of attachment, indicating attachment was canceled.  
 
 `(parsing-get-index)`  
 `(parsing-get-word)`  
@@ -227,11 +217,22 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
 
 `(parsing-print-info)` - Displays info about parsing state, current word and location, and attached items.
 
-
 #### Interaction with EMMA module (interface-emma.lisp)
 
 `(reset-emma)`  
 `(current-eye-loc)`  
 `(get-em-trace)`  
 `(em-trace->fixations em-trace sentence)`  
+
+
+#### Helpers (helper-functions.lisp)
+
+`(event-message message)`  
+`(info-message message)`  
+`(priority-event-message message)`  
+`(priority-info-message message)`  
+
+
+
+
 
