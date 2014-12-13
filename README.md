@@ -9,10 +9,12 @@ This model includes:
 - a modified version of the EMMA eye movement module
 - a newly developed parsing module
 
+This file documents the prerequisites and the model structure. See the wiki at https://github.com/felixengelmann/act-r-sentence-parser-em/wiki for a quick tutorial.
 
 ---
 
-#### I. Installing Lisp
+### I. Prerequisites
+#### Lisp
 
 I recommend Clozure Common Lisp (formerly OpenMCL):
  
@@ -29,7 +31,7 @@ Alternatively, download the source:
    `> sudo chmod +x ccl*`  
 
 
-#### II. Getting ACT-R
+#### ACT-R
 
 An ACT-R distribution is included, but if you wish to retrieve a newer version, you can refer to the following sources:
  - http://act-r.psy.cmu.edu/
@@ -37,7 +39,7 @@ An ACT-R distribution is included, but if you wish to retrieve a newer version, 
  - `svn://jordan.psy.cmu.edu/usr/local/svnroot/actr6`
 
 
-#### III. Modules
+#### Modules
 
 Make sure the following modules (provided in `MODULES/`) are located in `actr6/other-files/`
 - `emma-p.lisp`
@@ -45,10 +47,10 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
 - if desired: `chunk-tree.lisp`
 
 
-#### IV. Running ACT-R and environment
- 1. In terminal, navigate to the directory of the project you want to load, e.g., `ACTR-Sentence-Parser/LewisVasishth2005/`
- 2. Start LISP:  
-   `> ccl`  or  `> ccl64`
+#### Running ACT-R and environment
+ 1. In terminal, navigate to the directory of the project you want to load, e.g., `act-r-sentence-parser-em/LewisVasishth2005/`
+ 2. Start Lisp:  
+   E.g., `> ccl`  or  `> ccl64`
   - When running ACT-R for the first time or something has changed in the modules, make sure ACT-R recompiles all files when loading:  
   `> (push :actr-recompile *features*)`
  3. Load ACT-R:  
@@ -62,10 +64,10 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
 
 ---
 
+### II. Model structure
 
-#### V. Files
-
-###### 1) Project-related
+#### Files
+###### Project-related
  - `sp-#PROJECTNAME.lisp` - Main file which loads all other files. Sets global variables:  
       `(setf *output-dir* "output")`  
       `(defparameter *read-corpus* NIL)`
@@ -75,17 +77,21 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
  - `sentences.lisp` - Test sentences, experiment definitions, and parameter spaces for estimation
 
 
-###### 2) Core-model (in sp directory)
- - `interface.lisp` - Contains basic presentation functions and global variables.
- - `interface-emma.lisp` - EMMA-related functions.
- - `experiment-control.lisp` - Functions for running experiments and parameter estimation.
- - `constants.lisp` - Chunk types.
- - `productions-control.lisp` - Control productions for attention shift and eye-parser interaction.
+###### Core-model (in sp directory)
+ - `interface.lisp` - Contains basic presentation functions and global variables
+ - `productions-control.lisp` - Control productions for attention shift and eye-parser interaction
+ - `constants.lisp` - Chunk types
+ - `interface-emma.lisp` - EMMA-related functions
+ - `support-parser.lisp` - Parser-related functions
+ - `support-lexicon.lisp` - Lexicon-creation functions
+ - `experiment-control.lisp` - Functions for running experiments and parameter estimation
+ - `experiment-control-original.lisp` - Original experiment control functions from Lewis & Vasishth (2005)
+ - `helper-functions.lisp` - Useful helpers
 
 
-#### VI. Useful functions
+#### Useful functions
 
-###### 1) Interface
+###### Interface
  - `(ps (SENTENCE &key (time *max-time*) (params nil)))` => abbr. for `(present-whole-sentence …)` - Present sentence `SENTENCE`.  
  - `(pl (&optional (params nil)))` => `(present-sentence-list …)`  
  - `(pn (n &optional (params nil)))` => `(present-sentence-number …)`  
@@ -94,8 +100,7 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
  - `(demo)` - Run demo sentence.   
  - `(demo1)` - ...or demo2 or demo3
 
-
-###### 2) Experiment control
+###### Experiment control
  - `(re (NAME &optional (ITERATIONS 1) params))` - Run experiment `NAME` with `ITERATIONS`
     - E.g.: `(re 'gg-exp1 50 :params '(:lf 0.8 :mp 2))`
     - abbr. for `(run-experiment-em …)`
@@ -107,7 +112,7 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
  - `(search-param-space-subjects-em (experiment subjects iterations &optional (pspace '*pspace1*)))`
     - E.g.: `(search-param-space-subjects-em MV13 20 50 *pspace1*)`
 
-###### 3) Helpers
+###### Helpers
 `(print-params)`  
 `(print-interface-params)`  
 `(print-runtime-vars)`  
@@ -128,23 +133,23 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
 
 
 
-#### VII. Parameters and variables
+#### Parameters and variables
 
-###### 1) Model parameters (interface.lisp)
+###### Model parameters (interface.lisp)
 `(defvar *read-corpus* nil)`  
 `(defvar *raw-freq* nil)`  
 `(defparameter *surprisal-on* nil)`  
 `(defparameter *surprisal-hl-on* nil)`  
 `(defparameter *fake-retrieval-on* nil)`  
 
-###### 2) EMMA parameters (model.lisp)
+###### EMMA parameters (model.lisp)
 `:VISUAL-ENCODING-FACTOR    0.002`  
 `:VISUAL-ENCODING-EXPONENT  0.4`  
 `:SACCADE-PREPARATION-TIME  0.110`  
 `:SURPRISAL-FACTOR          0.005`  
 `:SURPRISAL-HL-FACTOR       2`  
 
-###### 3) Parsing parametrs (model.lisp)
+###### Parsing parameters (model.lisp)
 `:gram-lf                   1`  
 `:gram-rt                   -1.5`  
 `:gram-force-merge          t`  
@@ -155,16 +160,9 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
 
 
 
-#### VIII. Output
+#### Output
 
-###### 1) Output functions
-`(trialmessage var val)`  
-`(attach-message head relation dependent)`  
-`(word-message word)`  
-`(parsing-skip-message word)`  
-
-
-###### 2) Output files
+###### Output files
  - fixations.txt  
    `#EXPERIMENT   #ITERATION  #COND/SENT/ITEM   #WORDPOS #WORD #FIXTIME`
  - trialmessages.txt  
@@ -181,7 +179,38 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
 
 ---
 
-#### IX. Interaction with parsing module
+
+### III. Modeling functions
+
+#### Parser (support-parser.lisp)
+
+`(set-begin-time word)`  
+`(set-end-time word)`  
+`(set-end-time-abort word)`  
+`(word-message word)`  
+`(trialmessage var val)`  
+`(attach-message head relation dependent)`  
+`(parsing-skip-message word)`  
+`(report-regression visual-location target-pos target-loc)`
+`(start-time-out location)`  
+`(exit-time-out)`  
+`(current-clause)`  
+`(push-clause)`  
+`(pop-clause)`  
+`(current-ip)`  
+`(set-current-ip)`  
+`(check-parsed)` 
+
+
+#### Message formats (helper-functions.lisp)
+
+`(event-message message)` 
+`(info-message message)` 
+`(priority-event-message message)` 
+`(priority-info-message message)` 
+
+
+#### Interaction with parsing module (parsing-module.lisp)
 
 `(parsing-set-begin-time word index location)`  - Set begin of attachment.
 `(parsing-set-end-time)`  - Set end of attachment.
@@ -199,7 +228,7 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
 `(parsing-print-info)` - Displays info about parsing state, current word and location, and attached items.
 
 
-#### X. Interaction with EMMA module (interface-emma.lisp)
+#### Interaction with EMMA module (interface-emma.lisp)
 
 `(reset-emma)`  
 `(current-eye-loc)`  
