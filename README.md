@@ -191,7 +191,7 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
 `(trialmessage var val)`  
 `(attach-message head relation dependent)`  
 `(parsing-skip-message word)`  
-`(report-regression visual-location target-pos target-loc)`
+`(report-regression visual-location target-pos target-loc)`  
 `(start-time-out location)`  
 `(exit-time-out)`  
 `(current-clause)`  
@@ -199,7 +199,7 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
 `(pop-clause)`  
 `(current-ip)`  
 `(set-current-ip)`  
-`(check-parsed)` 
+`(check-parsed)`  
 
 #### Interaction with parsing module (parsing-module.lisp)
 
