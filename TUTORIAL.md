@@ -7,7 +7,7 @@ I recommend Clozure Common Lisp (formerly OpenMCL):
  
  1. On Mac, just install Clozure CL from the App Store.
 
-Alternatively download the source:
+Alternatively, download the source:
 
  1. Download CCL from http://trac.clozure.com/ccl/
  2. Copy the contents, e.g., to `/Applications/ccl`
@@ -41,7 +41,7 @@ You should see a trace with the final notice "SENTENCE PARSED SUCCESSFULLY“ (m
 
 You can now open the "DM Tree viewer" from the according button in your environment. Find the chunk `syn-obj0-2`. That is the youngest copy of the source node chunk of the parse tree (the highest IP). When you click on it, you see the content of the chunk’s slots recursively in tree format. That is the resulting sentence structure the parser has created.
 
-Now reload and switch on real time to better observe the eye movements (blue) and attention shifts (red) in the experiment window:  
+Now reload and switch on real-time mode to better observe the eye movements (blue) and attention shifts (red) in the experiment window:  
 `> (rl)`  
 `> (setf *real-time* T)`  
 
@@ -59,15 +59,15 @@ If you wish, you can change the amount of output you want to see in the trace. F
 `> (setprint firing)`  
 > Instead of **firing**, you can also set it to **condensed**, **full**, **default**, or **off**.
 
-Now, let’s delete the output files (in LewisVasishth2005/output/), reload the model, and run the Grodner & Gibson (2004) Experiment 1 comparing subject- and object-relative clauses with 60 iterations:  
+Now, let’s delete the output files (in `LewisVasishth2005/output/``), reload the model, and run the Grodner & Gibson (2004) Experiment 1 comparing subject- and object-relative clauses with 60 iterations:  
 `> (delete-output)`  
 `> (rl)`  
 `> (re 'gg-exp1 60)`  
 
-Start R and run the script demo-analysis.R, which you find in the output directory.
-The script reads the files `fixations.txt` and `attachments.txt` that ACT-R has created in the output directory. I will create plots showing the attachment durations, total fixation times for each word, and the eye movement scanpaths of some of the trials. The latter conveniently show the difference in regressions, refixations, and durations between subject- and object-relative clauses.
+Start R and run the script `demo-analysis.R`, which you find in the `output/` directory.
+The script reads the files `fixations.txt` and `attachments.txt` that ACT-R has created in the output directory. It will create plots showing the attachment durations, total fixation times for each word, and the eye movement scanpaths of some of the trials. The latter conveniently show the difference in regressions, refixations, and durations between subject- and object-relative clauses.
 
-You can also run this script after a single sentence presentation. Just remember to always delete the output files with (delete-output) before presenting a new sentence, because otherwise the plotted means will be a mixture of unrelated sentences.
+> You can also run this script after a single sentence presentation. Just remember to always delete the output files with `(delete-output)` before presenting a new sentence, because otherwise the plotted means will be a mixture of unrelated sentences.
 
 ---
 
