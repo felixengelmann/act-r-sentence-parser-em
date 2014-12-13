@@ -18,7 +18,7 @@ I recommend Clozure Common Lisp (formerly OpenMCL):
  
  1. On Mac, just install Clozure CL from the App Store.
 
-Alternatively download the source:
+Alternatively, download the source:
 
  1. Download CCL from http://trac.clozure.com/ccl/
  2. Copy the contents, e.g., to `/Applications/ccl`
