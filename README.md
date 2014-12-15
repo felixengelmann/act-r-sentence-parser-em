@@ -92,25 +92,42 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
 #### Useful functions
 
 ###### Interface
- - `(ps (SENTENCE &key (time *max-time*) (params nil)))` => abbr. for `(present-whole-sentence …)` - Present sentence `SENTENCE`.  
- - `(pl (&optional (params nil)))` => `(present-sentence-list …)`  
- - `(pn (n &optional (params nil)))` => `(present-sentence-number …)`  
- - `(rl)` => `(reload-sp)` - Reload model.  
- - `(clear-sp)` - Reload all files.  
- - `(demo)` - Run demo sentence.   
- - `(demo1)` - ...or demo2 or demo3
+ - Present sentences:
+```cl
+(ps (SENTENCE &key (time *max-time*) (params nil)))` ;; (present-whole-sentence …)
+Example: (ps *gg-or* :params '(:lf 0.8)) 
+(pl (&optional (params nil))) ;; (present-sentence-list …)  
+(pn (n &optional (params nil))) ;; (present-sentence-number …)
+(demo) (demo1) (demo2) (demo3) ;; Run demo sentence
+```
+
+ - Reload model:
+```cl
+(rl) ;; (reload-sp) ;; Reload model
+(reset-sp) ;; Reset model
+(clear-sp) ;; Reload all files  
+```
 
 ###### Experiment control
- - `(re (NAME &optional (ITERATIONS 1) params))` - Run experiment `NAME` with `ITERATIONS`
-    - E.g.: `(re 'gg-exp1 50 :params '(:lf 0.8 :mp 2))`
-    - abbr. for `(run-experiment-em …)`
- - `(res (name &optional (iterations 1) (subjects 1) params (script "spinresults.R") notes))` - Run subjects
-    - E.g.: `(res 'MV13 20 50 :params '(:lf 0.3 :mp 6 :att-util 0.5 :att-util2 -0.25 :sp-time 0.05))`
-    - abbr. for `(run-subjects-em …)`
- - `(run-paramset-em (name &optional (iterations 1) (params nil)))`
- - `(search-param-space-em (experiment iterations &optional (pspace '*pspace1*)))`
- - `(search-param-space-subjects-em (experiment subjects iterations &optional (pspace '*pspace1*)))`
-    - E.g.: `(search-param-space-subjects-em MV13 20 50 *pspace1*)`
+ - Run experiment `NAME` with `ITERATIONS`:  
+```cl 
+(re (name &optional (iterations 1) params)) ;; (run-experiment-em …)
+Example: (re 'gg-exp1 50 :params '(:lf 0.8 :mp 2))
+```
+
+ - Run subjects:
+```cl
+(res (name &optional (iterations 1) (subjects 1) params (script "spinresults.R") notes)) ;; (run-subjects-em …)
+Example: (res 'MV13 20 50 :params '(:lf 0.3 :mp 6))
+```
+
+ - Search parameter space:
+```cl
+(run-paramset-em (name &optional (iterations 1) (params nil)))
+(search-param-space-em (experiment iterations &optional (pspace '*pspace1*)))
+(search-param-space-subjects-em (experiment subjects iterations &optional (pspace '*pspace1*)))
+Example: `(search-param-space-subjects-em MV13 20 50 *pspace1*)`
+```
 
 ###### Helpers
 `(print-params)` - Prints important parameters  
@@ -136,28 +153,43 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
 
 #### Parameters and variables
 
+###### Interface parameters (interface.lisp)
+```cl
+(defvar *real-time* T)
+(defvar *output-dir* "output")
+(defparameter *record-times* T)
+```
+
 ###### Model parameters (interface.lisp)
-`(defvar *read-corpus* nil)`  
-`(defvar *raw-freq* nil)`  
-`(defparameter *surprisal-on* nil)`  
-`(defparameter *surprisal-hl-on* nil)`  
-`(defparameter *fake-retrieval-on* nil)`  
+```cl
+(defvar *read-corpus* nil)  
+(defvar *raw-freq* nil)  
+(defparameter *surprisal-on* nil)  
+(defparameter *surprisal-hl-on* nil)  
+(defparameter *fake-retrieval-on* nil)  
+(defparameter *time-penalty-factor* 0.1 "Factor for penalizing use of time-out productions (p = -FACTOR*FIRING-COUNT)")
+```
 
 ###### EMMA parameters (model.lisp)
-`:VISUAL-ENCODING-FACTOR    0.002`  
-`:VISUAL-ENCODING-EXPONENT  0.4`  
-`:SACCADE-PREPARATION-TIME  0.110`  
-`:SURPRISAL-FACTOR          0.005`  
-`:SURPRISAL-HL-FACTOR       2`  
+```cl
+:VISUAL-ENCODING-FACTOR    0.002  
+:VISUAL-ENCODING-EXPONENT  0.4  
+:SACCADE-PREPARATION-TIME  0.110  
+:FIXED-PREP-TIME           T
+```
 
 ###### Parsing parameters (model.lisp)
-`:gram-lf                   1`  
-`:gram-rt                   -1.5`  
-`:gram-force-merge          t`  
-`:att-util                  0.5`  
-`:att-util2                 -0.5`  
-`:regr-util                 0.75`  
-`:sp-time                   0.03 `  
+```cl
+:gram-lf                   1  
+:gram-rt                   -1.5  
+:gram-force-merge          T  
+:att-util                  0.5  
+:att-util2                 -0.5  
+:regr-util                 0.75  
+:sp-time                   0.03   
+:SURPRISAL-FACTOR          0.005  
+:SURPRISAL-HL-FACTOR       2  
+```
 
 
 
@@ -184,55 +216,61 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
 
 #### Parser (support-parser.lisp)
 
-`(set-begin-time word)`  
-`(set-end-time word)`  
-`(set-end-time-abort word)`  
-`(word-message word)`  
-`(trialmessage var val)`  
-`(attach-message head relation dependent)`  
-`(parsing-skip-message word)`  
-`(report-regression visual-location target-pos target-loc)`  
-`(start-time-out location)`  
-`(exit-time-out)`  
-`(current-clause)`  
-`(push-clause)`  
-`(pop-clause)`  
-`(current-ip)`  
-`(set-current-ip)`  
-`(check-parsed)`  
+```cl
+(set-begin-time word)  
+(set-end-time word)  
+(set-end-time-abort word)  
+(word-message word)  
+(trialmessage var val)  
+(attach-message head relation dependent)  
+(parsing-skip-message word)  
+(report-regression visual-location target-pos target-loc)  
+(start-time-out location)  
+(exit-time-out)  
+(current-clause)  
+(push-clause)  
+(pop-clause)  
+(current-ip)  
+(set-current-ip)  
+(check-parsed visloc) ;; Returns true if word at location visloc has been parsed already.
+```
 
 #### Interaction with parsing module (parsing-module.lisp)
 
-`(parsing-set-begin-time word index location)`  - Set begin of attachment.  
-`(parsing-set-end-time)`  - Set end of attachment.  
-`(parsing-set-end-time-abort)`  - Set end of attachment, indicating attachment was canceled.  
+```cl
+(parsing-set-begin-time word index location) ;; Set begin of attachment.  
+(parsing-set-end-time) ;; Set end of attachment.  
+(parsing-set-end-time-abort) ;; Set end of attachment, indicating attachment was canceled.  
 
-`(parsing-get-index)`  
-`(parsing-get-word)`  
-`(parsing-get-loc)`  
-`(parsing-get-durations)`  
-`(parsing-get-attached-items)`  
-`(parsing-get-attached-positions)`  
-`(parsing-get-unattached-positions)`  
-`(parsing-check-attached index)`  
+(parsing-get-index)  
+(parsing-get-word)  
+(parsing-get-loc)  
+(parsing-get-durations)  
+(parsing-get-attached-items)  
+(parsing-get-attached-positions)  
+(parsing-get-unattached-positions)  
+(parsing-check-attached index)  
 
-`(parsing-print-info)` - Displays info about parsing state, current word and location, and attached items.
+(parsing-print-info) ;; Displays info about parsing state, current word and location, and attached items.
+```
 
 #### Interaction with EMMA module (interface-emma.lisp)
 
-`(reset-emma)`  
-`(current-eye-loc)`  
-`(get-em-trace)`  
-`(em-trace->fixations em-trace sentence)`  
-
+```cl
+(reset-emma)  
+(current-eye-loc)  
+(get-em-trace)  
+(em-trace->fixations em-trace sentence)  
+```
 
 #### Helpers (helper-functions.lisp)
 
-`(event-message message)`  
-`(info-message message)`  
-`(priority-event-message message)`  
-`(priority-info-message message)`  
-
+```cl
+(event-message message)  
+(info-message message)  
+(priority-event-message message)  
+(priority-info-message message)  
+```
 
 
 
