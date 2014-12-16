@@ -89,21 +89,6 @@ m$roi2 <- factor(m$roi2, levels=c("REL", "DET/N", "RC-V", "V", "other"))
 # d$roi2[d$roi2%in%c("DET","N")] <- "DET/N"
 
 
-
-##-------------------------------------------------------------------------------
-## INSPECTION AND SAVE
-##-------------------------------------------------------------------------------
-## cond by iteration
-xtabs(~cond+iteration,m)
-# head(m,20)
-# levels(m$cond)
-# m$cond <- factor(m$cond)
-# summary(m)
-# save(m, file="m.RData")
-#load("m.RData")
-
-
-
 ##-------------------------------------------------------------------------------
 ## MEANS
 ##-------------------------------------------------------------------------------
@@ -161,13 +146,6 @@ m.means2 <- rbind(means.t2,means.p2)
 #head(m.means2)
 
 
-
-#head(m.means)
-#head(m.means$roi)
-#levels(m.means$roi)
-
-
-
 ##-------------------------------------------------------------------------------
 ##' DATA
 ##-------------------------------------------------------------------------------
@@ -212,7 +190,7 @@ levels(means2$variable)[9] <- "reg"
 
 (p.rois.t <- qplot(roi, M, colour=cond, linetype=cond, group=cond, data=droplevels(subset(means, (M!=0 & variable%in%c("FFD","Gaze","Go-past") & roi%in%roilabels))), geom=c("line", "point"), main="Reading times", facets=variable~.)  + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0)) + theme_bw() + scale_color_brewer(palette="Set1"))
 
-(p.rois.p <- qplot(roi, M, colour=cond, linetype=cond, group=cond, data=subset(means, (variable%in%c("reread","fp_reg","refix") & roi%in%roilabels)), geom=c("line", "point"), main="Probabilities", facets=variable~.)  + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0)) + theme_bw()+ scale_color_brewer(palette="Set1"))
+(p.rois.p <- qplot(roi, M, colour=cond, linetype=cond, group=cond, data=subset(means, (variable%in%c("reread","reg","refix") & roi%in%roilabels)), geom=c("line", "point"), main="Probabilities", facets=variable~.)  + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0)) + theme_bw()+ scale_color_brewer(palette="Set1"))
 
 (p.info <- qplot(roi, M, colour=cond, linetype=cond, group=cond, data=droplevels(subset(m.means, (variable%in%c("retr","enc") & roi%in%roilabels))), geom=c("line", "point"), main="Word information", facets=variable~.)  + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0)) + theme_bw()+ scale_color_brewer(palette="Set1"))
 
@@ -234,7 +212,7 @@ dodge2 <- position_dodge(width=0.07)
 			strip.background=element_rect(fill="gray90", color=NA))
 	+ scale_colour_manual("cond", values=UPpalette(firstcolor="humfak",secondcolor="darkblue"))
 	+ scale_x_discrete(expand=c(0.1,0))
-	+ scale_y_continuous(expand=c(0.1,0), limits=c(200,350))
+	+ scale_y_continuous(expand=c(0.1,0), limits=c(200,360))
 	+ geom_line(colour="gray80", aes(y=data))
 	+ geom_point(colour="gray80", size=2, aes(y=data))
 	# + geom_bar(position=dodge1, stat="identity")
@@ -245,7 +223,7 @@ dodge2 <- position_dodge(width=0.07)
 	# + geom_smooth(aes(ymin = CI.lower, ymax = CI.upper), stat="identity")
 	# + facet_grid(variable~.)
 )
-ggsave("staub10-model+data-rt.pdf", p.d1, width=6, height=5)
+ggsave("staub10-model+data-rt.pdf", p.d1, width=5, height=4)
 
 
 dodge1 <- position_dodge(width=.9)
@@ -275,7 +253,7 @@ dodge3 <- position_dodge(width=0.5)
 	# + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0),position=dodge1)
 	# + geom_smooth(aes(ymin = CI.lower, ymax = CI.upper), stat="identity")
 )
-ggsave("staub10-model+data-prob.pdf", p.d1, width=6, height=5)
+ggsave("staub10-model+data-prob.pdf", p.d1, width=5, height=4)
 
 
 
