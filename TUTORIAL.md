@@ -18,7 +18,7 @@ Alternatively, download the source:
    `> sudo chmod +x ccl*`  
 
 
-#### II. Running demo model
+#### II. Running the demo model
 
  1. Download the act-r-sentence-parser-em and extract
  2. Start Lisp (If CCL is properly installed, it should start with `ccl` or `ccl64`)
@@ -69,7 +69,12 @@ The script reads the files `fixations.txt` and `attachments.txt` that ACT-R has 
 
 > You can also run this script after a single sentence presentation. Just remember to always delete the output files with `(delete-output)` before presenting a new sentence, because otherwise the plotted means will be a mixture of unrelated sentences.
 
+
+
 ---
+
+
+
 
 See the general README for more information on functions, parameters, and the file structure of the model.
 

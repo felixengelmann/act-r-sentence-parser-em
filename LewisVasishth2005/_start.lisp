@@ -82,14 +82,14 @@
 (setf *surprisal-on* nil)
 (setf *surprisal-hl-on* nil)
 (setf *fake-retrieval-on* nil)
-(setf *time-penalty-factor* 0.1 ;; "Factor for penalizing use of time-out productions (p = -FACTOR*FIRING-COUNT)"
+(setf *time-penalty-factor* 0.1) ;; "Factor for penalizing use of time-out productions (p = -FACTOR*FIRING-COUNT)"
 
 
 ;;;
 ;;; Experiments
 ;;;
 ;; Run experiment:
-(re 'gg-exp1 50) 
+(re 'gg-exp1 100) 
 (re 'gg-exp1 50 :params '(:lf 0.4 :mp 2))
 (re 'staub10 60)
 ;; Run experiment with subjects:
