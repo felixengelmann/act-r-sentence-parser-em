@@ -17,7 +17,9 @@
 (noun clinic :id clinic-n)
 (noun medic :id medic-n)
 (noun editor :id editor-n)
+(noun editors :id editors-n)
 (noun writer :id writer-n)
+(noun writers :id writers-n)
 (noun student :id student-n)
 (noun fish :id fish-n)
 (noun hallway :id hallway-n)
@@ -57,6 +59,7 @@
 (verb quit :id quit-v)
 (verb liked :id liked-v)
 (verb admired :id admired-v)
+(verb surprised :id surprised-v)
 (verb upset :id upset-v)
 
 (verb standing :id standing-v    ;; features are not right here
