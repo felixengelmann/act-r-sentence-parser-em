@@ -53,7 +53,10 @@ Now reload and switch on real-time mode to better observe the eye movements (blu
 Run a more complicated sentence, an object relative from Grodner & Gibson (2004): "the reporter who the photographer sent to the editor hoped for the story“. Also increase the retrieval latency factor a bit to see more stuff happening:  
 `> (ps *gg-or* :params '(:lf 0.8))` 
 
-You can try out any other sentence you find in `LewisVasishth2005/sentences`.lisp using the `(ps)` function. In the current state, there are still some that always fail.
+You can try out other sentences you find in `LewisVasishth2005/sentences.lisp` using the `(ps)` function. In the current state, there are still some that always fail. 
+
+Or run your own sentence (make sure you only use words that are defined in the lexicon in `sp/chunks.lisp`), e.g.:  
+`> (ps "the writer surprised the editors *")`  
 
 Information about the parsing state, important interface variables, and model parameters can be displayed with the following functions:  
 `> (print-runtime-vars)`  
