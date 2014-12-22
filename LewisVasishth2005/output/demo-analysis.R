@@ -1,69 +1,126 @@
+rm(list=ls())
+# library(em2)
 library(reshape)
 library(ggplot2)
 
+## Function for computing confidence intervals
+ci <- function (x) 
+{
+    m <- mean(x, na.rm = TRUE)
+    n <- length(x[!is.na(x)])
+    s <- sd(x, na.rm = TRUE)
+    upper <- m + qt(0.975, df = n - 1) * (s/sqrt(n))
+    lower <- m + qt(0.025, df = n - 1) * (s/sqrt(n))
+    return(data.frame(lower = lower, upper = upper))
+}
 
-## Read simulation data
+##------------------------------------------------------------
+## READ SIMULATION DATA
+##------------------------------------------------------------
 f <- read.table("fixations.txt", header=T)
-colnames(f) <- c("exp","iteration","cond","roi","word","dur")
-# f <- subset(f,roi!=1)
+colnames(f) <- c("exp","iteration","cond","pos","word","dur")
+f$cond <- factor(f$cond)
 head(f)
 summary(f)
 
-retr <- read.table("attachments.txt", header=TRUE)
-colnames(retr) <- c("exp","iteration","cond","roi","word","retr")
-# retr <- subset(retr,roi!=1)
-head(retr)
 
-## MEANS ##
-## fix
-f.roi <- cast(f, cond+roi+word~., mean, value="dur")
-colnames(f.roi)[4] <- "RT"
-## retr
-retr.roi <- cast(retr, cond+roi+word~., mean, value="retr")
-colnames(retr.roi)[4] <- "retr"
-head(retr.roi)
-## merge
-f.roi <- merge(f.roi[,-3], retr.roi, by=c("cond","roi"), all.x=TRUE, all.y=TRUE)
-f.roi$RT[is.na(f.roi$RT)] <- 0
+##------------------------------------------------------------
+## READ ADDITIONAL INFO
+##------------------------------------------------------------
+m <- f
+
+## ATTACHMENT TIMES:
+att <- read.table("attachments.txt", header=TRUE)
+colnames(att) <- c("exp","iteration","cond","pos","word","AT")
+att$cond <- factor(att$cond)
+dim(m)
+m <- merge(m[-5], att, by=c("exp","iteration","cond","pos"), all.x=TRUE, all.y=TRUE)
+dim(m)
+
+## ENCODING TIMES:
+enc <- read.table("enctimes.txt", header=TRUE)
+colnames(enc) <- c("exp","iteration","cond","pos","word","ET","ecc","freq")
+enc$cond <- factor(enc$cond)
+enc$iteration <- factor(enc$iteration)
+dim(m)
+m <- merge(m, enc[-5], by=c("exp","iteration","cond","pos"), all.x=TRUE)
+dim(m)
+
+## SKIPPINGS ##
+m$dur[is.na(m$dur)] <- 0
+m$skip <- 0
+m$skip[m$dur==0] <- 1
+
+
+##------------------------------------------------------------
+## MEANS
+##------------------------------------------------------------
+
+## ATT
+at <- cast(att, cond+pos+word~., function(x) c(M=mean(x), SE=sd(x)/sqrt(length(x)), N=length(x), CI=ci(x)), value="AT")
+colnames(at)[4] <- "AT"
+## ENC
+et <- cast(enc, cond+pos+word~., function(x) c(M=mean(x), SE=sd(x)/sqrt(length(x)), N=length(x), CI=ci(x)), value="ET")
+colnames(et)[4] <- "ET"
+## RT
+rt <- cast(subset(m, dur!=0), cond+pos+word~., function(x) c(M=mean(x), SE=sd(x)/sqrt(length(x)), N=length(x), CI=ci(x)), value="dur")
+colnames(rt)[4] <- "RT"
+# merge
+rt <- merge(rt[-3], at, by=c("cond","pos"), all.x=TRUE, all.y=TRUE)
+rt$RT[is.na(rt$RT)] <- 0
 # sort rows of dataframe
-f.roi <- f.roi[with(f.roi, order(cond,roi)), ]
-head(f.roi)
-summary(f.roi)
-
-## PLOT ATTACHMENT TIME ##
-(p1 <- ggplot(f.roi, aes(factor(roi), retr, fill=cond)) + geom_bar(stat="identity", position="dodge") + scale_x_discrete(labels=f.roi$word))
-ggsave(p1, file="plot-attachment-times.pdf")
-
-## PLOT READING TIME ##
-(p2 <- ggplot(f.roi, aes(factor(roi), RT, group=cond, fill=cond)) + geom_bar(stat="identity", position="dodge") + scale_x_discrete(labels=f.roi$word))
-ggsave(p2, file="plot-reading-times.pdf")
+rt <- rt[with(rt, order(cond,pos)), ]
+## SKIP
+skip <- cast(m, cond+pos+word~., function(x) c(M=mean(x), N=length(x)), value="skip")
+skip$SE <- sqrt(skip$M*(1-skip$M))/sqrt(skip$N)
+skip$CI.lower <- skip$M + qt(.025, df=skip$N-1) * skip$SE
+skip$CI.upper <- skip$M + qt(.975, df=skip$N-1) * skip$SE
+colnames(skip)[4] <- "skip"
 
 
-## PLOT SCANPATH OF RANDOM TRIAL ##
+##------------------------------------------------------------
+## PLOTS
+##------------------------------------------------------------
+
+## PLOT ATTACHMENT TIMES ##
+(pa <- ggplot(at, aes(factor(pos), AT, fill=cond)) + geom_bar(stat="identity", position="dodge") + scale_x_discrete(labels=at$word) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0)))
+ggsave(pa, file="plot-attachment-times.pdf")
+
+## PLOT ENCODING TIMES ##
+(pe <- ggplot(et, aes(factor(pos), ET, fill=cond)) + geom_bar(stat="identity", position="dodge") + scale_x_discrete(labels=et$word) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0)))
+ggsave(pe, file="plot-encoding-times.pdf")
+
+## PLOT READING TIMES ##
+(pr <- ggplot(rt, aes(factor(pos), RT, group=cond, fill=cond)) + geom_bar(stat="identity", position="dodge") + scale_x_discrete(labels=rt$word) + geom_errorbar(aes(max=CI.upper.x, min=CI.lower.x, width=0)))
+ggsave(pr, file="plot-reading-times.pdf")
+
+## PLOT SKIPPING RATES ##
+(ps <- ggplot(skip, aes(factor(pos), skip, group=cond, fill=cond)) + geom_bar(stat="identity", position="dodge") + scale_x_discrete(labels=skip$word) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0)))
+ggsave(ps, file="plot-skipping-rate.pdf")
+
+
+##------------------------------------------------------------
+## SCANPATHS
+##------------------------------------------------------------
 f$index <- NA
 for(i in unique(f$iteration)){
 	for(c in f$cond){
 		s <- (f$iteration==i & f$cond==c)
-		f$index[s] <- 1:length(f$roi[s])
+		f$index[s] <- 1:length(f$pos[s])
 	}
 }
-# dev.new(width=10, height=2)
 
+## PLOT SCANPATH OF RANDOM TRIAL ##
 if(length(unique(f$iteration))>1) i <- sample(unique(f$iteration),1) else i <- unique(f$iteration)
 f1 <- subset(f, iteration%in%i)
-(p3 <- ggplot(f1, aes(index, roi, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() + scale_y_discrete(labels=f.roi$word[f.roi$cond==levels(f.roi$cond)[1]]) + ggtitle(i))
-ggsave(p3, file=paste("plot-scanpath-",i,".pdf",sep=""))
-# (p3 <- ggplot(f1, aes(index, roi, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() + scale_y_discrete(labels=as.vector(abbreviate(f.roi$word[f.roi$cond==levels(f.roi$cond)[1]]))) + coord_flip() + ggtitle(i))
-# ggsave(p3, file=paste("plot-scanpath-",i,".pdf",sep=""), width=10, height=2)
-
+(p3 <- ggplot(f1, aes(index, pos, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() + scale_y_discrete(labels=rt$word[rt$cond==levels(rt$cond)[1]]) + ggtitle(i))
+ggsave(p3, file="plot-scanpath.pdf")
 
 ## PLOT SCANPATH OF 7 RANDOM TRIALS ##
 if(length(unique(f$iteration))>1){
-	# dev.new(width=13, height=6)
-
 	i <- sample(unique(f$iteration),7)
 	f1 <- subset(f, iteration%in%i)
-	(p4 <- ggplot(f1, aes(index, roi, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() + facet_grid(.~iteration) + scale_y_discrete(labels=f.roi$word[f.roi$cond==levels(f.roi$cond)[1]]) + theme(legend.position="bottom"))
-	ggsave(p4, file="plot-scanpaths.pdf", width=13, height=6)
+	(p4 <- ggplot(f1, aes(index, pos, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() + facet_grid(.~iteration) + scale_y_discrete(labels=rt$word[rt$cond==levels(rt$cond)[1]]) + theme(legend.position="bottom"))
+	ggsave(p4, file="plot-7scanpaths.pdf", width=13, height=6)
 }
 
