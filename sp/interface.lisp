@@ -161,6 +161,17 @@
 (defun pn (n &optional (params nil))
   (present-sentence-number n :params params))
 
+(defun rps (sentence times &key (time *max-time*) (params nil))
+  (dotimes (i times)
+    (setf *experiment* "rps")
+    (setf *simulation* (+ 1 i))
+    (setf *item* 1)
+    (setprint off)
+    (setf *VERBOSE* nil)
+    (format t "Iteration ~D~%" (+ 1 i))
+    (present-whole-sentence sentence time params))
+    (setprint on)
+  )
 
 
 ;;; Main function for presenting a sentence
