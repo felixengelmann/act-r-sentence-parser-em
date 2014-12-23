@@ -36,6 +36,7 @@ att$cond <- factor(att$cond)
 dim(m)
 m <- merge(m[-5], att, by=c("exp","iteration","cond","pos"), all.x=TRUE, all.y=TRUE)
 dim(m)
+m <- subset(m, pos!=1)
 
 ## ENCODING TIMES:
 enc <- read.table("enctimes.txt", header=TRUE)
@@ -57,13 +58,13 @@ m$skip[m$dur==0] <- 1
 ##------------------------------------------------------------
 
 ## ATT
-at <- cast(att, cond+pos+word~., function(x) c(M=mean(x), SE=sd(x)/sqrt(length(x)), N=length(x), CI=ci(x)), value="AT")
+at <- cast(att, cond+pos+word~., function(x) c(M=mean(x), SE=sd(x)/sqrt(length(x))), value="AT")
 colnames(at)[4] <- "AT"
 ## ENC
-et <- cast(enc, cond+pos+word~., function(x) c(M=mean(x), SE=sd(x)/sqrt(length(x)), N=length(x), CI=ci(x)), value="ET")
+et <- cast(enc, cond+pos+word~., mean, value="ET")
 colnames(et)[4] <- "ET"
 ## RT
-rt <- cast(subset(m, dur!=0), cond+pos+word~., function(x) c(M=mean(x), SE=sd(x)/sqrt(length(x)), N=length(x), CI=ci(x)), value="dur")
+rt <- cast(subset(m, dur!=0 & !is.na(word)), cond+pos+word~., function(x) c(M=mean(x), SE=sd(x)/sqrt(length(x))), value="dur")
 colnames(rt)[4] <- "RT"
 # merge
 rt <- merge(rt[-3], at, by=c("cond","pos"), all.x=TRUE, all.y=TRUE)
@@ -83,15 +84,15 @@ colnames(skip)[4] <- "skip"
 ##------------------------------------------------------------
 
 ## PLOT ATTACHMENT TIMES ##
-(pa <- ggplot(at, aes(factor(pos), AT, fill=cond)) + geom_bar(stat="identity", position="dodge") + scale_x_discrete(labels=at$word) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0)))
+(pa <- ggplot(at, aes(factor(pos), AT, fill=cond)) + geom_bar(stat="identity", position="dodge") + scale_x_discrete(labels=at$word) + geom_errorbar(aes(max=AT+2*SE, min=AT-2*SE, width=0)))
 ggsave(pa, file="plot-attachment-times.pdf")
 
 ## PLOT ENCODING TIMES ##
-(pe <- ggplot(et, aes(factor(pos), ET, fill=cond)) + geom_bar(stat="identity", position="dodge") + scale_x_discrete(labels=et$word) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0)))
+(pe <- ggplot(et, aes(factor(pos), ET, fill=cond)) + geom_bar(stat="identity", position="dodge") + scale_x_discrete(labels=et$word))
 ggsave(pe, file="plot-encoding-times.pdf")
 
 ## PLOT READING TIMES ##
-(pr <- ggplot(rt, aes(factor(pos), RT, group=cond, fill=cond)) + geom_bar(stat="identity", position="dodge") + scale_x_discrete(labels=rt$word) + geom_errorbar(aes(max=CI.upper.x, min=CI.lower.x, width=0)))
+(pr <- ggplot(rt, aes(factor(pos), RT, group=cond, fill=cond)) + geom_bar(stat="identity", position="dodge") + scale_x_discrete(labels=rt$word) + geom_errorbar(aes(max=RT+2*SE.x, min=RT-2*SE.x, width=0)))
 ggsave(pr, file="plot-reading-times.pdf")
 
 ## PLOT SKIPPING RATES ##
