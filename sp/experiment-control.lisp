@@ -392,7 +392,7 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
         ;;; --------------------------------------------------------- ;;;
         (when (null success)
           (format t "(F:~s)" cname)
-          (trialmessage "fail" "T")
+          ; (trialmessage "fail" "T")
           ; (return nil)
           )
         (push-last (list cname *fixation-trace*) exp-trace)
