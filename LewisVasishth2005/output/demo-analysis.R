@@ -36,7 +36,7 @@ att$cond <- factor(att$cond)
 dim(m)
 m <- merge(m[-5], att, by=c("exp","iteration","cond","pos"), all.x=TRUE, all.y=TRUE)
 dim(m)
-m <- subset(m, pos!=1)
+
 
 ## ENCODING TIMES:
 enc <- read.table("enctimes.txt", header=TRUE)
@@ -47,15 +47,51 @@ dim(m)
 m <- merge(m, enc[-5], by=c("exp","iteration","cond","pos"), all.x=TRUE)
 dim(m)
 
+## TRIAL MESSAGES
+msg <- read.table("trialmessages.txt", header=F)
+colnames(msg) <- c("exp","iteration","cond","pos","word","variable","value")
+
+trialinfo <- subset(msg[,-c(4,5)], variable!="timeout")
+trialinfo <- reshape(trialinfo, idvar = c("exp","iteration","cond"), timevar="variable", direction="wide")
+colnames(trialinfo) <- gsub("value.","", colnames(trialinfo))
+trialinfo <- droplevels(trialinfo)
+
+## Merge with EM results
+dim(m)
+m <- merge(m, trialinfo, by=c("exp","iteration","cond"), all.x=TRUE)
+m$fail <- ifelse(is.na(m$fail), 0, 1)
+dim(m)
+
+## TIMEOUTS:
+tmo <- droplevels(subset(msg, variable=="timeout"))
+colnames(tmo)[6:7] <- c("timeout", "tmo-eyloc")
+tmo$timeout <- 1
+dim(m)
+m <- merge(m, tmo[,-5], by=c("exp","iteration","cond","pos"), all.x=TRUE)
+dim(m)
+m$timeout[is.na(m$timeout)] <- 0
+
 ## SKIPPINGS ##
 m$dur[is.na(m$dur)] <- 0
 m$skip <- 0
 m$skip[m$dur==0] <- 1
 
 
+
+
 ##------------------------------------------------------------
 ## MEANS
 ##------------------------------------------------------------
+
+
+## FAILURES
+fail <- cast(m, cond~., function(x) c(M=mean(x), N=length(x)), value="fail")
+fail$SE <- sqrt(fail$M*(1-fail$M))/sqrt(fail$N)
+fail$CI.lower <- fail$M + qt(.025, df=fail$N-1) * fail$SE
+fail$CI.upper <- fail$M + qt(.975, df=fail$N-1) * fail$SE
+colnames(fail)[4] <- "fail"
+
+m <- subset(m, pos!=1 & pos!=6 & !is.na(word))
 
 ## ATT
 at <- cast(att, cond+pos+word~., function(x) c(M=mean(x), SE=sd(x)/sqrt(length(x))), value="AT")
@@ -78,6 +114,14 @@ skip$CI.lower <- skip$M + qt(.025, df=skip$N-1) * skip$SE
 skip$CI.upper <- skip$M + qt(.975, df=skip$N-1) * skip$SE
 colnames(skip)[4] <- "skip"
 
+## SKIP
+to <- cast(m, cond+pos+word~., function(x) c(M=mean(x), N=length(x)), value="timeout")
+to$SE <- sqrt(to$M*(1-to$M))/sqrt(to$N)
+to$CI.lower <- to$M + qt(.025, df=to$N-1) * to$SE
+to$CI.upper <- to$M + qt(.975, df=to$N-1) * to$SE
+colnames(to)[4] <- "timeout"
+
+
 
 ##------------------------------------------------------------
 ## PLOTS
@@ -96,8 +140,17 @@ ggsave(pe, file="plot-encoding-times.pdf")
 ggsave(pr, file="plot-reading-times.pdf")
 
 ## PLOT SKIPPING RATES ##
-(ps <- ggplot(skip, aes(factor(pos), skip, group=cond, fill=cond)) + geom_bar(stat="identity", position="dodge") + scale_x_discrete(labels=skip$word) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0)))
+(ps <- ggplot(skip, aes(factor(pos), skip, group=cond, fill=cond)) + geom_bar(stat="identity", position="dodge") + ylim(0,1) + scale_x_discrete(labels=skip$word) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0)))
 ggsave(ps, file="plot-skipping-rate.pdf")
+
+## PLOT TIMEOUTS ##
+(ps <- ggplot(to, aes(factor(pos), timeout, group=cond, fill=cond)) + geom_bar(stat="identity", position="dodge") + ylim(0,1) + scale_x_discrete(labels=to$word) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0)))
+ggsave(ps, file="plot-timeout-rate.pdf")
+
+## PLOT FAILURE RATES ##
+(pf <- ggplot(fail, aes(cond, fail, group=cond, fill=cond)) + geom_bar(stat="identity", position="dodge") + ylim(0,1)  + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0)))
+ggsave(pf, file="plot-failure-rate.pdf")
+
 
 
 ##------------------------------------------------------------
