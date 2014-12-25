@@ -141,7 +141,7 @@
 ; (set-visloc-default isa visual-location screen-x lowest :attended new)
 
 
-
+(if *params* (sgp-fct *params*))
 (setf *actr-enabled-p* t)
 
 )
