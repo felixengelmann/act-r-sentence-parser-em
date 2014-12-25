@@ -162,16 +162,24 @@
   (present-sentence-number n :params params))
 
 (defun rps (sentence times &key (time *max-time*) (params nil))
+  (let ((success nil))
+  (delete-output)
+  (setprint off)
+  (setf *VERBOSE* nil)
+  (setf *show-window* nil)
   (dotimes (i times)
     (setf *experiment* "rps")
     (setf *simulation* (+ 1 i))
     (setf *item* 1)
-    (setprint off)
-    (setf *VERBOSE* nil)
-    (format t "Iteration ~D~%" (+ 1 i))
-    (present-whole-sentence sentence time params))
-    (setprint on)
-  )
+    (format t "~%Iteration ~D" (+ 1 i))
+    (setf success (present-whole-sentence sentence time params T))
+    (when (null success)
+          ; (trialmessage "fail" "T")
+          (format t " F!")
+          )
+    )
+  (setprint on)
+  ))
 
 
 ;;; Main function for presenting a sentence
@@ -184,14 +192,7 @@
   ; (format t "~s~%" *params*)
   (soft-reset-sp)
   (sgp-fct *output-setting*)
-  
-  ; (suppress-warnings (clear-dm)(reset))
-  ; (if params
-  ;     (sgp-fct params)
-  ;     (setf params nil))
-  ; (load-model-support-sp)
-  ; ; (when (null *VERBOSE*) (sgp :trace-modules nil))
-  
+    
   (let ((plist sentence)
         (stringlist nil)
         ; (em-trace nil)
@@ -249,13 +250,16 @@ SENTENCE:   ~s
     (when *record-visloc-activations* (start-visloc-record))
         
     ; (run time :full-time t))
-    (setf *reading-time* (run time :real-time *real-time*))
-    
+    (setf *reading-time* (run time :real-time *real-time*))    
     (if *postfix-fct* (funcall *postfix-fct*))
-    
+    (if (equal "stop" (chunk-slot-value-fct (buffer-read 'goal) 'state))
+          T
+          (trialmessage "fail" "T")
+        )
     ; (setf em-trace (get-em-trace))
     (setf *fixation-trace* (em-trace->fixations (get-em-trace) plist))
     ; (setf *fixations* fixations)
+    
     (when *record-times* 
       (record-fixations plist *item* *fixation-trace*)
       (record-attachment-times *item* *attached-items*)
@@ -268,8 +272,8 @@ SENTENCE:   ~s
       )
     (if (equal "stop" (chunk-slot-value-fct (buffer-read 'goal) 'state))
         T
-        nil)
-    ; *fixation-trace*
+        nil
+        )
     ))
 
 
