@@ -1,0 +1,4 @@
+#!/bin/sh
+
+./trace-pi.awk $1 | ./rcg.pl 'TOTAL.+\d+' "BOLD . YELLOW" 'SENTENCE.+' "BLUE" '.pb\d+' "RED"
+

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+#./stats.sh trace.b | ./rcg.pl '.+npi.+' "BOLD . YELLOW" '.+ppi.+' "BOLD . GREEN"
+#./stats.sh $1 | ./rcg.pl '.+npi.+' "YELLOW" '.+ppi.+' "GREEN" '\d+\.\d.+' "BOLD . RED" #'DPacc' "BOLD" 'DPnom' "BOLD"
+./stats.sh $1 | ./rcg.pl '.+npi.+' "RED" '.+ppi.+' "GREEN" '\d+\.\d.+' "BOLD . RED" #'DPacc' "BOLD" 'DPnom' "BOLD"
+
