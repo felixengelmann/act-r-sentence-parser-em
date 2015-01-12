@@ -43,7 +43,7 @@
   ;; clean-up procedure to prevent process from slowing down 
   (suppress-warnings (reload))
   (when (= (rem *paramset* 10) 0)
-    (sleep 60))
+    (sleep 5))
   (let* ((location (concatenate 'string *output-dir* "/../paramsearch/" (string *experiment*) "/"))
          (fixfile (concatenate 'string location (write-to-string *paramset*) "-fixations.txt"))
          (trialmfile (concatenate 'string location (write-to-string *paramset*) "-trialmessages.txt"))
@@ -100,7 +100,7 @@
   ; (suppress-warnings (reload))
   (when (= (rem *paramset* 10) 0)
     (format t "~%Pausing...")
-    (sleep 30))
+    (sleep 5))
   (let* (;(location (concatenate 'string *output-dir* "/../paramsearch/" (string *experiment*) "/"))
          (fixfile (concatenate 'string location (write-to-string *paramset*) "-fixations.txt"))
          (subjfile (concatenate 'string location (write-to-string *paramset*) "-subjects.txt"))
@@ -141,7 +141,7 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
         (setf subject (1+ s))
         (if (listp ga) (setf goal-act (nth s ga)))
         (if (not ga) (setf goal-act (1+ (* (sqrt (* -2 (log (random 1.0)))) (cos (* 2 pi (random 1.0))) 0.25)))) ;; normal with sd=0.25 (Daily, Lovett, Reder, 2011)
-        ; (setf goal-act (1+ (* (sqrt (* -2 (log (random 1.0)))) (cos (* 2 pi (random 1.0))) 0.15)))  ;; normal with sd=0.15 (Daily, Lovett, Reder, 2011)
+        ; (setf goal-act (1+ (* (sqrt (* -2 (log (random 1.0)))) (cos (* 2 pi (random 1.0))) 0.15)))  ;; normal with sd=0.15 (Daily, Lovett, Reder, 2001)
         ; (setf goal-act (* (act-r-random 100) 0.01)) ;; uniform 0 - 1
         ; (setf goal-act (rand-time 1))  ;; uniform of 1 +/- 1/3
         ; (setf goal-act (+ 1 (* (- (act-r-random 200) 100) 0.01)))  ;; 0 - 2
@@ -251,10 +251,10 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
 
 
 
-(defun res (name &optional (iterations 2) (subjects 2) &key (ga nil) params (script "spinresults.R") notes)
+(defun res (name &optional (iterations 2) (subjects 2) &key (ga nil) params (script nil) notes)
   (run-subjects-em name iterations subjects ga params script notes))
 
-(defun run-subjects-em (name &optional (iterations 2) (subjects 2) (ga nil) params (script "spinresults.R") notes)
+(defun run-subjects-em (name &optional (iterations 2) (subjects 2) (ga nil) params (script nil) notes)
   ; (suppress-warnings (reload))
   (when (null params)
     (setf params '(:v nil)))
@@ -341,9 +341,11 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
     (setf *record-times* t)
     
     ; (cwd outpath)
-    (cwd *output-dir*)
-    (run-program "Rscript" (list script) :output *standard-output*)
-    (cwd currentpath)
+    (when script
+      (cwd *output-dir*)
+      (run-program "Rscript" (list script) :output *standard-output*)
+      (cwd currentpath)
+      )
     )
  )
 
