@@ -64,7 +64,7 @@
   (load "../sp/experiment-control-original")
   (load "../sp/experiment-control")
   (load "../sp/support-lexicon")
-  (load "../sp/support-parser")
+  (load "../sp/interface-parser")
   )
 
 
@@ -136,7 +136,7 @@
 (compile-file "../sp/experiment-control-original")
 (compile-file "../sp/experiment-control")
 (compile-file "../sp/support-lexicon")
-; (compile-file "../sp/support-parser")
+; (compile-file "../sp/interface-parser")
 
 (clear-all)
 (load-sp)
