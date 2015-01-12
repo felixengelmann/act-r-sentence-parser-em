@@ -89,24 +89,26 @@
 ;;; Experiments
 ;;;
 ;; Run experiment:
-(re 'gg-exp1 100) 
-(re 'gg-exp1 50 :params '(:lf 0.4 :mp 2))
+(re 'gg-exp1 60) 
+(re 'gg-exp1 60 :params '(:lf 0.4 :mp 2))
 (re 'staub10 60)
 ;; Run experiment with subjects:
-(re 'gg-exp1 30 100) 
-(res 'gg-exp1 30 50 '(0.75 1.25) :params '(:lf 0.3 :mp 6))
+(res 'gg-exp1 30 10) 
+(res 'gg-exp1 10 5 :params '(:lf 0.3 :mp 3))
+(res 'gg-exp1 100 2 :ga '(0.75 1.25) :params '(:lf 0.3))
 
 
 ;;;
 ;;; Search param-space
 ;;;
-(setf *pspace1* '(
-                  (:lf .2 .4 .1)
-                  (:mas .25 .45 .1)
-                  ))
+(setf *paramspace* '(
+                     (:lf .2 .4 .1)
+                     (:mp 1.5 2 .5)
+                     ))
 
-(search-param-space-em gg-exp1 50 *pspace1*)
-(search-param-space-subjects-em gg-exp1 20 50 *pspace1*)
+(search-param-space-em gg-exp1 10 *paramspace*)
+(search-param-space-subjects-em gg-exp1 10 5 *paramspace*)
+(search-param-space-subjects-em gg-exp1 20 50 *paramspace*)
 
 
 ;;;
