@@ -89,7 +89,7 @@ fail <- cast(m, cond~., function(x) c(M=mean(x), N=length(x)), value="fail")
 fail$SE <- sqrt(fail$M*(1-fail$M))/sqrt(fail$N)
 fail$CI.lower <- fail$M + qt(.025, df=fail$N-1) * fail$SE
 fail$CI.upper <- fail$M + qt(.975, df=fail$N-1) * fail$SE
-colnames(fail)[4] <- "fail"
+colnames(fail)[2] <- "fail"
 
 m <- subset(m, pos!=1 & pos!=6 & !is.na(word))
 
@@ -114,7 +114,7 @@ skip$CI.lower <- skip$M + qt(.025, df=skip$N-1) * skip$SE
 skip$CI.upper <- skip$M + qt(.975, df=skip$N-1) * skip$SE
 colnames(skip)[4] <- "skip"
 
-## SKIP
+## Timeout
 to <- cast(m, cond+pos+word~., function(x) c(M=mean(x), N=length(x)), value="timeout")
 to$SE <- sqrt(to$M*(1-to$M))/sqrt(to$N)
 to$CI.lower <- to$M + qt(.025, df=to$N-1) * to$SE
@@ -126,29 +126,32 @@ colnames(to)[4] <- "timeout"
 ##------------------------------------------------------------
 ## PLOTS
 ##------------------------------------------------------------
+dodge <- position_dodge(width=.9)
 
 ## PLOT ATTACHMENT TIMES ##
-(pa <- ggplot(at, aes(factor(pos), AT, fill=cond)) + geom_bar(stat="identity", position="dodge") + scale_x_discrete(labels=at$word) + geom_errorbar(aes(max=AT+2*SE, min=AT-2*SE, width=0)))
+(pa <- ggplot(at, aes(factor(pos), AT, fill=cond)) + geom_bar(stat="identity", position=dodge) + scale_x_discrete(labels=at$word) + geom_errorbar(aes(max=AT+2*SE, min=AT-2*SE, width=0), position=dodge))
 ggsave(pa, file="plot-attachment-times.pdf")
 
 ## PLOT ENCODING TIMES ##
-(pe <- ggplot(et, aes(factor(pos), ET, fill=cond)) + geom_bar(stat="identity", position="dodge") + scale_x_discrete(labels=et$word))
+(pe <- ggplot(et, aes(factor(pos), ET, fill=cond)) + geom_bar(stat="identity", position=dodge) + scale_x_discrete(labels=et$word))
 ggsave(pe, file="plot-encoding-times.pdf")
 
 ## PLOT READING TIMES ##
-(pr <- ggplot(rt, aes(factor(pos), RT, group=cond, fill=cond)) + geom_bar(stat="identity", position="dodge") + scale_x_discrete(labels=rt$word) + geom_errorbar(aes(max=RT+2*SE.x, min=RT-2*SE.x, width=0)))
+(pr <- ggplot(rt, aes(factor(pos), RT, group=cond, fill=cond)) + geom_bar(stat="identity", position=dodge) + scale_x_discrete(labels=rt$word) + geom_errorbar(aes(max=RT+2*SE.x, min=RT-2*SE.x, width=0), position=dodge))
 ggsave(pr, file="plot-reading-times.pdf")
 
 ## PLOT SKIPPING RATES ##
-(ps <- ggplot(skip, aes(factor(pos), skip, group=cond, fill=cond)) + geom_bar(stat="identity", position="dodge") + ylim(0,1) + scale_x_discrete(labels=skip$word) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0)))
+(ps <- ggplot(skip, aes(factor(pos), skip, group=cond, fill=cond)) + geom_bar(stat="identity", position=dodge) + scale_x_discrete(labels=skip$word) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0), position=dodge) + coord_cartesian(ylim=c(-0.01,1)))
 ggsave(ps, file="plot-skipping-rate.pdf")
 
 ## PLOT TIMEOUTS ##
-(ps <- ggplot(to, aes(factor(pos), timeout, group=cond, fill=cond)) + geom_bar(stat="identity", position="dodge") + ylim(0,1) + scale_x_discrete(labels=to$word) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0)))
+(ps <- ggplot(to, aes(factor(pos), timeout, group=cond, fill=cond)) + geom_bar(stat="identity", position=dodge) 
+	# + ylim(0,1) 
+	+ scale_x_discrete(labels=to$word) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0), position=dodge) + coord_cartesian(ylim=c(-0.01,1)))
 ggsave(ps, file="plot-timeout-rate.pdf")
 
 ## PLOT FAILURE RATES ##
-(pf <- ggplot(fail, aes(cond, fail, group=cond, fill=cond)) + geom_bar(stat="identity", position="dodge") + ylim(0,1)  + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0)))
+(pf <- ggplot(fail, aes(cond, fail, group=cond, fill=cond)) + geom_bar(stat="identity", position=dodge) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0), position=dodge) + coord_cartesian(ylim=c(-0.01,1)))
 ggsave(pf, file="plot-failure-rate.pdf")
 
 
