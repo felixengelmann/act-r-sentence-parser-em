@@ -1,6 +1,12 @@
-library(em2)
-library(reshape)
-library(ggplot2)
+## 
+## Demo script for analyzing experiments. 
+## 
+## Example data from Grodner & Gibson Exp1 (relative clauses).
+##
+
+##
+## To adjust for other experiments, change data and regions of interest in the following section.
+##
 
 
 ##------------------------------------------------------------
@@ -35,6 +41,9 @@ data <- data.frame(cond=c("OBJECT-REL","SUBJECT-REL","OBJECT-REL","SUBJECT-REL")
 ##------------------------------------------------------------
 ## SOME HELPER FUNCTIONS
 ##------------------------------------------------------------
+library(em2)
+library(reshape)
+library(ggplot2)
 
 ## Function for computing confidence intervals
 ci <- function (x) 
