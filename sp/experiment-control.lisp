@@ -47,6 +47,7 @@
   (let* ((location (concatenate 'string *output-dir* "/../paramsearch/" (string *experiment*) "/"))
          (fixfile (concatenate 'string location (write-to-string *paramset*) "-fixations.txt"))
          (trialmfile (concatenate 'string location (write-to-string *paramset*) "-trialmessages.txt"))
+         (attachfile (concatenate 'string location (write-to-string *paramset*) "-attachments.txt"))
          (successes 0))
     ;(setf *experiment* name)
     (setf *simulation* 0)
@@ -79,7 +80,7 @@
             (push-last (list name params exp-trace) *exp-traces*)))))
   (write-table *fixation-data* fixfile)
   (write-table *trialmessage-data* trialmfile)
-  ; (write-table *attachment-data*)
+  (write-table *attachment-data* attachfile)
   ; (write-table *encoding-data*)
   ; (write-table *timeout-data*)
   ))
@@ -105,6 +106,7 @@
          (fixfile (concatenate 'string location (write-to-string *paramset*) "-fixations.txt"))
          (subjfile (concatenate 'string location (write-to-string *paramset*) "-subjects.txt"))
          (trialmfile (concatenate 'string location (write-to-string *paramset*) "-trialmessages.txt"))
+         (attachfile (concatenate 'string location (write-to-string *paramset*) "-attachments.txt"))
          (successes 0)
          (subject 0)
          ; (params (append '(:v nil :dcnn nil) params))
@@ -177,6 +179,7 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
           (format t "~%"))
       (write-table *fixation-data* fixfile)
       (write-table *trialmessage-data* trialmfile)
+      (write-table *attachment-data* attachfile)
       (setf mytime (/ (- (get-internal-real-time) start-time) INTERNAL-TIME-UNITS-PER-SECOND))
       (setf *RUNTIMES* (append (list mytime) *RUNTIMES*))
       (format t "   Time needed: ~5,2F min, Mean: ~5,2F min, Range: [~5,2F ~5,2F], Total: ~5,2F~%" (/ mytime 60) (/ (mymean *RUNTIMES*) 60) (/ (reduce #'min *RUNTIMES*) 60) (/ (reduce #'max *RUNTIMES*) 60) (/ (sum *RUNTIMES*) 60))
@@ -185,10 +188,10 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
 
 
 ;;;  RUN EXPERIMENT EM
-(defun re (name &optional (iterations 1) params)
-  (run-experiment-em name iterations params))
+(defun re (name &optional (iterations 1) &key params (script T))
+  (run-experiment-em name iterations params script))
 
-(defun run-experiment-em (name &optional (iterations 1) params)
+(defun run-experiment-em (name &optional (iterations 1) params (script T))
   (suppress-warnings (reload-sp))
   (when (null params)
     (setf params '(:v nil)))
@@ -240,21 +243,24 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
           (setf successes (+ successes 1))
           ; (push result results)
           (push-last (list name params exp-trace) *exp-traces*))))
-    (write-headers)
+    ; (write-headers)
     (write-data)
     (setprint on)
     (setf *VERBOSE* t)
     (setf *show-window* t)
     (setf *record-times* t)
+    (when script
+      (run-analysis name)
+      )
     ))
 
 
 
 
-(defun res (name &optional (iterations 2) (subjects 2) &key (ga nil) params (script nil) notes)
+(defun res (name &optional (iterations 2) (subjects 2) &key (ga nil) params (script T) notes)
   (run-subjects-em name iterations subjects ga params script notes))
 
-(defun run-subjects-em (name &optional (iterations 2) (subjects 2) (ga nil) params (script nil) notes)
+(defun run-subjects-em (name &optional (iterations 2) (subjects 2) (ga nil) params (script T) notes)
   ; (suppress-warnings (reload))
   (when (null params)
     (setf params '(:v nil)))
@@ -265,9 +271,9 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
   (print-interface-params)
   (delete-output)
   
-  (write-headers)
+  ; (write-headers)
   (with-open-file (*standard-output* (ensure-directories-exist (concatenate 'string *output-dir* "/params.txt")) :direction :output :if-exists :rename :if-does-not-exist :create)
-    (format t "Experiment ~A~%Subjects ~A~%Iterations ~A~%Results-script ~A~%Notes ~A~%" name subjects iterations script notes)
+    (format t "Experiment ~A~%Subjects ~A~%Iterations ~A~%Results-script ~A~%Notes ~A~%" name subjects iterations "results.txt" notes)
     (print-params)
     )
   
@@ -285,7 +291,8 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
         (params nil)
         (goal-act 1)
         ; (outpath (make-pathname :name *output-dir* :defaults *default-pathname-defaults*))
-        (currentpath (current-directory)))
+        ; (currentpath (current-directory))
+        )
     
     (dotimes (s subjects "ALL DONE")
         (reset-sp)
@@ -339,13 +346,16 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
     (setf *VERBOSE* t)
     (setf *show-window* t)
     (setf *record-times* t)
+    (when script
+      (run-analysis name)
+      )
     
     ; (cwd outpath)
-    (when script
-      (cwd *output-dir*)
-      (run-program "Rscript" (list script) :output *standard-output*)
-      (cwd currentpath)
-      )
+    ; (when script
+    ;   (cwd *output-dir*)
+    ;   (run-program "Rscript" (list script) :output *standard-output*)
+    ;   (cwd currentpath)
+    ;   )
     )
  )
 
@@ -494,7 +504,7 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
 ;;   It always uses pre-compiled *pspace1*. 
 ;; It works, however when the file with the function call is compiled after defining
 ;;   the new pspace.
-(defmacro search-param-space-em (experiment iterations &optional (pspace '*pspace1*))
+(defmacro search-param-space-em (experiment iterations pspace &key (script T))
   (suppress-warnings (reload-sp))
   (print-params)
   (print-interface-params)
@@ -545,6 +555,15 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
        (setf *VERBOSE* t)
        (setf *show-window* t)
        (setf *record-times* t)
+       (when ,script
+         (let* ((location (concatenate 'string *output-dir* "/../paramsearch/" (string *experiment*) "/"))
+                (data-file (concatenate 'string location "/experiment-data.txt")))
+           (write-exp-data ',experiment data-file)
+           (run-program "cp" (list (concatenate 'string location "../_analyze.R") (concatenate 'string location "analyze.R")) :output *standard-output*)
+           (format t "~%Running R script for computing fit...")
+           (run-program "Rscript" (list (concatenate 'string location "../fit-experiment.R") location (string *experiment*)) :output *standard-output*)
+           )
+         )
        "FINISHED"))
 )
 
@@ -566,7 +585,7 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
   )
 
 
-(defmacro search-param-space-subjects-em (experiment iterations &optional (subjects 1) (pspace '*pspace1*) &key (ga nil) (parameters '(list )))
+(defmacro search-param-space-subjects-em (experiment iterations subjects pspace &key (ga nil) (parameters '(list )) (script T))
   ; (format t "~a" parameters)
   (suppress-warnings (reload-sp))
   (if (> (length (cdr parameters)) 0) (setf *params* (cdr parameters)))
@@ -590,7 +609,8 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
   
   ; (delete-output)
 
-  (let* ((location (concatenate 'string *output-dir* "/../paramsearch/" (string experiment) "-" (datetimestamp) "/"))
+  (let* ((folder (concatenate 'string (string experiment) "-" (datetimestamp)))
+         (location (concatenate 'string *output-dir* "/../paramsearch/" folder "/"))
         (code `(run-paramset-subjects-em ',experiment ,iterations ,subjects ,location ,ga))
         (param-vars nil)
       ; (parameters '(list :v nil)))
@@ -624,8 +644,95 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
        (setf *VERBOSE* t)
        (setf *show-window* t)
        (setf *record-times* t)
+       (when ,script
+         (let (
+                ; (location (concatenate 'string *output-dir* "/../paramsearch/" (string *experiment*) "/"))
+                (data-file (concatenate 'string ,location "/experiment-data.txt")))
+           (write-exp-data ',experiment data-file)
+           (run-program "cp" (list (concatenate 'string ,location "../_analyze.R") (concatenate 'string ,location "analyze.R")) :output *standard-output*)
+           (format t "~%Running R script for computing fit...")
+           (run-program "Rscript" (list (concatenate 'string ,location "../fit-experiment.R") ,location (string ,folder)) :output *standard-output*)
+           )
+         )
        (format t "~%FINISHED ~%Total time: ~5,2F min" (/ (sum *RUNTIMES*) 60)))
 ))
+
+
+
+
+
+(defun write-exp-data (name data-file)
+  (let ((conditions (first (get '*experiments* name)))
+        ; (contrasts (second (get '*experiments* name)))
+        (full-name (string (third (get '*experiments* name))))
+        ; (data-file (string-downcase (concatenate 'string location "experiment-data.txt")))
+        )
+    ; 
+    (with-open-file (rfile data-file
+         :direction :output
+         :if-exists :supersede)
+      (format rfile "exp cond sent pos roi condroi data fullname~%")
+      ; 
+      (dolist (c conditions)
+        (let ((cname (pop c))
+              (sent (pop c))
+              (regions c))
+          (dolist (r regions)
+            (let* ((rname (first r))
+                   (newcond (string-downcase
+                             (concatenate 'string (string cname)
+                  ":" (string rname))))
+                   (position (second (member :position r)))
+                   (humandata (* 1000 (second (member :data r))))
+                   )
+              (format rfile "~s ~s ~s ~d ~s ~s ~6,3F ~s
+" name cname sent position rname newcond humandata full-name))))))
+    )
+  )
+
+
+
+(defun run-analysis (name)
+  (let (
+        ; (conditions (first (get '*experiments* name)))
+        ; (contrasts (second (get '*experiments* name)))
+        ; (full-name (string (third (get '*experiments* name))))
+        ; (plot-data (string (fourth (get '*experiments* name))))
+        ; (pdfname (string-downcase
+        ;            (concatenate 'string (string name) ".pdf")))
+        ; (results-file (string-downcase
+        ;                 (concatenate 'string "output/" (string name) "-results.pdf")))
+        (data-file (string-downcase
+                        (concatenate 'string "output/" "experiment-data.txt")))
+        )
+    ;
+    (write-exp-data name data-file)
+    ; 
+;     (with-open-file (rfile data-file
+;          :direction :output
+;          :if-exists :supersede)
+;       (format rfile "exp cond sent pos roi condroi data fullname~%")
+;       ; 
+;       (dolist (c conditions)
+;         (let ((cname (pop c))
+;               (sent (pop c))
+;               (regions c))
+;           (dolist (r regions)
+;             (let* ((rname (first r))
+;                    (newcond (string-downcase
+;                              (concatenate 'string (string cname)
+;                   ":" (string rname))))
+;                    (position (second (member :position r)))
+;                    (humandata (* 1000 (second (member :data r))))
+;                    )
+;               (format rfile "~s ~s ~s ~d ~s ~s ~6,3F ~s
+; " name cname sent position rname newcond humandata full-name))))))
+    (cwd "output")
+    (run-program "Rscript" '("results.R") :output *standard-output*)
+    (cwd "..")
+    ; (run-program "open" (list results-file))
+    )
+  )
 
 
 
