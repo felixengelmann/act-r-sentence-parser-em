@@ -106,7 +106,7 @@
                      (:mp 1.5 2 .5)
                      ))
 
-(search-param-space-em gg-exp1 10 *paramspace*)
+(search-param-space-em gg-exp1 20 *paramspace*)
 (search-param-space-subjects-em gg-exp1 10 5 *paramspace*)
 (search-param-space-subjects-em gg-exp1 20 50 *paramspace*)
 
