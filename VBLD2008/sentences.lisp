@@ -175,12 +175,12 @@
 (define-experiment vbld08-pirat
   :full-name "Vasishth, Bruessow, Lewis (2007) Exp."
   :conditions
-  ((a   *pirat-a*    ())
-   (b   *pirat-b*    ())
-   (c   *pirat-c*    ())
-   (d   *pirat-d*    ())
-   (e   *pirat-e*    ())
-   (f   *pirat-f*    ())
+  ((a   *pirat-a*    (PI :position 9 :data .564))
+   (b   *pirat-b*    (PI :position 9 :data .701))
+   (c   *pirat-c*    (PI :position 9 :data .706))
+   (d   *pirat-d*    (PI :position 9 :data .572))
+   (e   *pirat-e*    (PI :position 9 :data .477))
+   (f   *pirat-f*    (PI :position 9 :data .425))
    )
   )
 
