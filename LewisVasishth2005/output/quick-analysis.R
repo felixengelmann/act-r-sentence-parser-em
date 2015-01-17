@@ -17,7 +17,7 @@ ci <- function (x)
 ##------------------------------------------------------------
 ## READ SIMULATION DATA
 ##------------------------------------------------------------
-f <- read.table("fixations.txt", header=T)
+f <- read.table("fixations.txt", header=FALSE)
 colnames(f) <- c("exp","iteration","cond","pos","word","dur")
 f$cond <- factor(f$cond)
 head(f)
@@ -30,7 +30,7 @@ summary(f)
 m <- f
 
 ## ATTACHMENT TIMES:
-att <- read.table("attachments.txt", header=TRUE)
+att <- read.table("attachments.txt", header=FALSE)
 colnames(att) <- c("exp","iteration","cond","pos","word","AT")
 att$cond <- factor(att$cond)
 dim(m)
@@ -39,7 +39,7 @@ dim(m)
 
 
 ## ENCODING TIMES:
-enc <- read.table("enctimes.txt", header=TRUE)
+enc <- read.table("enctimes.txt", header=FALSE)
 colnames(enc) <- c("exp","iteration","cond","pos","word","ET","ecc","freq")
 enc$cond <- factor(enc$cond)
 enc$iteration <- factor(enc$iteration)
@@ -128,31 +128,33 @@ colnames(to)[4] <- "timeout"
 ##------------------------------------------------------------
 dodge <- position_dodge(width=.9)
 
+pdf("quick-analysis.pdf")
+
 ## PLOT ATTACHMENT TIMES ##
-(pa <- ggplot(at, aes(factor(pos), AT, fill=cond)) + geom_bar(stat="identity", position=dodge) + scale_x_discrete(labels=at$word) + geom_errorbar(aes(max=AT+2*SE, min=AT-2*SE, width=0), position=dodge))
-ggsave(pa, file="quick-plot-attachment-times.pdf")
+(pa <- ggplot(at, aes(factor(pos), AT, fill=cond)) + geom_bar(stat="identity", position=dodge) + scale_x_discrete(labels=at$word) + geom_errorbar(aes(max=AT+2*SE, min=AT-2*SE, width=0), position=dodge) + ggtitle("Attachment time"))
+# ggsave(pa, file="quick-plot-attachment-times.pdf")
 
 ## PLOT ENCODING TIMES ##
-(pe <- ggplot(et, aes(factor(pos), ET, fill=cond)) + geom_bar(stat="identity", position=dodge) + scale_x_discrete(labels=et$word))
-ggsave(pe, file="quick-plot-encoding-times.pdf")
+(pe <- ggplot(et, aes(factor(pos), ET, fill=cond)) + geom_bar(stat="identity", position=dodge) + scale_x_discrete(labels=et$word) + ggtitle("Encoding time"))
+# ggsave(pe, file="quick-plot-encoding-times.pdf")
 
 ## PLOT READING TIMES ##
-(pr <- ggplot(rt, aes(factor(pos), RT, group=cond, fill=cond)) + geom_bar(stat="identity", position=dodge) + scale_x_discrete(labels=rt$word) + geom_errorbar(aes(max=RT+2*SE.x, min=RT-2*SE.x, width=0), position=dodge))
-ggsave(pr, file="quick-plot-reading-times.pdf")
+(pr <- ggplot(rt, aes(factor(pos), RT, group=cond, fill=cond)) + geom_bar(stat="identity", position=dodge) + scale_x_discrete(labels=rt$word) + geom_errorbar(aes(max=RT+2*SE.x, min=RT-2*SE.x, width=0), position=dodge) + ggtitle("Reading time"))
+# ggsave(pr, file="quick-plot-reading-times.pdf")
 
 ## PLOT SKIPPING RATES ##
-(ps <- ggplot(skip, aes(factor(pos), skip, group=cond, fill=cond)) + geom_bar(stat="identity", position=dodge) + scale_x_discrete(labels=skip$word) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0), position=dodge) + coord_cartesian(ylim=c(-0.01,1)))
-ggsave(ps, file="quick-plot-skipping-rate.pdf")
+(ps <- ggplot(skip, aes(factor(pos), skip, group=cond, fill=cond)) + geom_bar(stat="identity", position=dodge) + scale_x_discrete(labels=skip$word) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0), position=dodge) + coord_cartesian(ylim=c(-0.01,1)) + ggtitle("Skipping rate"))
+# ggsave(ps, file="quick-plot-skipping-rate.pdf")
 
 ## PLOT TIMEOUTS ##
 (ps <- ggplot(to, aes(factor(pos), timeout, group=cond, fill=cond)) + geom_bar(stat="identity", position=dodge) 
 	# + ylim(0,1) 
-	+ scale_x_discrete(labels=to$word) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0), position=dodge) + coord_cartesian(ylim=c(-0.01,1)))
-ggsave(ps, file="quick-plot-timeout-rate.pdf")
+	+ scale_x_discrete(labels=to$word) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0), position=dodge) + coord_cartesian(ylim=c(-0.01,1)) + ggtitle("Time-out rate"))
+# ggsave(ps, file="quick-plot-timeout-rate.pdf")
 
 ## PLOT FAILURE RATES ##
-(pf <- ggplot(fail, aes(cond, fail, group=cond, fill=cond)) + geom_bar(stat="identity", position=dodge) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0), position=dodge) + coord_cartesian(ylim=c(-0.01,1)))
-ggsave(pf, file="quick-plot-failure-rate.pdf")
+(pf <- ggplot(fail, aes(cond, fail, group=cond, fill=cond)) + geom_bar(stat="identity", position=dodge) + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0), position=dodge) + coord_cartesian(ylim=c(-0.01,1)) + ggtitle("Failure rate"))
+# ggsave(pf, file="quick-plot-failure-rate.pdf")
 
 
 
@@ -172,7 +174,7 @@ for(i in unique(t1$iteration)){
 (psc <- ggplot(t1, aes(index, pos, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() 
 	+ scale_y_discrete(labels=min(t1$pos):max(t1$pos)) 
 	+ ggtitle(i))
-ggsave(psc, file="quick-plot-scanpath.pdf")
+# ggsave(psc, file="quick-plot-scanpath.pdf")
 
 
 ## PLOT SCANPATH OF 7 RANDOM TRIALS ##
@@ -186,4 +188,6 @@ for(i in unique(t1$iteration)){
 	}
 }
 (psc7 <- ggplot(t1, aes(index, pos, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() + facet_grid(.~iteration) + scale_y_discrete(labels=min(t1$pos):max(t1$pos)) + theme(legend.position="bottom"))
-ggsave(psc7, file="quick-plot-scanpaths7.pdf", width=13, height=6)
+# ggsave(psc7, file="quick-plot-scanpaths7.pdf", width=13, height=6)
+
+dev.off()
