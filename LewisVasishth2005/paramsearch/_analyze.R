@@ -177,11 +177,21 @@ if(file.exists(paste(prefix,"subjects.txt",sep=""))){
 ## REGIONS OF INTEREST
 ##------------------------------------------------------------
 summary(factor(m$cond))
-
 dim(m)
 m <- merge(m, data[,c(2,4,5,7)], by=c("cond","pos"), all.x=TRUE)
 dim(m)
-levels(m$roi)[3] <- "other"
+
+summary(m$roi)
+levels(m$roi)[length(levels(m$roi))+1] <- "n-"
+levels(m$roi)[length(levels(m$roi))+1] <- "n+"
+levels(m$roi)[length(levels(m$roi))+1] <- "other"
+for(c in unique(data$cond)){
+	s <- subset(data, cond==c)
+	minp <- min(s$pos)
+	maxp <- max(s$pos)
+	m$roi[m$cond==c & m$pos<minp] <- "n-"
+	m$roi[m$cond==c & m$pos>maxp] <- "n+"
+}
 m$roi[is.na(m$roi)] <- "other"
 
 
@@ -250,6 +260,7 @@ write.table(means, paste(prefix,"results.txt",sep=""))
 ##------------------------------------------------------------
 dodge <- position_dodge(width=.9)
 dodge2 <- position_dodge(width=.6)
+dodge3 <- position_dodge(width=.1)
 
 pdf(paste(prefix,"results.pdf",sep=""),onefile=T)
 
@@ -264,7 +275,7 @@ print(pr <- ggplot(subset(means, (M!=0 & variable%in%c("FFD","FPRT","RPD","TFT",
 	+ theme_bw(base_size=10)
 # + facet_grid(variable~.)
 	+ facet_wrap(~variable, ncol=2, scales="free")
-	+ geom_point(aes(roi,data),shape=4)
+	+ geom_point(aes(roi,data),shape=4, position=dodge3)
 	)
 	# ggsave(pr, file=paste(prefix,"plot-reading-times.pdf",sep=""), height=7, width=9)
 
@@ -366,7 +377,7 @@ boxplot(as.numeric(m$ga), main="WMC")
 ##------------------------------------------------------------
 ## FIT WITH THE DATA
 ##------------------------------------------------------------
-result <- subset(means,variable=="TFT" & !roi%in%c("other"))
+result <- subset(means,variable=="TFT" & !roi%in%c("n-","n+","other"))
 result <- cast(result, variable+roi+cond+data~., mean, value="M")
 colnames(result)[5] <- "model"
 result

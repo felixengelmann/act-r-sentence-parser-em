@@ -180,11 +180,21 @@ if(file.exists(paste(prefix,"subjects.txt",sep=""))){
 ## REGIONS OF INTEREST
 ##------------------------------------------------------------
 summary(factor(m$cond))
-
 dim(m)
 m <- merge(m, data[,c(2,4,5,7)], by=c("cond","pos"), all.x=TRUE)
 dim(m)
-levels(m$roi)[3] <- "other"
+
+summary(m$roi)
+levels(m$roi)[length(levels(m$roi))+1] <- "n-"
+levels(m$roi)[length(levels(m$roi))+1] <- "n+"
+levels(m$roi)[length(levels(m$roi))+1] <- "other"
+for(c in unique(data$cond)){
+	s <- subset(data, cond==c)
+	minp <- min(s$pos)
+	maxp <- max(s$pos)
+	m$roi[m$cond==c & m$pos<minp] <- "n-"
+	m$roi[m$cond==c & m$pos>maxp] <- "n+"
+}
 m$roi[is.na(m$roi)] <- "other"
 
 
@@ -257,6 +267,7 @@ save(m, means, file="m.Rd")
 ##------------------------------------------------------------
 dodge <- position_dodge(width=.9)
 dodge2 <- position_dodge(width=.6)
+dodge3 <- position_dodge(width=.1)
 
 pdf(paste(expname,"-results.pdf",sep=""), onefile=T)
 
@@ -271,7 +282,7 @@ print(pr <- ggplot(subset(means, (M!=0 & variable%in%c("FFD","FPRT","RPD","TFT",
 	+ theme_bw(base_size=10)
 # + facet_grid(variable~.)
 	+ facet_wrap(~variable, ncol=2, scales="free")
-	+ geom_point(aes(roi,data),shape=4) #color=c("gray30"))
+	+ geom_point(aes(roi,data),shape=4, position=dodge3) #color=c("gray30"))
 	)
 	# ggsave(pr, file=paste(prefix,"plot-reading-times.pdf",sep=""), height=7, width=9)
 
@@ -318,6 +329,7 @@ print(por <- ggplot(subset(means.pos, (M!=0 & variable%in%c("AT","ET","FPRT","TF
 # + facet_grid(variable~.)
 	+ facet_wrap(~variable, ncol=1, scales="free")
 	+ theme(legend.position="bottom")
+	+ geom_point(aes(pos,data),shape=4, position=dodge3)
 	)
 # ggsave(por, file=paste(prefix,"plot-overview1.pdf",sep=""), height=9, width=9)
 
@@ -373,7 +385,7 @@ for(i in unique(t1$iteration)){
 ##------------------------------------------------------------
 ## FIT WITH THE DATA
 ##------------------------------------------------------------
-result <- subset(means,variable=="TFT" & !roi%in%c("other"))
+result <- subset(means,variable=="TFT" & !roi%in%c("n-","n+","other"))
 result <- cast(result, variable+roi+cond+data~., mean, value="M")
 colnames(result)[5] <- "model"
 result
