@@ -55,10 +55,10 @@ data.cleanup <- function(m){
 }
 
 
-#
-# prefix <- ""
-#
 analyze <- function(prefix=""){
+
+if(prefix=="") resultsfile <- paste(expname,"-results",sep="") else resultsfile <- paste(prefix,"results",sep="")
+
 ##------------------------------------------------------------
 ## READ SIMULATION DATA
 ##------------------------------------------------------------
@@ -250,8 +250,8 @@ means <- rbind(means.t,means.p)
 summary(means)
 # means.pos <- rbind(means.pos.t,means.pos.p[,-5])
 
-write.table(means, paste(prefix,"results.txt",sep=""))
-
+write.table(means, paste(resultsfile,".txt",sep=""))
+# save(m, means, file="m.Rd")
 
 
 
@@ -262,7 +262,7 @@ dodge <- position_dodge(width=.9)
 dodge2 <- position_dodge(width=.6)
 dodge3 <- position_dodge(width=.1)
 
-pdf(paste(prefix,"results.pdf",sep=""),onefile=T)
+pdf(paste(resultsfile,".pdf",sep=""),onefile=T)
 
 ## READING TIME
 print(pr <- ggplot(subset(means, (M!=0 & variable%in%c("FFD","FPRT","RPD","TFT","RRT","AT"))), aes(roi, M, col=cond, shape=wmc))
