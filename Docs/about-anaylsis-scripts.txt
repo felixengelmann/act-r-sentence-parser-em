@@ -1,0 +1,17 @@
+
+=== ../output/results.R ===
+In output/, there is a generic script „results.R“ that plots an overview of the simulation results together with the data into „[EXPNAME]-results.pdf“ (e.g. „GG-EXP1-results.pdf“).
+
+The script is called automatically at the end of an experiment simulation started with (re …) or (res …). It receives data and regions of interest from ACT-R (stored in „sentences.lisp“).
+The analysis also works for simulation results including subjects with individual working memory capacity with (res …).
+
+
+=== ../paramsearch/_results.R ===
+=== ../paramsearch/fit-experiment.R ===
+A similar script is located in paramsearch/: „_results.R“. When running a parameter search with (search-param-space-em …) or (search-param-space-subjects-em …), it gets copied in the corresponding directory as „results.R“. 
+
+At the end of the paramsearch, the script „paramsearch/fit-experiment.R“ is called. It uses „results.R“ to analyze all parameter sets and compare their fit to the data. A resulting pdf is written into the paramsearch/ directory. It contains plots of the fit (rmsd, correlation, and a score combining both) as a function of the parameter sets and of individual parameters.
+
+
+You can adjust these scripts to your needs for more specific experiment analyses.
+
