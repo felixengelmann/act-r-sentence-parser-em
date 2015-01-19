@@ -663,11 +663,8 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
 
 (defun write-exp-data (name data-file)
   (let ((conditions (first (get '*experiments* name)))
-        ; (contrasts (second (get '*experiments* name)))
         (full-name (string (third (get '*experiments* name))))
-        ; (data-file (string-downcase (concatenate 'string location "experiment-data.txt")))
         )
-    ; 
     (with-open-file (rfile data-file
          :direction :output
          :if-exists :supersede)
@@ -694,39 +691,10 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
 
 (defun run-analysis (name)
   (let (
-        ; (conditions (first (get '*experiments* name)))
-        ; (contrasts (second (get '*experiments* name)))
-        ; (full-name (string (third (get '*experiments* name))))
-        ; (plot-data (string (fourth (get '*experiments* name))))
-        ; (pdfname (string-downcase
-        ;            (concatenate 'string (string name) ".pdf")))
-        ; (results-file (string-downcase
-        ;                 (concatenate 'string "output/" (string name) "-results.pdf")))
         (data-file (string-downcase
                         (concatenate 'string "output/" "experiment-data.txt")))
         )
-    ;
     (write-exp-data name data-file)
-    ; 
-;     (with-open-file (rfile data-file
-;          :direction :output
-;          :if-exists :supersede)
-;       (format rfile "exp cond sent pos roi condroi data fullname~%")
-;       ; 
-;       (dolist (c conditions)
-;         (let ((cname (pop c))
-;               (sent (pop c))
-;               (regions c))
-;           (dolist (r regions)
-;             (let* ((rname (first r))
-;                    (newcond (string-downcase
-;                              (concatenate 'string (string cname)
-;                   ":" (string rname))))
-;                    (position (second (member :position r)))
-;                    (humandata (* 1000 (second (member :data r))))
-;                    )
-;               (format rfile "~s ~s ~s ~d ~s ~s ~6,3F ~s
-; " name cname sent position rname newcond humandata full-name))))))
     (cwd "output")
     (run-program "Rscript" '("results.R") :output *standard-output*)
     (cwd "..")
