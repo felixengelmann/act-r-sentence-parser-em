@@ -62,7 +62,7 @@ if(prefix=="") resultsfile <- paste(expname,"-results",sep="") else resultsfile 
 ##------------------------------------------------------------
 ## READ SIMULATION DATA
 ##------------------------------------------------------------
-f <- read.table(paste(prefix,"fixations.txt",sep=""), header=T)
+f <- read.table(paste(prefix,"fixations.txt",sep=""), header=F)
 colnames(f) <- c("exp","iteration","cond","pos","word","dur")
 f$cond <- factor(f$cond)
 # head(f)
@@ -97,7 +97,10 @@ dim(etm)
 
 
 
-##-----------------------------------------------------------
+
+
+
+##------------------------------------------------------------
 ## READ ADDITIONAL INFO
 ##------------------------------------------------------------
 m <- etm
@@ -262,7 +265,7 @@ dodge <- position_dodge(width=.9)
 dodge2 <- position_dodge(width=.6)
 dodge3 <- position_dodge(width=.1)
 
-pdf(paste(resultsfile,".pdf",sep=""),onefile=T)
+pdf(paste(resultsfile,".pdf",sep=""), onefile=T)
 
 ## READING TIME
 print(pr <- ggplot(subset(means, (M!=0 & variable%in%c("FFD","FPRT","RPD","TFT","RRT","AT"))), aes(roi, M, col=cond, shape=wmc))

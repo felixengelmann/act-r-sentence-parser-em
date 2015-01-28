@@ -55,7 +55,11 @@ data.cleanup <- function(m){
 }
 
 
-analyze <- function(prefix=""){
+
+
+
+prefix=""
+# analyze <- function(prefix=""){
 
 if(prefix=="") resultsfile <- paste(expname,"-results",sep="") else resultsfile <- paste(prefix,"results",sep="")
 
@@ -393,9 +397,9 @@ result
 (r <- cor(result$data,result$model))
 (score <- error-100*r)
 
-# effect1 <- 0
-# effect2 <- 0
-# effscore <- 0
+effect1 <- 0
+effect2 <- 0
+effscore <- 0
 
 par(mfrow=c(1,3))
 barplot(error,main="Root-mean-squared error (TFT)",ylim=c(0,error*1.5))
@@ -406,7 +410,5 @@ dev.off()
 
 
 
-	return(list(m=m, means, error=error,r=r,score=score, effect1=effect1, effect2=effect2, effscore=effscore))
-}
-
-analyze()
+	# return(list(m=m, means, error=error,r=r,score=score, effect1=effect1, effect2=effect2, effscore=effscore))
+# }

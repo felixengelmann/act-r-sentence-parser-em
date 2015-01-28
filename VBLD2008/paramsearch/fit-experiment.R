@@ -2,7 +2,7 @@ remove(list=ls())
 
 
 
-path <- "GG-EXP1-20150116-1639"
+path <- "GG-EXP1-20150117-1726"
 
 
 
@@ -125,7 +125,7 @@ for(i in 1:dim(p)[1]){
   params <- strsplit(params," ")[[1]]
   p$p.short[i] <- paste(params[seq(2,length(params),2)], collapse=" ")
   #  
-  source("analyze.R")
+  source("results.R")
   prefix <<- paste(i,"-",sep="")
   # pdf(paste(prefix,"results.pdf",sep=""),onefile=T)
   result <- analyze(prefix)

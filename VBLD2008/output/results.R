@@ -55,10 +55,14 @@ data.cleanup <- function(m){
 }
 
 
-#
-prefix <- ""
-#
+
+
+
+prefix=""
 # analyze <- function(prefix=""){
+
+if(prefix=="") resultsfile <- paste(expname,"-results",sep="") else resultsfile <- paste(prefix,"results",sep="")
+
 ##------------------------------------------------------------
 ## READ SIMULATION DATA
 ##------------------------------------------------------------
@@ -257,7 +261,7 @@ means <- rbind(means.t,means.p)
 summary(means)
 means.pos <- rbind(means.pos.t,means.pos.p)
 
-write.table(means, paste(expname,"-results.txt",sep=""))
+write.table(means, paste(resultsfile,".txt",sep=""))
 save(m, means, file="m.Rd")
 
 
@@ -269,7 +273,7 @@ dodge <- position_dodge(width=.9)
 dodge2 <- position_dodge(width=.6)
 dodge3 <- position_dodge(width=.1)
 
-pdf(paste(expname,"-results.pdf",sep=""), onefile=T)
+pdf(paste(resultsfile,".pdf",sep=""), onefile=T)
 
 ## READING TIME
 print(pr <- ggplot(subset(means, (M!=0 & variable%in%c("FFD","FPRT","RPD","TFT","RRT","AT"))), aes(roi, M, col=cond, shape=wmc))
@@ -393,9 +397,9 @@ result
 (r <- cor(result$data,result$model))
 (score <- error-100*r)
 
-# effect1 <- 0
-# effect2 <- 0
-# effscore <- 0
+effect1 <- 0
+effect2 <- 0
+effscore <- 0
 
 par(mfrow=c(1,3))
 barplot(error,main="Root-mean-squared error (TFT)",ylim=c(0,error*1.5))
