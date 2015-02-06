@@ -1,17 +1,11 @@
 remove(list=ls())
 
-
-
-path <- "GG-EXP1-20150117-1726"
-
-
-
-dir <- path
 args <- commandArgs(trailingOnly = TRUE)
 if(length(args>0)) {
   path <- args[1]
-  dir <- args[2]
+  setwd(path)
 }
+
 
 library(reshape)
 library(ggplot2)
@@ -97,15 +91,10 @@ myxtable<-function(res,cap="Model fit.",lab="tab:modelfit"){
 
 
 
-# if (!(file.exists("plots"))){
-#   path.create("plots")}
-
-
 
 ####################################################################
 ## READ FILES
 ####################################################################
-setwd(path)
 
 p <- read.table("paramsearch.txt")
 colnames(p) <- c("experiment","set","file","params")
@@ -114,7 +103,9 @@ p$params <- as.character(p$params)
 p$p.short <- NA
 p$rmsd <- p$cor <- p$score <- p$effect1 <- p$effect2 <- NA 
 p$effscore  <- NA 
-head(p)
+# head(p)
+#
+dirname <- sub("^.*/([^/]*)/[^/]+.txt", "\\1", p$file[1])
 #
 #### BEGIN LOOP ####
 #i <- 1
@@ -125,10 +116,10 @@ for(i in 1:dim(p)[1]){
   params <- strsplit(params," ")[[1]]
   p$p.short[i] <- paste(params[seq(2,length(params),2)], collapse=" ")
   #  
-  source("results.R")
   prefix <<- paste(i,"-",sep="")
+  source("results.R")
   # pdf(paste(prefix,"results.pdf",sep=""),onefile=T)
-  result <- analyze(prefix)
+  result <- returnResult()
   # dev.off()
   #
   p$rmsd[i] <- round(result$error, digits=3)
@@ -179,11 +170,13 @@ for(i in 1:length(param_names)){
 }
 params$names <- param_names
 
+params
 
-fit <- quickreport(p$set)
+
 #
+fit <- quickreport(p$set)
 write.table(fit, "fit.txt")
-
+#
 
 
 
@@ -191,16 +184,14 @@ write.table(fit, "fit.txt")
 ####################################################################
 ## FIND BEST FIT
 ####################################################################
-summary(p$score)
-summary(p$score)
-summary(p$rmsd)
 summary(p$cor)
+summary(p$rmsd)
+summary(p$score)
 
 ## general
 bestcor <- max.value(p,"cor",limit=3)
 bestrmsd <- min.value(p,"rmsd",limit=3)
 bestscore <- min.value(p,"score", limit=3)
-
 
 ## effects
 besteff <- max.value(p,"effscore")
@@ -210,15 +201,15 @@ besteff2 <- subset(besteffect2, effect1>1.5)
 
 bestfit1 <- unique(rbind(bestscore,bestrmsd,bestcor))
 bestfit <- quickreport(bestfit1$set)
+
+#
+print(bestfit)
 length(bestfit)
 write.table(bestfit, "bestfit.txt")
-
-
+#
 ## Latex table:
-write(myxtable(bestfit,cap="Model fit."), file="fit.tex")
-
-
-
+write(myxtable(bestfit,cap="Model fit."), file="bestfit.tex")
+#
 
 
 
@@ -235,10 +226,10 @@ fit2 <- reshape(fit, idvar = "set", v.names="val",
                      varying = list(names(fit)[2:6]), direction = "long")
 
 
-pdf(file = paste("../",dir,"-fit.pdf",sep=""), onefile=TRUE)
+pdf(file = paste("../",dirname,"-fit.pdf",sep=""), onefile=TRUE)
 
 ## fit by set
-print(ggplot(fit2, aes(set, val))
+print(ggplot(fit2, aes(factor(set), val, group=var))
   + geom_line()
   + geom_point()
   + facet_wrap(~ var, scales="free")
@@ -248,8 +239,9 @@ print(ggplot(fit2, aes(set, val))
 
 ## fit by parameters
 for(i in 1:(length(params)-1)){
+  npoly <- min(c(4,length(unique(params[[i]]))-1))
   print(ggplot(fit2, aes(get(param_names[i]), val))
-    + geom_smooth()
+    + geom_smooth(method="lm", formula= y~poly(x, npoly))
     + geom_point()
     + facet_wrap(~ var, scales="free")
     + ggtitle(param_names[i])
@@ -260,7 +252,7 @@ for(i in 1:(length(params)-1)){
 
 dev.off()
 
-
+print(paste("Summary PDF in: paramsearch/",dirname,"-fit.pdf",sep=""))
 
 # ## 
 # ## 3D Parameter space plots
@@ -294,5 +286,3 @@ dev.off()
 
 
 
-
-setwd("..")
