@@ -24,3 +24,7 @@ VBLD2008/experiments/old-plots/*
 
 */output/*.pdf
 */output/*.txt
+
+VBLD2008/paramsearch/.RData
+
+VBLD2008/paramsearch/.Rhistory
