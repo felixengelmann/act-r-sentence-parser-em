@@ -89,11 +89,11 @@
 ;;; Experiments
 ;;;
 ;; Run experiment:
-(re 'gg-exp1 60) 
+(re 'vbld08-pirat 10) 
 (re 'gg-exp1 60 :params '(:lf 0.4 :mp 2))
 (re 'staub10 60)
 ;; Run experiment with subjects:
-(res 'gg-exp1 30 10) 
+(res 'vbld08-pirat 10 5) 
 (res 'gg-exp1 10 5 :params '(:lf 0.3 :mp 3))
 (res 'gg-exp1 100 2 :ga '(0.75 1.25) :params '(:lf 0.3))
 
@@ -106,15 +106,14 @@
                      (:mp 1.5 2 .5)
                      ))
 
-(search-param-space-em gg-exp1 10 *paramspace*)
-(search-param-space-subjects-em gg-exp1 10 5 *paramspace*)
-(search-param-space-subjects-em gg-exp1 20 50 *paramspace*)
+(search-param-space-em vbld08-pirat 10 *paramspace*)
+(search-param-space-subjects-em vbld08-pirat 5 2 *paramspace*)
 
 
 ;;;
 ;;; Run external scripts or programs
 ;;;
 (cwd "output/")
-(run-program "Rscript" '("demo-analysis.R"))
+(run-program "Rscript" '("quick-analysis.R"))
 (cwd "../")
 ; (run-program "open" '("output/results.pdf"))
