@@ -147,6 +147,7 @@
 ==>
    =retrieval>
       conjunct          =DPb
+   =DPb>
 )
 (P fill-slots-13
    =AdvPb>
@@ -158,6 +159,7 @@
 ==>
    =retrieval>
       adjunct          =AdvPb
+   =AdvPb>
 )
 (P fill-slots-14
    =NPb>
@@ -169,6 +171,7 @@
 ==>
    =DPb>
       comp              =NPb
+   =NPb>
 )
 (spp fill-slots-1 :at 0)
 (spp fill-slots-2 :at 0)
