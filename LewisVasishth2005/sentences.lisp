@@ -594,8 +594,20 @@ the writer said that the medic thought that the assistant admired the student *s
 (define-experiment STAUB10
   :full-name "Staub (2010) Exp."
   :conditions
-  ((src   *staub-sr*    ())
-   (orc   *staub-or*    ())
+  ((src   *staub-sr*    
+        (REL  :position 3 :data .237 :FPRT .237 :FP_REG .12)
+        (RC-V :position 4 :data .270 :FPRT .270 :FP_REG .17)
+        (DET  :position 5 :data .239 :FPRT .239 :FP_REG .12)
+        (N    :position 6 :data .316 :FPRT .316 :FP_REG .16)
+        (V    :position 7 :data .357 :FPRT .357 :FP_REG .11)
+        )
+   (orc   *staub-or*    
+        (REL  :position 3 :data .250 :FPRT .250 :FP_REG .11)
+        (DET  :position 4 :data .249 :FPRT .249 :FP_REG .36)
+        (N    :position 5 :data .266 :FPRT .266 :FP_REG .40)
+        (RC-V :position 6 :data .318 :FPRT .318 :FP_REG .15)
+        (V    :position 7 :data .346 :FPRT .346 :FP_REG .11)
+        )
    )
   )
   
