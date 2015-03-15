@@ -100,7 +100,7 @@
   busy failed error jammed lex-busy lex-error lex-jammed lex-failed 
   parser-busy 
   glf grt llf lrt srpr srprhl 
-  begin-time current-word current-index parse-loc current-ip 
+  begin-time current-word current-index parse-loc ip-stack clause-id-stack
   durations attached-positions attached-items unattached-positions
   force-merge hook-id1 hook-id2 copied-chunks
   regr-util att-util att-util2 sp-time
@@ -147,7 +147,8 @@
   (setf (parsing-module-current-word instance) nil)
   (setf (parsing-module-current-index instance) -1)
   (setf (parsing-module-parse-loc instance) nil)
-  (setf (parsing-module-current-ip instance) nil)
+  (setf (parsing-module-ip-stack instance) nil)
+  (setf (parsing-module-clause-id-stack instance) nil)
   (setf (parsing-module-copied-chunks instance) '())
   
   (suppress-warnings
@@ -458,7 +459,7 @@
 ;;; PARSING STATE MAINTENANCE
 ;;;
 
-(defun parsing-set-begin-time (&optional (word nil) (index nil) (location nil) )
+(defun parsing-begin (&optional (word nil) (index nil) (location nil) )
   (let ((time (- (mp-time) (car (no-output (sgp :dat))))))
     (schedule-event-relative 0 'begin-attachment :params (list time word index location)
                              :module 'parsing :destination 'parsing 
@@ -481,11 +482,11 @@
   )
 
 
-(defun parsing-set-end-time ()
+(defun parsing-complete ()
   (let ((attach-time (round (* 1000 (- (mp-time) (parsing-module-begin-time (get-module parsing))))))
         (word (parsing-module-current-word (get-module parsing)))
         (index (parsing-module-current-index (get-module parsing))))
-    (schedule-event-relative 0 'attachment-complete :params (list attach-time word index)
+    (schedule-event-relative 0 'attachment-completed :params (list attach-time word index)
                              :module 'parsing :destination 'parsing 
                              :output 'low :details (format nil "Attachment-complete ~s (~D ms)" word attach-time) 
                              :priority :max)
@@ -493,19 +494,18 @@
 
 
 
-(defun attachment-complete (instance attach-time word index)
+(defun attachment-completed (instance attach-time word index)
   (priority-info-message (format nil "Total attachment time for ~A: ~D" word attach-time))
   (push-last attach-time (parsing-module-durations instance))
   (push-last (list index word attach-time) (parsing-module-attached-items instance))
   (push-last index (parsing-module-attached-positions instance))
   (setf (parsing-module-parser-busy instance) nil)
-    ;; release all syn-obj chunks
-    ;; set current IP
+    ;; TODO: release all syn-obj chunks
+    ;; TODO: set current IP
   )
 
 
-
-(defun parsing-set-end-time-abort ()
+(defun parsing-abort ()
   (let ((attach-time (round (* 1000 (- (mp-time) (parsing-module-begin-time (get-module parsing))))))
         (word (parsing-module-current-word (get-module parsing)))
         (index (parsing-module-current-index (get-module parsing))))
@@ -523,6 +523,71 @@
   (setf (parsing-module-parser-busy instance) nil)
   )
 
+
+
+;;;
+;;; CURRENT IP MAINTENANCE FUNCTIONS
+;;;
+
+;; TODO: replace 'IPb by 'structural
+(defun parsing-get-ip-from-buffer nil
+  ; (let ((strchunk (buffer-read 'structural)))
+  (let ((strchunk (buffer-read 'IPb)))
+    (when strchunk
+      (let ((cat (chunk-slot-value-fct strchunk 'cat)))
+        (if (eq cat 'IP)
+            strchunk
+            nil)
+        ))
+    ))
+
+(defun parsing-set-current-ip nil
+  (let ((strchunk (parsing-get-ip-from-buffer)))
+    (when strchunk
+      (model-warning " +++ Setting current IP chunk +++")
+      (push strchunk (parsing-module-ip-stack (get-module parsing)))
+      )
+    ))
+
+(defun parsing-current-ip nil
+  (let ((ipchunk (parsing-get-ip-from-buffer)))
+    (if ipchunk 
+        ipchunk
+        (car (parsing-module-ip-stack (get-module parsing))))
+    ))
+
+(defun parsing-mod-current-ip (modlist)
+  (let* ((current-ip (parsing-current-ip)))
+    (mod-chunk-fct current-ip modlist)
+    (model-warning " +++ Modifying IP +++")
+    ))
+
+(defun parsing-pop-current-ip nil
+  (pop (parsing-module-ip-stack (get-module parsing)))
+  )
+
+(defun parsing-read-current-ip-slot (slot)
+  (let* ((current-ip (parsing-current-ip)))
+    (chunk-slot-value-fct current-ip slot)
+   ))
+
+
+
+;;;
+;;; KEEPING TRACK OF C-COMMANDERS
+;;;
+(defun parsing-push-clause nil
+  (push (new-name c) (parsing-module-clause-id-stack (get-module parsing)))
+  )
+
+(defun parsing-pop-clause nil
+  (pop (parsing-module-clause-id-stack (get-module parsing)))
+  (car (parsing-module-clause-id-stack (get-module parsing)))
+  )
+
+(defun parsing-current-clause nil
+  (car (parsing-module-clause-id-stack (get-module parsing)))
+  )
 
 
 ;;;
@@ -576,6 +641,8 @@
 ;;; FUNCTIONS FOR ACCESSING PARSER INFORMATION
 ;;;
 
+;; TODO: add clause maintenance
+
 (defun parsing-busy nil
   (parsing-module-parser-busy (get-module parsing)))
 (defun parsing-get-index nil
@@ -583,11 +650,7 @@
 (defun parsing-get-word nil
   (parsing-module-current-word (get-module parsing)))
 (defun parsing-get-loc nil
-  ;; TODO: get loc from internal value
-  (let* ((imchunk (buffer-read 'imaginal))
-         (loc (chunk-slot-value-fct imchunk 'parse-loc)))
-    loc
-    ))
+  (parsing-module-parse-loc (get-module parsing)))
 (defun parsing-get-durations nil
   (parsing-module-durations (get-module parsing)))
 (defun parsing-get-attached-items nil
@@ -609,6 +672,8 @@
   (format t "Current word: ~s~%" (parsing-module-current-word (get-module parsing)))
   (format t "Current index: ~s~%" (parsing-module-current-index (get-module parsing)))
   (format t "Last parse-loc: ~s~%" (parsing-module-parse-loc (get-module parsing)))
+  (format t "Current IP: ~s~%" (parsing-current-ip))
+  (format t "Current clause: ~s~%" (parsing-current-clause))
   (format t "Last begin-time: ~s~%" (parsing-module-begin-time (get-module parsing)))
   (format t "Attachment durations: ~s~%" (parsing-module-durations (get-module parsing)))
   (format t "Attached positions: ~s~%" (parsing-module-attached-positions (get-module parsing)))

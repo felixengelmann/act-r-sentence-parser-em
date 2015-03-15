@@ -121,8 +121,8 @@
       state             "start"
       goal-cat          IP-goal
       ; goal-cat          IP-gapped-goal
-   +imaginal>
-      ISA                 parsing-state
+   ; +imaginal>
+   ;    ISA                 parsing-state
    +IPb>
       ISA                 syn-obj
       cat                 IP
@@ -183,7 +183,7 @@
       ISA            syn-obj
       waiting-for-cat   wait-for-IP
 
-   !eval! (push-clause)
+   !eval! (parsing-push-clause)
    !eval! (set-begin-time =word)
    !eval! (increase-ref-count-parseloc)
 )
@@ -1107,9 +1107,10 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          VP-gapped-goal
-   =imaginal>
-        ISA             parsing-state
-        filler-pos      =fillerpos
+      filler-pos        =fillerpos
+   ; =imaginal>
+   ;      ISA             parsing-state
+   ;      filler-pos      =fillerpos
    =retrieval>
       isa               syn-obj
       cat               IP
@@ -1132,7 +1133,7 @@
       cue1              =empty-op
       ; attend-to         =fillerpos
       attend-to         "left"
-   =imaginal>
+   ; =imaginal>
       ; word              =subj-word
    +DPb>
       isa               syn-obj
@@ -1383,7 +1384,7 @@
 ;      subj-word         =word
 ;;; We directly use ACT-R functions here to modify the current IP chunk
 ;;; in memory
-   !eval! (mod-current-ip (list 
+   !eval! (parsing-mod-current-ip (list 
      'number 'sing 
      'subj-word =word
      ))
@@ -1445,7 +1446,7 @@
 ;      subj-word         =word
 ;;; We directly use ACT-R functions here to modify the current IP chunk
 ;;; in memory
-   !eval! (mod-current-ip (list 
+   !eval! (parsing-mod-current-ip (list 
      'number 'sing 
      'subj-word =word
      ))
@@ -1508,7 +1509,7 @@
 ;      subj-word         =word
 ;;; We directly use ACT-R functions here to modify the current IP chunk
 ;;; in memory
-   !eval! (mod-current-ip (list 
+   !eval! (parsing-mod-current-ip (list 
      'number 'sing 
      'subj-word =word
      ))
@@ -1572,7 +1573,7 @@
 ;      subj-word         =word
 ;;; We directly use ACT-R functions here to modify the current IP chunk
 ;;; in memory
-   !eval! (mod-current-ip (list 
+   !eval! (parsing-mod-current-ip (list 
      'number 'sing 
      'subj-word =word
      ))
@@ -1635,7 +1636,7 @@
 ;      subj-word         =word
 ;;; We directly use ACT-R functions here to modify the current IP chunk
 ;;; in memory
-   !eval! (mod-current-ip (list 
+   !eval! (parsing-mod-current-ip (list 
      'number 'sing 
      'subj-word =word
      ))
@@ -1698,7 +1699,7 @@
 ;      subj-word         =word
 ;;; We directly use ACT-R functions here to modify the current IP chunk
 ;;; in memory
-   !eval! (mod-current-ip (list 
+   !eval! (parsing-mod-current-ip (list 
      'number 'sing 
      'subj-word =word
      ))
@@ -1760,7 +1761,7 @@
 ;      subj-word         =word
 ;;; We directly use ACT-R functions here to modify the current IP chunk
 ;;; in memory
-   !eval! (mod-current-ip (list 
+   !eval! (parsing-mod-current-ip (list 
      'number 'sing 
      'subj-word =word
      ))
@@ -1824,7 +1825,7 @@
 ;      subj-word         =word
 ;;; We directly use ACT-R functions here to modify the current IP chunk
 ;;; in memory
-   !eval! (mod-current-ip (list 
+   !eval! (parsing-mod-current-ip (list 
      'number 'sing 
      'subj-word =word
      ))
@@ -1888,7 +1889,7 @@
 ;      subj-word         =word
 ;;; We directly use ACT-R functions here to modify the current IP chunk
 ;;; in memory
-   !eval! (mod-current-ip (list 
+   !eval! (parsing-mod-current-ip (list 
      'number 'sing 
      'subj-word =word
      ))
@@ -1951,7 +1952,7 @@
 ;      subj-word         =word
 ;;; We directly use ACT-R functions here to modify the current IP chunk
 ;;; in memory
-   !eval! (mod-current-ip (list 
+   !eval! (parsing-mod-current-ip (list 
      'number 'sing 
      'subj-word =word
      ))
@@ -2013,7 +2014,7 @@
 ;      subj-word         =word
 ;;; We directly use ACT-R functions here to modify the current IP chunk
 ;;; in memory
-   !eval! (mod-current-ip (list 
+   !eval! (parsing-mod-current-ip (list 
      'number 'sing 
      'subj-word =word
      ))
@@ -2078,7 +2079,7 @@
 
 ;;; We directly use ACT-R functions here to modify the current IP chunk
 ;;; in memory
-   !eval! (mod-current-ip (list 
+   !eval! (parsing-mod-current-ip (list 
      'number 'sing 
      'subj-word =word
      ))
@@ -2393,7 +2394,7 @@
    number         sing-plural-lex
    tense       past-lex
 ==>
-   !bind! =current-clause (current-clause)
+   !bind! =current-clause (parsing-current-clause)
    =goal>
         state                   "read"
    goal-cat                 DP-goal
@@ -3536,8 +3537,8 @@
       ISA      comprehend-sentence
 ;      state             "wm-retrieval"
       goal-cat          =goal-cat
-   =imaginal>
-      ISA               parsing-state
+   ; =imaginal>
+   ;    ISA               parsing-state
    =retrieval>
       isa      syn-obj
       cat            DP
@@ -3554,13 +3555,13 @@
    !bind! =ID-IP (new-name IP)
    !bind! =ID-DP (new-name DP)
    !bind! =ID-CP (new-name CP)
-   !bind! =currentpos *current-index*
+   !bind! =currentpos (parsing-get-index)
 
    =goal>
       state             "read"
       goal-cat          VP-gapped-goal
-   =imaginal>
       filler-pos        =currentpos
+   ; =imaginal>
    +DPb>
       isa      syn-obj
       cat      DP
@@ -4063,7 +4064,7 @@
       filler            done
    ; -retrieval>
 
-   !eval! (mod-current-ip (list 
+   !eval! (parsing-mod-current-ip (list 
 ;        'subj-word =word
         'gap 'done
         'waiting-for-cat NIL

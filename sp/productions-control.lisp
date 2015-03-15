@@ -41,8 +41,8 @@
    =goal>
       ISA               comprehend-sentence
       state             "start"
-   =imaginal>
-      ISA               parsing-state
+   ; =imaginal>
+   ;    ISA               parsing-state
    =visual-location>
       ISA               visual-location
 ==>
@@ -58,7 +58,7 @@
    ;    screen-x          lowest
    ;    ; :attended         NIL
    =visual-location>
-   =imaginal>
+   ; =imaginal>
    -visual>
 )
 (spp find-first-word :at 0.05)
@@ -147,8 +147,8 @@
        time-out     nil
        skip         nil
        ; regression   nil
-    =imaginal>
-       ISA          parsing-state
+    ; =imaginal>
+       ; ISA          parsing-state
     =visual>
        ISA         text
        value       =word
@@ -157,7 +157,7 @@
     ; =visual-location>
     ;    ISA         visual-location
 ==>
-    !bind! =ip-chunkname (current-ip)
+    ; !bind! =ip-chunkname (current-ip)
 
     =goal>
        state       "lexical-retrieval"
@@ -165,17 +165,18 @@
        attend-to   "next-word"
        last-loc    =last-loc
        loc         =visloc
+       word        =word
        unattached  nil
        cue1        =word
        cue2        nil
        cue3        nil
        cue4        nil
     ;; will go into parsing module handled automatically by (set-begin-time)
-    =imaginal>
-       word        =word
-       att-obj     =visual
-       parse-loc   =visloc
-       current-ip  =ip-chunkname
+    ; =imaginal>
+       ; word        =word
+       ; att-obj     =visual
+       ; parse-loc   =visloc
+       ; current-ip  =ip-chunkname
     =visual>
     +retrieval>
        ISA         lexical-entry
@@ -198,7 +199,7 @@
        word        =word
        word        =word
 
-    !eval! (set-current-ip)  ;; TODO: eventually get rid of
+    !eval! (parsing-set-current-ip)
     !eval! (word-message =word)
     !eval! (register-new-visloc =visloc)
     !eval! (increase-ref-count =visloc)
@@ -225,8 +226,8 @@
        em-state     "attending"
        time-out     nil
        skip         t
-    =imaginal>
-        ISA         parsing-state
+    ; =imaginal>
+    ;     ISA         parsing-state
     ;     state       "skip"
     =visual>
        ISA         text
@@ -245,8 +246,8 @@
        cue2        nil
        cue3        nil
        cue4        nil
-    =imaginal>
-       att-obj     =visual
+    ; =imaginal>
+    ;    att-obj     =visual
     =visual>
 
     !eval! (parsing-skip-message =word)
@@ -384,8 +385,8 @@
       attend-to         "left"
       time-out          nil
       skip              nil
-   =imaginal>
-      ISA          parsing-state
+   ; =imaginal>
+   ;    ISA          parsing-state
    ?visual>
       ; processor         free    ; no current encoding
       execution         free    ; no current saccade execution
@@ -400,7 +401,7 @@
       attend-to         nil
       ; last-loc          =visual-location
       ; time-out       t
-    =imaginal>
+    ; =imaginal>
        ; att-obj        =visual
        ; last-obj     =visual
     +visual-location>
@@ -434,8 +435,8 @@
       attend-to         =target-pos
       time-out          nil
       skip              nil
-   =imaginal>
-      ISA          parsing-state
+   ; =imaginal>
+   ;    ISA          parsing-state
    ?visual>
       ; processor         free    ; no current encoding
       execution         free    ; no current saccade execution
@@ -448,7 +449,7 @@
       em-state          "looking"
       attend-to         nil
       last-loc          =visual-location
-    =imaginal>
+    ; =imaginal>
     +visual-location>
          ISA         visual-location
        <= screen-x    =target-loc

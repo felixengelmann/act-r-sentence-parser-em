@@ -6,10 +6,10 @@
 ;;; C H U N K   T Y P E S
 
 (chunk-type parsing-state
-      (word nil)
+      ; (word nil)
       (att-obj nil)
-      (parse-loc nil)
-      current-IP
+      ; (parse-loc nil)
+      ; current-IP
       (attached-pos ())
       (ip-pos nil)
       (vp-pos nil)
@@ -38,6 +38,7 @@
       (regression nil)
       last-loc
       loc
+      (filler-pos nil)
       ; last-parse-loc
       ; (retrieval "free")
       cue1

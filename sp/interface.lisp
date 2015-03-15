@@ -86,6 +86,8 @@
 ;;; RUNTIME VARIABLES ;;;
 (defvar *sentence* "holds the current sentence string")
 (defvar *sentence-plist* "current sentence augmented with word properties")
+
+; TODO: Variables not needed any more
 (defvar *current-index* 0 "current word index")
 (defvar *word* nil "current word")
 (defvar *begin-time* 0 "a variable to hold the start time of processing a word after lexical access")
@@ -212,7 +214,7 @@
     
     (setf *attach-times* nil)
     (setf *attached-positions* nil)
-    (setf *attached-items* nil)
+    ; (setf *attached-items* nil)
     (setf *fixation-trace* nil)
     (setf *encoded-positions* nil)
     (setf *encoded-items* nil)
@@ -262,7 +264,8 @@ SENTENCE:   ~s
     
     (when *record-times* 
       (record-fixations plist *item* *fixation-trace*)
-      (record-attachment-times *item* *attached-items*)
+      ; (record-attachment-times *item* *attached-items*)
+      (record-attachment-times *item* (parsing-get-attached-items))
       (record-encoding-times *item* *encoded-items*)
       (record-timeouts *item* *timeout-items*)
       ; (record-trialmessages *trialmessages*)
@@ -389,7 +392,7 @@ SENTENCE:   ~s
   (format t "End-time: ~s~%" *end-time*)
   (format t "Attach-times: ~s~%" *attach-times*)
   (format t "Attached positions: ~s~%" *attached-positions*)
-  (format t "Attached items: ~s~%" *attached-items*)
+  ; (format t "Attached items: ~s~%" *attached-items*)
   (format t "Encoded items: ~s~%" *encoded-items*)
   (format t "Time-out items: ~s~%" *timeout-items*)
 ;  (format t "Traces: ~s~%" *traces*)

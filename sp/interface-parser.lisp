@@ -140,7 +140,7 @@
 ;;;
 ;;; KEEPING TRACK OF C-COMMANDERS
 ;;;
-;; NOTE: Move to parsing module?
+;; TODO: Remove because moves to parsing module!
 (defun push-clause nil
   (let* ((imchunk (buffer-read 'imaginal))
          (stack (chunk-slot-value-fct imchunk 'clause-id-stack))
@@ -168,37 +168,41 @@
 ;;;
 ;;; CURRENT IP MAINTENANCE FUNCTIONS
 ;;;
-(defun set-current-ip nil
-  (let* ((ipchunk (buffer-read 'IPb)))
-    (if ipchunk (progn (model-warning " +++ Setting current IP chunk +++")
-                       (push ipchunk *current-ip*)))
-    ))
+;; TODO: remove because moved to parsing module
+; (defun set-current-ip nil
+;   (let* ((ipchunk (buffer-read 'IPb)))
+;     (if ipchunk (progn (model-warning " +++ Setting current IP chunk +++")
+;                        (push ipchunk *current-ip*)))
+;     ))
 
+;; TODO: remove because moved to parsing module
+; (defun parsing-set-current-ip (ipchunk)
+;   (if ipchunk (progn (model-warning " +++ Setting current IP chunk +++")
+;                      (push ipchunk *current-ip*)))
+;   )
 
-(defun parsing-set-current-ip (ipchunk)
-  (if ipchunk (progn (model-warning " +++ Setting current IP chunk +++")
-                     (push ipchunk *current-ip*)))
-  )
+;; TODO: remove because moved to parsing module
+; (defun current-ip nil
+;   (let* ((ipchunk (buffer-read 'IPb)))
+;     (if ipchunk 
+;         ipchunk
+;         (car *current-ip*))
+;     ))
 
+;; TODO: remove because moved to parsing module
+; (defun mod-current-ip (modlist)
+;   (let* ((current-ip (car *current-ip*)))
+;     (mod-chunk-fct current-ip modlist)
+;     (model-warning " +++ Modifying IP +++")
+;     ))
 
-(defun current-ip nil
-  (let* ((ipchunk (buffer-read 'IPb)))
-    (if ipchunk 
-        ipchunk
-        (car *current-ip*))
-    ))
+;; TODO: remove because moved to parsing module
+; (defun read-current-ip-slot (slot)
+;   (let* ((current-ip (car *current-ip*)))
+;     (chunk-slot-value-fct current-ip slot)
+;    ))
 
-(defun mod-current-ip (modlist)
-  (let* ((current-ip (car *current-ip*)))
-    (mod-chunk-fct current-ip modlist)
-    (model-warning " +++ Modifying IP +++")
-    ))
-
-(defun read-current-ip-slot (slot)
-  (let* ((current-ip (car *current-ip*)))
-    (chunk-slot-value-fct current-ip slot)
-   ))
-
+;; TODO: remove because moved to parsing module
 (defun pop-current-ip nil
   (pop *current-ip*)
   )
@@ -233,60 +237,81 @@
 ;;;
 
 ;; TODO: Move to parsing module
-;; use (set-begin-time word visloc)
+; ;; use (set-begin-time word visloc)
+; (defun set-begin-time (word)
+;   (let* ((time (- (mp-time) (car (no-output (sgp :dat)))))
+;          (goalchunk (buffer-read 'goal))
+;          ; (vischunk (chunk-slot-value-fct imchunk 'att-obj))
+;          (parse-loc (chunk-slot-value-fct goalchunk 'loc))
+;          (index (visloc->index parse-loc)))
+;     (setf *begin-time* time)  ; includes firing time of set-cues production
+;     (setf *word* word)
+;     (setf *current-index* index)
+;     (parsing-set-begin-time word index parse-loc)
+;     ))
+
 (defun set-begin-time (word)
-  (let* ((time (- (mp-time) (car (no-output (sgp :dat)))))
-         (imchunk (buffer-read 'imaginal))
-         ; (vischunk (chunk-slot-value-fct imchunk 'att-obj))
-         (parse-loc (chunk-slot-value-fct imchunk 'parse-loc))
+  (let* ((goalchunk (buffer-read 'goal))
+         (parse-loc (chunk-slot-value-fct goalchunk 'loc))
          (index (visloc->index parse-loc)))
-    (setf *begin-time* time)  ; includes firing time of set-cues production
-    (setf *word* word)
-    (setf *current-index* index)
-    (parsing-set-begin-time word index parse-loc)
+    (parsing-begin word index parse-loc)
     ))
 
 
-;; TODO: Move to parsing module
-(defun set-end-time ()
-  (setf *end-time* (mp-time))
-  ; (setf *attach-time* (round (* 1000 (- (mp-time) *begin-time*))))
-  ; )
-  (let ((attach-time (round (* 1000 (- (mp-time) *begin-time*)))))
-    (push-last attach-time *attach-times*)
-    (push-last (list *current-index* *word* attach-time)  *attached-items*)
-    (push-last *current-index* *attached-positions*)
-    (update-attached-pos *current-index*)
-    (parsing-set-end-time)
-    ; (mod-chunk-fct imchunk (list 'attached-pos (push-last *current-index* poslist)))
-    )
-  )
 
+; ;; TODO: Move to parsing module
+; (defun set-end-time ()
+;   (setf *end-time* (mp-time))
+;   ; (setf *attach-time* (round (* 1000 (- (mp-time) *begin-time*))))
+;   ; )
+;   (let ((attach-time (round (* 1000 (- (mp-time) *begin-time*)))))
+;     (push-last attach-time *attach-times*)
+;     (push-last (list *current-index* *word* attach-time)  *attached-items*)
+;     (push-last *current-index* *attached-positions*)
+;     (update-attached-pos *current-index*)
+;     (parsing-set-end-time)
+;     ; (mod-chunk-fct imchunk (list 'attached-pos (push-last *current-index* poslist)))
+;     )
+;   )
+
+
+(defun set-end-time ()
+  (parsing-complete)
+  )
 
 (defun set-end-time-abort ()
-    (parsing-set-end-time-abort)
+  (parsing-abort)
   )
 
+;; TODO: remove
 (defun update-attached-pos (index)
   (let* ((imchunk (buffer-read 'imaginal))
          (poslist (chunk-slot-value-fct imchunk 'attached-pos)))
     (mod-chunk-fct imchunk (list 'attached-pos (push-last index poslist)))
     ))
 
+;; TODO: remove
+; (defun check-parsed (visloc)
+;   (let* ((loc (visloc->location visloc))
+;          (index (location->index loc *sentence-plist*))
+;          ; (goalchunk (buffer-read 'goal))
+;          (imchunk (buffer-read 'imaginal))
+;          (poslist (chunk-slot-value-fct imchunk 'attached-pos))
+;          ; (timeout (chunk-slot-value-fct goalchunk 'time-out))
+;          )
+;     ; (unless timeout
+;       (if (or (mymember index poslist) (eq *current-index* index))
+;           t
+;           nil);)
+;     ))
+
 
 (defun check-parsed (visloc)
   (let* ((loc (visloc->location visloc))
-         (index (location->index loc *sentence-plist*))
-         ; (goalchunk (buffer-read 'goal))
-         (imchunk (buffer-read 'imaginal))
-         (poslist (chunk-slot-value-fct imchunk 'attached-pos))
-         ; (timeout (chunk-slot-value-fct goalchunk 'time-out))
-         )
-    ; (unless timeout
-      (if (or (mymember index poslist) (eq *current-index* index))
-          t
-          nil);)
+         (index (location->index loc *sentence-plist*)))
+    (parsing-check-attached index)
     ))
+
 
 
 

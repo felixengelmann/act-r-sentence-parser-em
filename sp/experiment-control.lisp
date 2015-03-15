@@ -416,7 +416,8 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
         (setf *encoding-data* (append *encoding-data* (encodings-table *encoded-items*)))
         ;; store attachment times
         ;; (pos word time)
-        (setf *attachment-data* (append *attachment-data* (attachments-table *attached-items*)))
+        ; (setf *attachment-data* (append *attachment-data* (attachments-table *attached-items*)))
+        (setf *attachment-data* (append *attachment-data* (attachments-table (parsing-get-attached-items))))
         ;; store time-outs
         ;; (cause-pos wordname eye-pos)
         (setf *timeout-data* (append *timeout-data* (timeouts-table *timeout-items*)))
