@@ -206,17 +206,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; TODO: Move to EMMA module
 (defun reset-emma ()
-  ;    (reset-emma-module (get-module :vision))
-  (setf (trace-eye-p (get-module :vision)) t)   ;; ensure EMMA records eye trace
-  (set-eye-loc (get-module :vision) #(10 150))  ;; make sure that the eccentricity of first word is not too enormous
-  )
+  (when (mymember :emma *features*)
+    ;    (reset-emma-module (get-module :vision))
+    (setf (trace-eye-p (get-module :vision)) t)   ;; ensure EMMA records eye trace
+    (set-eye-loc (get-module :vision) #(10 150))  ;; make sure that the eccentricity of first word is not too enormous
+    ))
 
 ;;
 (defun get-em-trace ()
-  (let ((em-trace (reverse (eye-trace (get-module :vision)))))
-    (unless (neq (aref (cdr (first em-trace)) 1) 0)
-      (pop em-trace))
-    em-trace))
+  (when (mymember :emma *features*)
+    (let ((em-trace (reverse (eye-trace (get-module :vision)))))
+      (unless (neq (aref (cdr (first em-trace)) 1) 0)
+        (pop em-trace))
+      em-trace)))
 
 
 (defun em-trace->fixations (em-trace sentence)
@@ -230,8 +232,10 @@
 ;;; EYE-LOC ACCESS
 ;;;
 (defun current-eye-loc ()
-  (let ((eye-loc (eye-loc (get-module :vision))))
-    (coerce eye-loc 'list)))
+  (if (mymember :emma *features*)
+      (let ((eye-loc (eye-loc (get-module :vision))))
+        (coerce eye-loc 'list)))
+  (list (index->location (parsing-get-index))))
 
 
 
@@ -274,8 +278,8 @@
 
 
 (defun start-time-out (loc-obj)
-  (let* ((eye-loc (eye-loc (get-module :vision)))
-         (pos (location->index (coerce eye-loc 'list) *sentence-plist*))
+  (let* ((eye-loc (current-eye-loc))
+         (pos (location->index eye-loc *sentence-plist*))
          (word (word-name (nth pos *sentence-plist*)))
          (targetloc (list (chunk-slot-value-fct loc-obj 'screen-x) (chunk-slot-value-fct loc-obj 'screen-y)))
          (tpos (location->index targetloc *sentence-plist*))
@@ -344,8 +348,8 @@
          (location (obj->location obj))
          (word (chunk-slot-value-fct obj 'value))
          (pos (location->index location *sentence-plist*))
-         (eye-loc (eye-loc (get-module :vision)))
-         (spos (location->index (coerce eye-loc 'list) *sentence-plist*)))
+         (eye-loc (current-eye-loc))
+         (spos (location->index eye-loc *sentence-plist*)))
     (if r
         (progn
           ; (mod-focus state "read")
@@ -363,8 +367,8 @@
 
 
 (defun start-fail (loc-obj)
-  (let* ((eye-loc (eye-loc (get-module :vision)))
-         (spos (location->index (coerce eye-loc 'list) *sentence-plist*))
+  (let* ((eye-loc (current-eye-loc))
+         (spos (location->index eye-loc *sentence-plist*))
          (loc (list (chunk-slot-value-fct loc-obj 'screen-x) (chunk-slot-value-fct loc-obj 'screen-y)))
          (pos (location->index loc *sentence-plist*))
          (word (word-name (nth pos *sentence-plist*))))
@@ -378,8 +382,8 @@
 
 
 (defun report-regression (loc-obj tpos tloc)
-  (let* ((eye-loc (eye-loc (get-module :vision)))
-         (spos (location->index (coerce eye-loc 'list) *sentence-plist*))
+  (let* ((eye-loc (current-eye-loc))
+         (spos (location->index eye-loc *sentence-plist*))
          (loc (list (chunk-slot-value-fct loc-obj 'screen-x) (chunk-slot-value-fct loc-obj 'screen-y)))
          (pos (location->index loc *sentence-plist*))
          (word (word-name (nth pos *sentence-plist*))))
