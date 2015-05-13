@@ -46,12 +46,13 @@
 
 
 ;;; INTERFACE PARAMETERS ;;;
+(defvar *working-dir* (current-directory))
 (defvar *output-dir* "output")
 (defparameter *real-time* nil "real time simulation")
 (defparameter *record-times* T)
 (defparameter *VERBOSE* T "verbose parameter")
 (defparameter *estimating* nil)
-(defvar *max-time* 30.0 "maximum time to run.")
+(defvar *max-time* 20.0 "maximum time to run.")
 ;(defparameter *dcnn* T "dynamic chunk name normalizing during run time. Switch off for better performance")
 (defparameter *show-window* T) 
 (defparameter *width* 1000 "width of experiment window")
@@ -86,6 +87,7 @@
 ;;; RUNTIME VARIABLES ;;;
 (defvar *sentence* "holds the current sentence string")
 (defvar *sentence-plist* "current sentence augmented with word properties")
+(defvar *word-processing-states* "word processing states (1,2,3) for SWIFT interaction")
 
 ; TODO: Variables not needed any more
 (defvar *current-index* 0 "current word index")
@@ -96,6 +98,7 @@
 (defvar *attach-times* nil "list of attachment times for each word")
 (defvar *attached-positions* nil "list of positions of words being attached so far")
 (defvar *attached-items* nil "list of attachment times for each word (pos word time)")
+
 (defvar *fixation-trace* nil "fixation trace of a sentence")
 (defvar *encoded-positions* nil "list of positions of words being encoded so far")
 (defvar *encoded-items* nil "list of encoding times for each word (pos word enctime eccentricity freq)")
@@ -212,6 +215,8 @@
           (setf stringlist (mapcar (lambda (x) (format nil "~a" (word-name x))) sentence))
           (setf sentence (format nil "~{~a ~}" stringlist))))
     
+    (let ((wordlist (split-by-one-space sentence)))
+      (setf *word-processing-states* (make-list (length wordlist) :initial-element 1)))
     (setf *attach-times* nil)
     (setf *attached-positions* nil)
     ; (setf *attached-items* nil)
@@ -375,6 +380,17 @@ SENTENCE:   ~s
 
 
 
+;;;
+;;; SWIFT DUMMY FUNCTIONS 
+;;;
+(defun set-word-processing-completed (index)
+  (declare (ignore index)) nil)
+(defun reset-word-processing-state (index)
+  (declare (ignore index)) nil)
+(defun reset-all-processing-states nil nil)
+(defun request-swift-state nil nil)
+(defun recognition-complete (visloc)
+  (declare (ignore visloc)) T)
 
 
 

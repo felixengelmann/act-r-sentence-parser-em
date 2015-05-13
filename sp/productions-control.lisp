@@ -123,6 +123,8 @@
        ISA            move-attention
        screen-pos     =visual-location
     ; =visual-location>
+    ;; SWIFT:
+    !eval! (request-swift-state)
 )
 (spp shift-attention :at 0)
 ; (spp shift-attention :u 10)
@@ -156,6 +158,8 @@
        screen-pos  =visloc
     ; =visual-location>
     ;    ISA         visual-location
+    ;; SWIFT:
+    !eval! (recognition-complete =visloc)
 ==>
     ; !bind! =ip-chunkname (current-ip)
 
@@ -217,6 +221,29 @@
 )
 (spp lexical-retrieval-request :at 0.05)
 
+
+;; SWIFT:
+(p encode-word
+    =goal>
+       ISA          comprehend-sentence
+       state        "read"
+       em-state     "attending"
+       attend-to    "next-word"
+       loc          =last-loc
+       time-out     nil
+       skip         nil
+    =visual>
+       ISA         text
+       value       =word
+     - value       "*"
+       screen-pos  =visloc
+    !eval! (not (recognition-complete =visloc))
+==>
+    =goal>
+    =visual>
+    !eval! (request-swift-state)
+)
+(spp encode-word :at 0.10)
 
 
 (p skip-integration
@@ -367,6 +394,8 @@
       < screen-x        =eye-loc
       screen-x          lowest
     !eval! (trialmessage "regression" "reread")
+    ;; SWIFT:
+    !eval! (reset-all-processing-states)
 )
 (spp reread-sentence :at 0.05)
 ;; with 0 at sometimes timeout starts while regression in preparation
@@ -414,6 +443,8 @@
    ; !eval! (report-regression =visual-location =target-pos =target-loc)
    !eval! (trialmessage "regression" "left")
    !eval! (increase-ref-count =last-loc)
+   ;; SWIFT:
+   !eval! (reset-word-processing-state (- (parsing-get-index) 1))
 )
 (spp find-previous-location :at 0)
 (spp find-previous-location :u 10)
@@ -510,6 +541,8 @@
 
    !eval! (start-time-out =parse-loc)
    !eval! (trialmessage "timeout" =eye-loc)
+   ;; SWIFT:
+   !eval! (reset-word-processing-state (parsing-get-index))
 )
 (spp start-time-out :at 0)
 
@@ -527,6 +560,8 @@
       ; last-parse-loc       =parse-loc
    ; =imaginal>
    ;     ISA            parsing-state
+    ?visual>
+       processor      free
     ?retrieval>
        state        free
  ==>
