@@ -215,7 +215,7 @@
     -AdjPb>
     -AdvPb>
 )
-(spp lexical-retrieval-request-/-L2 :at 0.05)
+(spp lexical-retrieval-request :at 0.05)
 
 
 
