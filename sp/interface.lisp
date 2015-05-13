@@ -383,18 +383,13 @@ SENTENCE:   ~s
 ;;;
 ;;; PRINT RUNTIME VARIABLES 
 ;;;
-(defun print-runtime-vars ()
+(defun print-info ()
   (format t "Sentence: ~s~%" *sentence*)
   (format t "~s~%" *sentence-plist*)
-  (format t "Index: ~s~%" *current-index*)
-  (format t "Word: ~s~%" *word*)
-  (format t "Begin-time: ~s~%" *begin-time*)
-  (format t "End-time: ~s~%" *end-time*)
-  (format t "Attach-times: ~s~%" *attach-times*)
-  (format t "Attached positions: ~s~%" *attached-positions*)
-  ; (format t "Attached items: ~s~%" *attached-items*)
+  (parsing-print-info)
   (format t "Encoded items: ~s~%" *encoded-items*)
   (format t "Time-out items: ~s~%" *timeout-items*)
+  (format t "Fixation location: ~s~%" (current-eye-loc))
 ;  (format t "Traces: ~s~%" *traces*)
 ;  (format t "Response: ~s~%" *response*)
   )
