@@ -58,6 +58,17 @@
       (incf x (+ (* (length (format nil "~a" (word-name (nth i sentence)))) *char-width*)
                  *char-width*)))))
 
+
+(defun index->location (index &optional (sentence *sentence-plist*))
+    (if (not (listp sentence)) (setf sentence (string->listOflists sentence)))
+    (do ((i 0 (1+ i))
+         (x *start-x* x))
+        ((or (= i index) (>= i (length sentence)))
+         (+ x (* 0.5 (length (format nil "~a" (word-name (nth i sentence)))) *char-width*))) ; return x + wordlength/2
+      (incf x (+ (* (length (format nil "~a" (word-name (nth i sentence)))) *char-width*)
+                 *char-width*))))
+
+
 (defun index->wordname (index sentence)
   (string (word-name (nth index sentence))))
 
