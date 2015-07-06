@@ -179,7 +179,7 @@
       cue2              nil
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA            syn-obj
       waiting-for-cat   wait-for-IP
 
@@ -206,7 +206,7 @@
       cue2              embedded
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA            syn-obj
       waiting-for-cat   wait-for-IP
       embedded          embedded
@@ -234,7 +234,7 @@
       cue2              embedded
       cue3              gapped
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA            syn-obj
       waiting-for-cat   wait-for-IP
       embedded          embedded
@@ -267,7 +267,7 @@
       cue2              nil
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA            syn-obj
       waiting-for-cat   wait-for-DP
 
@@ -293,7 +293,7 @@
       cue2              nil
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA            syn-obj
       waiting-for-cat   wait-for-DP
 
@@ -323,7 +323,7 @@
       cue2              nil
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA            syn-obj
       waiting-for-cat   wait-for-VP
 
@@ -349,7 +349,7 @@
       cue2              embedded
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA            syn-obj
       waiting-for-cat   wait-for-VP
       embedded          embedded
@@ -376,7 +376,7 @@
       cue2              embedded
       cue3              gapped
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA            syn-obj
       waiting-for-cat   wait-for-VP
       embedded          embedded
@@ -407,7 +407,7 @@
       cue2              nil
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA            syn-obj
       waiting-for-cat   wait-for-NP
 
@@ -438,7 +438,7 @@
       cue2              wait-for-finite
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA              syn-obj
       waiting-for-cat     wait-for-VP
       waiting-for-finite  wait-for-finite
@@ -470,7 +470,7 @@
       cue2              wait-for-finite
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA              syn-obj
       waiting-for-cat     wait-for-VP
       waiting-for-finite  wait-for-finite
@@ -499,7 +499,7 @@
       cue3              wait-for-finite
 ;      cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA              syn-obj
       embedded            embedded
       waiting-for-cat     wait-for-VP
@@ -529,7 +529,7 @@
       cue3              gapped
 ;      cue4              nil
       cue4              wait-for-finite
-   +retrieval>
+   +grammatical>
       ISA              syn-obj
       embedded            embedded
       gapped              gapped
@@ -560,7 +560,7 @@
       cue2              embedded
       cue3              wait-for-finite
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA              syn-obj
       waiting-for-cat     wait-for-VP
       waiting-for-finite  wait-for-finite
@@ -589,7 +589,7 @@
 ;      cue3              nil
       cue3              wait-for-finite
       cue4              gapped
-   +retrieval>
+   +grammatical>
       ISA              syn-obj
       waiting-for-cat     wait-for-VP
       waiting-for-finite  wait-for-finite
@@ -618,7 +618,7 @@
       cue2              wait-for-infinite
       cue3              embedded
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA              syn-obj
       waiting-for-cat     wait-for-VP
       waiting-for-finite  wait-for-infinite
@@ -648,7 +648,7 @@
       cue2              nil
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA              syn-obj
       waiting-for-cat     wait-for-VP
 
@@ -676,7 +676,7 @@
       cue2              wait-for-finite
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA              syn-obj
       waiting-for-cat     wait-for-VP
       waiting-for-finite  wait-for-finite
@@ -714,7 +714,7 @@
       cue2              wait-for-finite
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA              syn-obj
       waiting-for-cat2    wait-for-IP
       waiting-for-finite  wait-for-finite
@@ -744,7 +744,7 @@
       cue2              nil
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA              syn-obj
       waiting-for-cat2    wait-for-AdjP
 
@@ -773,7 +773,7 @@
       cue2              VP
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA               syn-obj
       cat               NP-VP
 
@@ -800,7 +800,7 @@
       cue2              nil
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA            syn-obj
       waiting-for-cat3  wait-for-PP
 
@@ -826,7 +826,7 @@
       cue2              wait-for-agent-by-phrase
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA            syn-obj
       waiting-for-cat   wait-for-PP
 
@@ -858,7 +858,7 @@
       cue2              nil
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA            syn-obj
       cat               DP
 
@@ -884,7 +884,7 @@
       cue2              nil
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA            syn-obj
       waiting-for-cat   wait-for-CP
 
@@ -910,7 +910,7 @@
       cue2              nil
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA            syn-obj
       waiting-for-cat   wait-for-CP
 
@@ -939,7 +939,7 @@
       cue2              nil
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA            syn-obj
       waiting-for-cat   wait-for-IP
 
@@ -972,7 +972,7 @@
       cue2              nil
       cue3              nil
       cue4              nil
-   +retrieval>
+   +grammatical>
       ISA            syn-obj
       cat               DP
 
@@ -1011,7 +1011,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          IP-embedded-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat      IP
       ID                =ID-RETR
@@ -1041,11 +1041,11 @@
       waiting-for-case  wait-for-nom
       waiting-for-cat   wait-for-NP
       next-goal         next-VP-embedded-goal
-   =retrieval>
+   =grammatical>
       number      sing-plural
       spec     =ID-DP
       waiting-for-cat   wait-for-VP
-   ; -retrieval>
+   ; -grammatical>
 
    !eval! (set-end-time)
    !eval! (increase-ref-count-parseloc)
@@ -1059,7 +1059,7 @@
 ;;       ISA               comprehend-sentence
 ;;       state             "wm-retrieval"
 ;;       goal-cat          VP-gapped-goal
-;;    =retrieval>
+;;    =grammatical>
 ;;       isa      syn-obj
 ;;       cat      IP
 ;;       ID             =ID-RETR
@@ -1091,12 +1091,12 @@
 ;;       waiting-for-case  wait-for-nom
 ;;       waiting-for-cat   wait-for-NP
 ;;       next-goal         next-VP-gapped-goal
-;;    =retrieval>
+;;    =grammatical>
 ;;       number      sing-plural
 ;;       spec     +DPb
 ;;       gap               open
 ;;       waiting-for-cat   wait-for-VP
-;;    -retrieval>
+;;    -grammatical>
 ;;   !eval! (increase-ref-count-parseloc)
 ;; )
 
@@ -1111,7 +1111,7 @@
    ; =imaginal>
    ;      ISA             parsing-state
    ;      filler-pos      =fillerpos
-   =retrieval>
+   =grammatical>
       isa               syn-obj
       cat               IP
       head              nil
@@ -1141,18 +1141,18 @@
       ID                =ID-DP
       case              nom
       head              =word
-      spec-of           =retrieval
+      spec-of           =grammatical
       gender            all-genders
       number            sing-plural
       waiting-for-case  wait-for-nom
       waiting-for-cat   wait-for-NP
       next-goal         next-VP-gapped-goal
-   =retrieval>
+   =grammatical>
       number            sing-plural
       spec              =ID-DP
       gap               open
-   ; +retrieval>          =empty-op   ;;; FE: problem?
-   +retrieval>
+   ; +grammatical>          =empty-op   ;;; FE: problem?
+   +grammatical>
       ISA               syn-obj
       CAT               DP ;
       ID                =empty-op
@@ -1168,7 +1168,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          VP-gapped-goal
-   =retrieval>
+   =grammatical>
       isa               syn-obj
       filler            done
 ==>
@@ -1176,7 +1176,7 @@
       state             "read"
       goal-cat          NP-goal
       attend-to         "next-word"
-   =retrieval>
+   =grammatical>
       filler            yes-filler          ;reinstate filler as active   
   !eval! (set-end-time)
    !eval! (increase-ref-count-parseloc)
@@ -1188,7 +1188,7 @@
    =goal>
       ISA               comprehend-sentence
       state             "wm-retrieval"
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat      IP
       ID                =ID-RETR
@@ -1218,11 +1218,11 @@
       waiting-for-case  wait-for-nom
       waiting-for-cat   wait-for-NP
       next-goal         next-VP-goal
-   =retrieval>
+   =grammatical>
       number      sing-plural
       spec     =ID-DP
       waiting-for-cat   wait-for-VP
-   ; -retrieval>
+   ; -grammatical>
 
   !eval! (set-end-time)
    !eval! (increase-ref-count-parseloc)
@@ -1238,7 +1238,7 @@
    =goal>
       ISA               comprehend-sentence
       state             "wm-retrieval"
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       ID                =ID-RETR
       waiting-for-case  wait-for-acc
@@ -1271,11 +1271,11 @@
       waiting-for-cat   wait-for-NP
       next-goal         =next-goal
       head-word         =head-word
-   =retrieval>
+   =grammatical>
       waiting-for-case  nil
       waiting-for-cat   nil
       comp              =ID-DP
-   ; -retrieval>
+   ; -grammatical>
 
   !eval! (set-end-time)
    !eval! (increase-ref-count-parseloc)
@@ -1288,7 +1288,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
 ;      goal-cat          XP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       ID                =ID-RETR
       waiting-for-cat2  wait-for-AdjP
@@ -1316,14 +1316,14 @@
       head              =word
 ;      case    acc
       comp-of     =ID-RETR
-   =retrieval>
+   =grammatical>
       waiting-for-case  nil
       waiting-for-cat   nil
       waiting-for-cat2  nil
       waiting-for-cat3  nil
       waiting-for-finite nil              ;;; PROBLEM HERE???
       comp              =ID-AdjP
-   ; -retrieval>
+   ; -grammatical>
 
   !eval! (set-end-time)
    !eval! (increase-ref-count-parseloc)
@@ -1338,7 +1338,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          NP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       case           nom
@@ -1372,7 +1372,7 @@
       gender            =gender
       subcat            intransitive
       spec-of           =IP
-   =retrieval>
+   =grammatical>
       head-word         =word
       comp              =ID-NP
       number            sing
@@ -1399,7 +1399,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          NP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       case           nom
@@ -1433,7 +1433,7 @@
       gender            masc
       subcat            intransitive
       spec-of           =IP
-   =retrieval>
+   =grammatical>
       head-word         =word
       comp              =ID-NP
       number            sing
@@ -1463,7 +1463,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          NP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       case           nom
@@ -1496,7 +1496,7 @@
       gender            fem
       subcat            intransitive
       spec-of           =IP
-   =retrieval>
+   =grammatical>
       head-word         =word
       comp              =ID-NP
       number            sing
@@ -1526,7 +1526,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          NP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       case           nom
@@ -1561,7 +1561,7 @@
       waiting-for-cat   wait-for-CP
       next-goal         next-VP-goal
       spec-of           =IP
-   =retrieval>
+   =grammatical>
       head-word         =word
       comp              =ID-NP
       number            sing
@@ -1591,7 +1591,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          NP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       case           nom
@@ -1624,7 +1624,7 @@
       gender            =gender
       subcat            intransitive
       spec-of           =IP
-   =retrieval>
+   =grammatical>
       head-word         =word
       comp              =ID-NP
       number            sing
@@ -1653,7 +1653,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          NP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       case           nom
@@ -1686,7 +1686,7 @@
       gender            masc
       subcat            intransitive
       spec-of           =IP
-   =retrieval>
+   =grammatical>
       head-word         =word
       comp              =ID-NP
       number            sing
@@ -1715,7 +1715,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          NP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       case           nom
@@ -1748,7 +1748,7 @@
       gender            fem
       subcat            intransitive
       spec-of           =IP
-   =retrieval>
+   =grammatical>
       head-word         =word
       comp              =ID-NP
       number            sing
@@ -1778,7 +1778,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          NP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       case           nom
@@ -1813,7 +1813,7 @@
       waiting-for-cat   wait-for-CP
       next-goal         next-VP-embedded-goal
       spec-of           =IP
-   =retrieval>
+   =grammatical>
       head-word         =word
       comp              =ID-NP
       number            sing
@@ -1844,7 +1844,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          NP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       case           nom
@@ -1877,7 +1877,7 @@
       gender            =gender
       subcat            intransitive
       spec-of           =IP
-   =retrieval>
+   =grammatical>
       head-word         =word
       comp              =ID-NP
       number            sing
@@ -1906,7 +1906,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          NP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       case           nom
@@ -1939,7 +1939,7 @@
       gender            masc
       subcat            intransitive
       spec-of           =IP
-   =retrieval>
+   =grammatical>
       head-word         =word
       comp              =ID-NP
       number            sing
@@ -1968,7 +1968,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          NP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       case           nom
@@ -2001,7 +2001,7 @@
       gender            fem
       subcat            intransitive
       spec-of           =IP
-   =retrieval>
+   =grammatical>
       head-word         =word
       comp              =ID-NP
       number            sing
@@ -2031,7 +2031,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          NP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       case           nom
@@ -2066,7 +2066,7 @@
       waiting-for-cat   wait-for-CP
       next-goal         next-VP-gapped-goal
       spec-of           =IP
-   =retrieval>
+   =grammatical>
       head-word         =word
       comp              =ID-NP
       number            sing
@@ -2098,7 +2098,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          NP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       case           acc
@@ -2132,7 +2132,7 @@
       case              acc
       gender            fem
       subcat            intransitive
-   =retrieval>
+   =grammatical>
       comp              =ID-NP
       number            sing
       gender            fem
@@ -2155,7 +2155,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          NP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       case           acc
@@ -2189,7 +2189,7 @@
       case              acc
       gender            masc
       subcat            intransitive
-   =retrieval>
+   =grammatical>
       comp              =ID-NP
       head-word         =word
       number            sing
@@ -2211,7 +2211,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          NP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       case           acc
@@ -2245,7 +2245,7 @@
       case              acc
       gender            all-genders
       subcat            intransitive
-   =retrieval>
+   =grammatical>
       comp              =ID-NP
       head-word         =word
       number            sing
@@ -2266,7 +2266,7 @@
    =goal>
          ISA                  comprehend-sentence
         state                   "wm-retrieval"
-   =retrieval>
+   =grammatical>
          isa         syn-obj
          head        nil
          cat               IP
@@ -2301,13 +2301,13 @@
    tense                   past
    next-goal               =next-goal
    gap                     none
-   =retrieval>
+   =grammatical>
    head        =word
    comp                    =ID-VP
    tense       past
    waiting-for-cat         nil
    waiting-for-finite      nil
-   ; -retrieval>
+   ; -grammatical>
    
  !eval! (attach-message =word "subject" =subj-word)  
 
@@ -2322,7 +2322,7 @@
    =goal>
          ISA                  comprehend-sentence
         state                   "wm-retrieval"
-   =retrieval>
+   =grammatical>
          isa         syn-obj
          head        nil
          cat               IP
@@ -2356,12 +2356,12 @@
    tense                   past
    next-goal               =next-goal
    gap                     none
-   =retrieval>
+   =grammatical>
    head        =word
    comp                    =ID-VP
    waiting-for-cat         nil
    waiting-for-finite      nil
-   ; -retrieval>
+   ; -grammatical>
    
  !eval! (attach-message =word "subject" =subj-word)  
 
@@ -2375,7 +2375,7 @@
    =goal>
          ISA                  comprehend-sentence
         state                   "wm-retrieval"
-   =retrieval>
+   =grammatical>
          isa         syn-obj
          head        nil
          cat               IP
@@ -2414,13 +2414,13 @@
    gap                     spec
    subj-predicate          =subj-pred
    in-clause               =current-clause
-   =retrieval>
+   =grammatical>
    head        =word
    comp                    =ID-VP
    tense       past
    waiting-for-cat         nil
    waiting-for-finite      nil
-   ; -retrieval>
+   ; -grammatical>
    
  !eval! (attach-message =word "subject" =subj-word)  
 ; !eval! (add-reference (wme-references (get-wme =subj-pred)))
@@ -2436,7 +2436,7 @@
    =goal>
       ISA                  comprehend-sentence
       state                   "wm-retrieval"
-   =retrieval>
+   =grammatical>
       isa               syn-obj
       head              nil
       cat               IP
@@ -2478,11 +2478,11 @@
       next-goal               =next-goal
       gap                     open
       subj-predicate          =subj-pred
-   =retrieval>
+   =grammatical>
       head                    =word
       comp                    =ID-VP
       tense                   past
-   +retrieval>
+   +grammatical>
       isa                     syn-obj
       filler                  yes-filler
       cat                     DP
@@ -2501,7 +2501,7 @@
    =goal>
       ISA                  comprehend-sentence
       state                   "wm-retrieval"
-   =retrieval>
+   =grammatical>
       isa         syn-obj
       head        nil
       cat               IP
@@ -2535,13 +2535,13 @@
    tense                   past
    next-goal               =next-goal
    gap                     none
-   =retrieval>
+   =grammatical>
    head        =word
    comp                    =ID-VP
    tense       past
    waiting-for-cat         nil
    waiting-for-finite      nil
-   ; -retrieval>
+   ; -grammatical>
  !eval! (attach-message =word "subject" =subj-word)  
 
   !eval! (set-end-time)
@@ -2555,7 +2555,7 @@
    =goal>
          ISA                  comprehend-sentence
         state                   "wm-retrieval"
-   =retrieval>
+   =grammatical>
          isa         syn-obj
          head        nil
          cat               IP
@@ -2593,13 +2593,13 @@
    next-goal               =next-goal
    gap                     =gap
    subj-predicate       =subj-pred
-   =retrieval>
+   =grammatical>
    head        =word
    comp                    =ID-VP
    tense       past
    waiting-for-cat         nil
    waiting-for-finite      nil
-   ; -retrieval>
+   ; -grammatical>
  !eval! (attach-message =word "subject" =subj-word)  
 ; !eval! (add-reference (wme-references (get-wme =subj-pred)))
 ; !eval! (boost-message =subj-pred)
@@ -2615,7 +2615,7 @@
    =goal>
          ISA                  comprehend-sentence
         state                   "wm-retrieval"
-   =retrieval>
+   =grammatical>
          isa         syn-obj
          head        nil
          cat               IP
@@ -2666,14 +2666,14 @@
    tense                   past
    next-goal               =next-goal
    gap                     none
-   comp-of                 =retrieval
-   =retrieval>
+   comp-of                 =grammatical
+   =grammatical>
    head        =word
    comp                    =ID-VP
    tense       past
    waiting-for-cat         nil
    waiting-for-finite      nil
-   ; -retrieval>
+   ; -grammatical>
  !eval! (attach-message =word "subject" =subj-word)  
 
   !eval! (set-end-time)
@@ -2687,7 +2687,7 @@
    =goal>
          ISA                  comprehend-sentence
         state                   "wm-retrieval"
-   =retrieval>
+   =grammatical>
          isa         syn-obj
          head        nil
          cat               IP
@@ -2739,14 +2739,14 @@
    tense                   past
    next-goal               =next-goal
    gap                     spec
-   comp-of                 =retrieval
-   =retrieval>
+   comp-of                 =grammatical
+   =grammatical>
    head        =word
    comp                    =ID-VP
    tense       past
    waiting-for-cat         nil
    waiting-for-finite      nil
-   ; -retrieval>
+   ; -grammatical>
  !eval! (attach-message =word "subject" =subj-word)  
 ; !eval! (add-reference (wme-references (get-wme =subj-pred)))
 ; !eval! (boost-message =subj-pred)
@@ -2762,7 +2762,7 @@
    =goal>
          ISA                  comprehend-sentence
         state                   "wm-retrieval"
-   =retrieval>
+   =grammatical>
          isa         syn-obj
          head        nil
          cat               IP
@@ -2818,14 +2818,14 @@
    tense                   past
    next-goal               =next-goal
    gap                     open
-   comp-of                 =retrieval
-   =retrieval>
+   comp-of                 =grammatical
+   =grammatical>
    head        =word
    comp                    =ID-VP
    tense       past
    waiting-for-cat         nil
    waiting-for-finite      nil
-   +retrieval>
+   +grammatical>
    isa         syn-obj
    filler         yes-filler
    cat                     DP
@@ -2844,7 +2844,7 @@
    =goal>
          ISA                  comprehend-sentence
         state                   "wm-retrieval"
-   =retrieval>
+   =grammatical>
          isa         syn-obj
          head        nil
          cat               IP
@@ -2877,13 +2877,13 @@
         subcat                  intransitive
    tense                   past
    gap                     none
-   =retrieval>
+   =grammatical>
    head        =word
    comp                    =ID-VP
    tense       past
    waiting-for-cat         nil
    waiting-for-finite      nil
-   ; -retrieval>
+   ; -grammatical>
  !eval! (attach-message =word "subject" =subj-word)  
 
   !eval! (set-end-time)
@@ -2897,7 +2897,7 @@
    =goal>
          ISA                  comprehend-sentence
         state                   "wm-retrieval"
-   =retrieval>
+   =grammatical>
          isa         syn-obj
          head        nil
          cat               IP
@@ -2933,13 +2933,13 @@
    tense                   past
    gap                     =gap
    subj-predicate          =subj-pred
-   =retrieval>
+   =grammatical>
    head        =word
    comp                    =ID-VP
    tense       past
    waiting-for-cat         nil
    waiting-for-finite      nil
-   ; -retrieval>
+   ; -grammatical>
  !eval! (attach-message =word "subject" =subj-word)  
 ; !eval! (add-reference (wme-references (get-wme =subj-pred)))
 ; !eval! (boost-message =subj-pred)
@@ -2955,7 +2955,7 @@
    =goal>
          ISA                  comprehend-sentence
         state                   "wm-retrieval"
-   =retrieval>
+   =grammatical>
          isa         syn-obj
          cat               IP
    subcat                  aux
@@ -2984,13 +2984,13 @@
    head        =word
         subcat                  gerund
    gap                     open
-   =retrieval>
+   =grammatical>
    comp                    =ID-VP
    waiting-for-finite      nil
    waiting-for-cat         nil
    waiting-for-cat2        nil
    waiting-for-cat3        nil
-   ; -retrieval>
+   ; -grammatical>
 
    !eval! (attach-message =word "subject" =subj-word)  
 ;   !eval! (add-reference (wme-references (get-wme =subj-pred)))
@@ -3007,7 +3007,7 @@
    =goal>
          ISA                  comprehend-sentence
         state                   "wm-retrieval"
-   =retrieval>
+   =grammatical>
          isa         syn-obj
          cat               IP
    subcat                  aux
@@ -3033,13 +3033,13 @@
    ID                      =ID-VP
    head        =word
         subcat                  gerund
-   =retrieval>
+   =grammatical>
    comp                    =ID-VP
    waiting-for-finite      nil
    waiting-for-cat         nil
    waiting-for-cat2        nil
    waiting-for-cat3        nil
-   ; -retrieval>
+   ; -grammatical>
 
    !eval! (attach-message =word "subject" =subj-word)  
 
@@ -3054,7 +3054,7 @@
    =goal>
          ISA                  comprehend-sentence
         state                   "wm-retrieval"
-   =retrieval>
+   =grammatical>
          isa         syn-obj
          cat               IP
    subcat                  aux
@@ -3073,7 +3073,7 @@
 ;        state                   "wm-retrieval"
         state                   "read"
    goal-cat                PP-goal
-   cue1                    =retrieval
+   cue1                    =grammatical
         cue2                    DP
         cue3                    nil
         cue4                    nil
@@ -3092,13 +3092,13 @@
    next-goal               =next-goal
    waiting-for-cat         wait-for-PP
    waiting-for-cat2        wait-for-agent-by-phrase
-   =retrieval>
+   =grammatical>
    comp                    =ID-VP
    waiting-for-finite      nil
    waiting-for-cat         nil
    waiting-for-cat2        nil
    waiting-for-cat3        nil
-   ; +retrieval>
+   ; +grammatical>
    ;      =subject
    !eval! (attach-message =word "subject" =subj-word)  
 
@@ -3113,7 +3113,7 @@
    =goal>
          ISA                  comprehend-sentence
         state                   "wm-retrieval"
-   =retrieval>
+   =grammatical>
          isa         syn-obj
          head        nil
          cat               IP
@@ -3135,7 +3135,7 @@
    =goal>
         state                   "read"
    goal-cat                 XP-goal    
-   =retrieval>
+   =grammatical>
    head        =word
    tense       past
    number                  sing
@@ -3148,7 +3148,7 @@
    next-goal               =next-goal
    subj-word               =subj-word
    subj-predicate          =subj-pred
-   ; -retrieval>
+   ; -grammatical>
  !eval! (attach-message =word "subject" =subj-word)  
 
   !eval! (set-end-time)
@@ -3163,7 +3163,7 @@
          ISA                  comprehend-sentence
         state                   "wm-retrieval"
 ;  goal-cat                 VP-goal
-   =retrieval>
+   =grammatical>
          isa         syn-obj
          head        nil
          cat               IP
@@ -3183,7 +3183,7 @@
    =goal>
         state                   "read"
    goal-cat                 XP-goal    
-   =retrieval>
+   =grammatical>
    tense       past
    number                  sing
    subcat                  aux
@@ -3195,7 +3195,7 @@
    waiting-for-finite      wait-for-finite
    next-goal               =next-goal
    subj-word               =subj-word
-   ; -retrieval>
+   ; -grammatical>
  !eval! (attach-message =word "subject" =subj-word)  
 
   !eval! (set-end-time)
@@ -3213,7 +3213,7 @@
       ISA               comprehend-sentence
       state         "wm-retrieval"
       goal-cat          =goal-cat
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            NP
       ID                =ID-RETR
@@ -3241,9 +3241,9 @@
       next-goal        =goal-PP
    !bind! =goal-PP (map-next-goal-category =goal-cat)
 
-   =retrieval>
+   =grammatical>
       modifier    =ID-PP
-   ; -retrieval>
+   ; -grammatical>
 
  !eval! (attach-message =head-word "modifier" =word)  
 
@@ -3259,7 +3259,7 @@
       ISA               comprehend-sentence
       state         "wm-retrieval"
       goal-cat          =goal-cat
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            NP
       ID                =ID-RETR
@@ -3287,9 +3287,9 @@
       next-goal        =goal-PP
    !bind! =goal-PP (map-next-goal-category =goal-cat)
 
-   =retrieval>
+   =grammatical>
       modifier    =ID-PP
-   ; -retrieval>
+   ; -grammatical>
 
  !eval! (attach-message =head-word "modifier" =word)  
 ; !eval! (add-reference (wme-references (get-wme =IP)))
@@ -3308,7 +3308,7 @@
       state         "wm-retrieval"
       goal-cat          =goal-cat
 -     goal-cat          PP-goal
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            VP
       ID                =ID-RETR
@@ -3335,9 +3335,9 @@
       next-goal        =goal-PP
    !bind! =goal-PP (map-next-goal-category =goal-cat)
 
-   =retrieval>
+   =grammatical>
       modifier    =ID-PP
-   ; -retrieval>
+   ; -grammatical>
 
  !eval! (attach-message =head-word "modifier" =word)  
 
@@ -3351,7 +3351,7 @@
    =goal>
       ISA               comprehend-sentence
       state             "wm-retrieval"
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       ID                =ID-RETR
       waiting-for-cat3  wait-for-PP
@@ -3378,13 +3378,13 @@
       waiting-for-case  wait-for-acc
       waiting-for-cat   wait-for-DP
       next-goal         =next-goal
-   =retrieval>
+   =grammatical>
       waiting-for-case  nil
       waiting-for-cat   nil
       waiting-for-cat2  nil
       waiting-for-cat3  nil
       comp              =ID-PP
-   ; -retrieval>
+   ; -grammatical>
 
  !eval! (attach-message =head-word "object" =word)
 ; !eval! (add-reference (wme-references (get-wme =subj-pred)))
@@ -3401,7 +3401,7 @@
    =goal>
       ISA               comprehend-sentence
       state             "wm-retrieval"
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       ID                =ID-RETR
       waiting-for-cat   wait-for-PP
@@ -3428,13 +3428,13 @@
       waiting-for-case  wait-for-acc
       waiting-for-cat   wait-for-DP
       next-goal         =next-goal
-   =retrieval>
+   =grammatical>
       waiting-for-case  nil
       waiting-for-cat   nil
       waiting-for-cat2  nil
       waiting-for-cat3  nil
       modifier          =ID-PP
-   ; -retrieval>
+   ; -grammatical>
 
  !eval! (attach-message =head-word "agent-by-phrase" =word)
 ; !eval! (add-reference (wme-references (get-wme =subj-pred)))
@@ -3454,7 +3454,7 @@
       ISA      comprehend-sentence
 ;      state             "wm-retrieval"
       goal-cat          =goal-cat
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       ID                =ID-RETR
@@ -3478,7 +3478,7 @@
       ID    =ID-DP
       filler            done                ;yes-filler
       case     all-cases
-      coindexed-with =retrieval
+      coindexed-with =grammatical
       head-word         =subj-word
       subj-predicate    =IP
 
@@ -3513,9 +3513,9 @@
      next-goal        =goal-CP
    !bind! =goal-CP (map-next-goal-category =goal-cat)
 
-   =retrieval>
+   =grammatical>
       modifier          =ID-CP
-   ; -retrieval>
+   ; -grammatical>
 
  !eval! (attach-message =subj-word "modifier" =word)  
 
@@ -3539,7 +3539,7 @@
       goal-cat          =goal-cat
    ; =imaginal>
    ;    ISA               parsing-state
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat            DP
       ID                =ID-RETR
@@ -3601,9 +3601,9 @@
    !bind! =goal-CP (map-next-goal-category =goal-cat)
 
 
-   =retrieval>
+   =grammatical>
       modifier          =ID-CP
-   ; -retrieval>
+   ; -grammatical>
 
  !eval! (attach-message =subj-word "modifier" =word)  
 
@@ -3624,7 +3624,7 @@
    =goal>
       ISA               comprehend-sentence
       state             "wm-retrieval"
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       ID      =ID-RETR
       waiting-for-cat   wait-for-CP
@@ -3665,12 +3665,12 @@
       number      sing-plural
       finite            finite
       next-goal         =next-goal
-   =retrieval>
+   =grammatical>
       waiting-for-cat   nil
       waiting-for-cat2  nil
       waiting-for-finite nil
       comp              =ID-CP
-   ; -retrieval>
+   ; -grammatical>
 
   !eval! (set-end-time)
    !eval! (increase-ref-count-parseloc)
@@ -3683,7 +3683,7 @@
    =goal>
       ISA               comprehend-sentence
       state             "wm-retrieval"
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       ID                =ID-RETR
       waiting-for-cat   wait-for-CP
@@ -3725,12 +3725,12 @@
       finite            finite
 ;      waiting-for-finite wait-for-finite         ;; THIS CAUSED INTERFERENCE
       next-goal         =next-goal
-   =retrieval>
+   =grammatical>
       waiting-for-cat   nil
       waiting-for-cat2  nil
       waiting-for-finite nil
       comp              =ID-CP
-   ; -retrieval>
+   ; -grammatical>
 ; !eval! (attach-message =head-word "modifier" =word)  
 ; !eval! (add-reference (wme-references (get-wme =IP)))
 ; !eval! (boost-message =ID-IP1)
@@ -3748,7 +3748,7 @@
    =goal>
       ISA               comprehend-sentence
       state             "wm-retrieval"
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat      IP
       ID                =ID-RETR
@@ -3787,12 +3787,12 @@
       number      sing-plural
       finite            infinite
       next-goal         next-VP-goal
-   =retrieval>
+   =grammatical>
       spec     =ID-CP
       waiting-for-cat   wait-for-VP
       number            sing
       subj-word         =word
-   ; -retrieval>
+   ; -grammatical>
 
   !eval! (set-end-time)
    !eval! (increase-ref-count-parseloc)
@@ -3805,7 +3805,7 @@
    =goal>
       ISA               comprehend-sentence
       state             "wm-retrieval"
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat      IP
       ID                =ID-RETR
@@ -3844,12 +3844,12 @@
       number      sing-plural
       finite            finite
       next-goal         next-VP-goal
-   =retrieval>
+   =grammatical>
       spec     =ID-CP
       waiting-for-cat   wait-for-VP
       number            sing
       subj-word         =word
-   ; -retrieval>
+   ; -grammatical>
 
   !eval! (set-end-time)
    !eval! (increase-ref-count-parseloc)
@@ -3864,7 +3864,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          =goal-cat
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat               VP
       ID                =ID-VP
@@ -3917,16 +3917,16 @@
       next-goal        =goal-IP
       !bind! =goal-IP (map-next-goal-category =goal-cat)
 
-   =retrieval>
+   =grammatical>
       waiting-for-cat   nil
       comp              =ID-IP2
    ; =IP>
-   ;    comp              =retrieval
-   =VP2b>                =retrieval
+   ;    comp              =grammatical
+   =VP2b>                =grammatical
    !eval! (mod-chunk-fct =IP (list 
-     'comp =retrieval
+     'comp =grammatical
      ))
-   +retrieval>
+   +grammatical>
       ISA               syn-obj
       cat               DP
   ; !eval! (set-end-time)
@@ -3941,7 +3941,7 @@
    =IPb> ISA            syn-obj
    =VPb> ISA            syn-obj
    =VP2b> ISA           syn-obj
-   =retrieval>
+   =grammatical>
       ISA               syn-obj
       cat               DP
       head-word         =word
@@ -3951,7 +3951,7 @@
       attend-to         "next-word"
       goal-cat          XP-goal
    =IPb>
-      spec              =retrieval
+      spec              =grammatical
       comp              =VPb
       subj-word         =word
    =VP2b>
@@ -3967,7 +3967,7 @@
       ISA               comprehend-sentence
       state             "wm-retrieval"
       goal-cat          =goal-cat
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat               VP
       waiting-for-cat2  wait-for-IP
@@ -4014,12 +4014,12 @@
       next-goal        =goal-IP
    !bind! =goal-IP (map-next-goal-category =goal-cat)
 
-   =retrieval>
+   =grammatical>
       waiting-for-cat   nil
       comp              +IPb
    =IP>
-      comp              =retrieval
-   ; -retrieval>
+      comp              =grammatical
+   ; -grammatical>
 
   !eval! (set-end-time)
    !eval! (increase-ref-count-parseloc)
@@ -4041,7 +4041,7 @@
       waiting-for-cat   wait-for-DP
       next-goal         =next-goal
       head              =v-word
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       ID                =ID-RETR
       filler      yes-filler
@@ -4059,10 +4059,10 @@
       waiting-for-case  nil
       waiting-for-cat   nil
       gap      comp
-   =retrieval>
+   =grammatical>
       case     acc
       filler            done
-   ; -retrieval>
+   ; -grammatical>
 
    !eval! (parsing-mod-current-ip (list 
 ;        'subj-word =word
@@ -4090,7 +4090,7 @@
       subcat            past-participle-transitive
       next-goal         =next-goal
       head              =v-word
-   =retrieval>
+   =grammatical>
       isa      syn-obj
       cat               DP
       head-word         =obj-word
@@ -4106,14 +4106,14 @@
       ID    =ID-DP
       head-word         =obj-word
       case     acc
-      coindexed-with =retrieval
+      coindexed-with =grammatical
       filler            done
    =VPb>
       comp     =ID-DP
       waiting-for-case  nil
       waiting-for-cat   nil
       gap      comp
-   ; -retrieval>
+   ; -grammatical>
 
  !eval! (attach-message =v-word "object (passive)" =obj-word)
 

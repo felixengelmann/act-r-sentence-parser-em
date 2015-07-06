@@ -264,7 +264,7 @@
 ;       SCREEN-POS  =screen-pos
        value       =word
      - value       "*"
-    ?retrieval>
+    ?grammatical>
         state       free
 ==>
     =goal>
@@ -565,7 +565,7 @@
    ;     ISA            parsing-state
     ?visual>
        processor      free
-    ?retrieval>
+    ?grammatical>
        state        free
  ==>
    =goal>
@@ -619,7 +619,7 @@
     -PPb>
     -AdjPb>
     -AdvPb>
-    -retrieval>
+    -grammatical>
 
     !output! "SENTENCE PARSED SUCCESSFULLY"
     ; !stop!
