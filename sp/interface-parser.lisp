@@ -141,27 +141,27 @@
 ;;; KEEPING TRACK OF C-COMMANDERS
 ;;;
 ;; TODO: Remove because moves to parsing module!
-(defun push-clause nil
-  (let* ((imchunk (buffer-read 'imaginal))
-         (stack (chunk-slot-value-fct imchunk 'clause-id-stack))
-         (id (new-name c)))
-    (push id stack)
-    (mod-chunk-fct imchunk (list 'clause-id-stack stack))
-    id))
+; (defun push-clause nil
+;   (let* ((imchunk (buffer-read 'imaginal))
+;          (stack (chunk-slot-value-fct imchunk 'clause-id-stack))
+;          (id (new-name c)))
+;     (push id stack)
+;     (mod-chunk-fct imchunk (list 'clause-id-stack stack))
+;     id))
 
-(defun pop-clause nil
-  (let* ((imchunk (buffer-read 'imaginal))
-         (stack (chunk-slot-value-fct imchunk 'clause-id-stack)))
-    (pop stack)
-    (mod-chunk-fct imchunk (list 'clause-id-stack stack))
-    (car stack)
-    ))
+; (defun pop-clause nil
+;   (let* ((imchunk (buffer-read 'imaginal))
+;          (stack (chunk-slot-value-fct imchunk 'clause-id-stack)))
+;     (pop stack)
+;     (mod-chunk-fct imchunk (list 'clause-id-stack stack))
+;     (car stack)
+;     ))
 
-(defun current-clause nil
-  (let* ((imchunk (buffer-read 'imaginal))
-         (stack (chunk-slot-value-fct imchunk 'clause-id-stack))
-         (id (car stack)))
-    id))
+; (defun current-clause nil
+;   (let* ((imchunk (buffer-read 'imaginal))
+;          (stack (chunk-slot-value-fct imchunk 'clause-id-stack))
+;          (id (car stack)))
+;     id))
 
 
 
@@ -203,22 +203,23 @@
 ;    ))
 
 ;; TODO: remove because moved to parsing module
-(defun pop-current-ip nil
-  (pop *current-ip*)
-  )
+; (defun pop-current-ip nil
+;   (pop *current-ip*)
+;   )
 
 
+;; TODO: adjust
 (defun pretty-ip nil
-  (let* ((current-ip (car *current-ip*))
+  (let* ((current-ip (parsing-current-ip))
          (dpc (chunk-slot-value-fct current-ip 'spec))
          (vpc (chunk-slot-value-fct current-ip 'comp))
-         (dp (create-chunk-alias-fct dpc 'SUBJECT-DP))
-         (vp (create-chunk-alias-fct vpc 'VP1))
+         ; (dp (create-chunk-alias-fct dpc 'SUBJECT-DP))
+         ; (vp (create-chunk-alias-fct vpc 'VP1))
          (dp2c (chunk-slot-value-fct vpc 'comp))
          (dp2 (create-chunk-alias-fct dp2c 'OBJECT-DP)))
     (mod-chunk-fct current-ip (list
-                                'spec dp
-                                'comp vp))
+                                'spec dpc
+                                'comp vpc))
     (mod-chunk-fct vpc (list
                                 'comp dp2))
     (model-warning " +++ Modifying IP +++")
@@ -284,11 +285,11 @@
   )
 
 ;; TODO: remove
-(defun update-attached-pos (index)
-  (let* ((imchunk (buffer-read 'imaginal))
-         (poslist (chunk-slot-value-fct imchunk 'attached-pos)))
-    (mod-chunk-fct imchunk (list 'attached-pos (push-last index poslist)))
-    ))
+; (defun update-attached-pos (index)
+;   (let* ((imchunk (buffer-read 'imaginal))
+;          (poslist (chunk-slot-value-fct imchunk 'attached-pos)))
+;     (mod-chunk-fct imchunk (list 'attached-pos (push-last index poslist)))
+;     ))
 
 ;; TODO: remove
 ; (defun check-parsed (visloc)

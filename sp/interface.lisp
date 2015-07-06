@@ -90,14 +90,14 @@
 (defvar *word-processing-states* "word processing states (1,2,3) for SWIFT interaction")
 
 ; TODO: Variables not needed any more
-(defvar *current-index* 0 "current word index")
-(defvar *word* nil "current word")
-(defvar *begin-time* 0 "a variable to hold the start time of processing a word after lexical access")
-(defvar *end-time* 0 "a variable to hold the end time of processing a word")
-(defvar *attach-time* nil "attachment time for each word")
-(defvar *attach-times* nil "list of attachment times for each word")
-(defvar *attached-positions* nil "list of positions of words being attached so far")
-(defvar *attached-items* nil "list of attachment times for each word (pos word time)")
+; (defvar *current-index* 0 "current word index")
+; (defvar *word* nil "current word")
+; (defvar *begin-time* 0 "a variable to hold the start time of processing a word after lexical access")
+; (defvar *end-time* 0 "a variable to hold the end time of processing a word")
+; (defvar *attach-time* nil "attachment time for each word")
+; (defvar *attach-times* nil "list of attachment times for each word")
+; (defvar *attached-positions* nil "list of positions of words being attached so far")
+; (defvar *attached-items* nil "list of attachment times for each word (pos word time)")
 
 (defvar *fixation-trace* nil "fixation trace of a sentence")
 (defvar *encoded-positions* nil "list of positions of words being encoded so far")
@@ -217,8 +217,8 @@
     
     (let ((wordlist (split-by-one-space sentence)))
       (setf *word-processing-states* (make-list (length wordlist) :initial-element 1)))
-    (setf *attach-times* nil)
-    (setf *attached-positions* nil)
+    ; (setf *attach-times* nil)
+    ; (setf *attached-positions* nil)
     ; (setf *attached-items* nil)
     (setf *fixation-trace* nil)
     (setf *encoded-positions* nil)
@@ -229,8 +229,8 @@
     (setf *fix-loc* #(10 150))
     (setf *sentence* sentence)
     (setf *sentence-plist* plist)
-    (setf *word* nil)
-    (setf *current-index* -1)
+    ; (setf *word* nil)
+    ; (setf *current-index* -1)
     (setf *visloc-list* (make-list (length plist)))
     (setf *visloc-activations* (list (make-list (length plist))))
     
@@ -308,7 +308,7 @@ SENTENCE:   ~s
 
 (defun next(&optional (time 0.05))
   (run time)
-  (print-runtime-vars)
+  (print-info)
   )
 
 
