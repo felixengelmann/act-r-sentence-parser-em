@@ -182,7 +182,10 @@
        ; parse-loc   =visloc
        ; current-ip  =ip-chunkname
     =visual>
-    +retrieval>
+
+    ; +retrieval>
+    ;    ISA         lexical-entry
+    +lexical>
        ISA         lexical-entry
        word        =word
        word        =word

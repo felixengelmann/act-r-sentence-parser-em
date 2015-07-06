@@ -167,12 +167,12 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          IP-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            DET
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-IP
@@ -194,12 +194,12 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          IP-embedded-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            DET
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-IP
@@ -222,12 +222,12 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          IP-gapped-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            DET
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-IP
@@ -255,12 +255,12 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          DP-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            DET
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-DP
@@ -281,12 +281,12 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          CP-DP-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            DET
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-DP
@@ -311,12 +311,12 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          VP-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            DET
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-VP
@@ -337,12 +337,12 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          VP-embedded-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            DET
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-VP
@@ -364,12 +364,12 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          VP-gapped-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            DET
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-VP
@@ -394,13 +394,13 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          NP-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            N
       number           sing-lex
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-NP
@@ -423,14 +423,14 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          VP-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            V
       number           sing-plural-lex
       finite            finite-lex
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-VP
@@ -455,14 +455,14 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          VP-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            I-V
       number           sing-lex
       finite            finite-lex
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-VP
@@ -484,14 +484,14 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          VP-embedded-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            V
       number           sing-plural-lex
       finite            finite-lex
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-VP
@@ -514,14 +514,14 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          VP-gapped-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            V
       number           sing-plural-lex
       finite            finite-lex
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-VP
@@ -546,14 +546,14 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          VP-embedded-goal   ;; ???
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            I-V          ;; ???
       number           sing-lex
       finite            finite-lex
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-VP
@@ -574,14 +574,14 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          VP-gapped-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            I-V
       number           sing-lex
       finite            finite-lex
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-VP
@@ -605,13 +605,13 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          VP-embedded-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            V
       finite            infinite-lex
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-VP
@@ -635,13 +635,13 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          XP-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            V
       finite            infinite-lex
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-VP
@@ -662,13 +662,13 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          XP-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            V
       finite            finite-lex
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-VP
@@ -698,14 +698,14 @@
    -  goal-cat          VP-embedded-goal
    -  goal-cat          VP-gapped-goal
    -  goal-cat          XP-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            I-V
       number           sing-lex
       finite            finite-lex
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       attend-to         "left"
@@ -732,12 +732,12 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          XP-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            ADJ
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-AdjP
@@ -761,12 +761,12 @@
     - goal-cat          PP-goal
     - goal-cat          XP-goal
       goal-cat          =goal-cat
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            P
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              NP
@@ -788,12 +788,12 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          XP-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            P
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-PP
@@ -814,12 +814,12 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          PP-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              "by"
       cat            P
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-PP
@@ -846,12 +846,12 @@
    -  goal-cat          IP-goal
    -  goal-cat          CP-DP-goal
       goal-cat          =goal-cat
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            C
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              DP
@@ -872,12 +872,12 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          CP-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            C
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-CP
@@ -898,12 +898,12 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          CP-DP-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            C
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-CP
@@ -927,12 +927,12 @@
       ISA               comprehend-sentence
       state             "lexical-retrieval"
       goal-cat          IP-goal
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            C
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              wait-for-IP
@@ -960,12 +960,12 @@
    -  goal-cat          IP-embedded-goal
    -  goal-cat          IP-gapped-goal
       goal-cat          =goal-cat
-   =retrieval>
-      isa      lexical-entry
+   =lexical>
+      isa               lexical-entry
       word              =word
       cat            wh-pronoun
 ==>
-   =lex>                =retrieval
+   =lexical>
    =goal>
       state             "wm-retrieval"
       cue1              DP
@@ -1017,7 +1017,7 @@
       ID                =ID-RETR
       head              nil
       waiting-for-cat   wait-for-IP
-   =lex>
+   =lexical>
       isa      lexical-entry
       cat      DET
       word              =word
@@ -1066,7 +1066,7 @@
 ;;       head              nil
 ;;       waiting-for-cat   wait-for-VP
 ;;       spec              =empty-op
-;;    =lex>
+;;    =lexical>
 ;;       isa      lexical-entry
 ;;       cat      DET
 ;;       word              =word
@@ -1119,7 +1119,7 @@
       waiting-for-cat   wait-for-VP
       spec              =empty-op
       gap               spec
-   =lex>
+   =lexical>
       isa               lexical-entry
       cat               DET
       word              =word
@@ -1194,7 +1194,7 @@
       ID                =ID-RETR
       head              nil
       waiting-for-cat   wait-for-IP
-   =lex>
+   =lexical>
       isa      lexical-entry
       cat      DET
       word              =word
@@ -1245,7 +1245,7 @@
       waiting-for-cat   wait-for-DP
       next-goal         =next-goal
       head              =head-word
-   =lex>
+   =lexical>
       isa      lexical-entry
       cat      DET
       word              =word
@@ -1294,7 +1294,7 @@
       waiting-for-cat2  wait-for-AdjP
       next-goal         =next-goal
       head              =head-word
-   =lex>
+   =lexical>
       isa      lexical-entry
       cat      Adj
       word              =word
@@ -1348,7 +1348,7 @@
       spec-of           =IP
       waiting-for-case  wait-for-nom
       waiting-for-cat   wait-for-NP
-   =lex>
+   =lexical>
       isa               lexical-entry
       cat               N
       word              =word
@@ -1409,7 +1409,7 @@
       spec-of           =IP
       waiting-for-case  wait-for-nom
       waiting-for-cat   wait-for-NP
-   =lex>
+   =lexical>
       isa               lexical-entry
       cat               N
       word              =word
@@ -1473,7 +1473,7 @@
       spec-of           =IP
       waiting-for-case  wait-for-nom
       waiting-for-cat   wait-for-NP
-   =lex>
+   =lexical>
       isa               lexical-entry
       cat               N
       word              =word
@@ -1536,7 +1536,7 @@
       spec-of           =IP
       waiting-for-case  wait-for-nom
       waiting-for-cat   wait-for-NP
-   =lex>
+   =lexical>
       isa               lexical-entry
       cat               N
       word              =word
@@ -1601,7 +1601,7 @@
       spec-of           =IP
       waiting-for-case  wait-for-nom
       waiting-for-cat   wait-for-NP
-   =lex>
+   =lexical>
       isa               lexical-entry
       cat               N
       word              =word
@@ -1663,7 +1663,7 @@
       spec-of           =IP
       waiting-for-case  wait-for-nom
       waiting-for-cat   wait-for-NP
-   =lex>
+   =lexical>
       isa               lexical-entry
       cat               N
       word              =word
@@ -1725,7 +1725,7 @@
       spec-of           =IP
       waiting-for-case  wait-for-nom
       waiting-for-cat   wait-for-NP
-   =lex>
+   =lexical>
       isa               lexical-entry
       cat               N
       word              =word
@@ -1788,7 +1788,7 @@
       spec-of           =IP
       waiting-for-case  wait-for-nom
       waiting-for-cat   wait-for-NP
-   =lex>
+   =lexical>
       isa               lexical-entry
       cat               N
       word              =word
@@ -1854,7 +1854,7 @@
       spec-of           =IP
       waiting-for-case  wait-for-nom
       waiting-for-cat   wait-for-NP
-   =lex>
+   =lexical>
       isa               lexical-entry
       cat               N
       word              =word
@@ -1916,7 +1916,7 @@
       spec-of           =IP
       waiting-for-case  wait-for-nom
       waiting-for-cat   wait-for-NP
-   =lex>
+   =lexical>
       isa               lexical-entry
       cat               N
       word              =word
@@ -1978,7 +1978,7 @@
       spec-of           =IP
       waiting-for-case  wait-for-nom
       waiting-for-cat   wait-for-NP
-   =lex>
+   =lexical>
       isa               lexical-entry
       cat               N
       word              =word
@@ -2041,7 +2041,7 @@
       spec-of           =IP
       waiting-for-case  wait-for-nom
       waiting-for-cat   wait-for-NP
-   =lex>
+   =lexical>
       isa               lexical-entry
       cat               N
       word              =word
@@ -2108,7 +2108,7 @@
       waiting-for-case  wait-for-acc
       waiting-for-cat   wait-for-NP
       head-word         =head-word
-   =lex>
+   =lexical>
       isa               lexical-entry
       cat               N
       word              =word
@@ -2165,7 +2165,7 @@
       waiting-for-case  wait-for-acc
       waiting-for-cat   wait-for-NP
       head-word         =head-word
-   =lex>
+   =lexical>
       isa               lexical-entry
       cat               N
       word              =word
@@ -2221,7 +2221,7 @@
       waiting-for-case  wait-for-acc
       waiting-for-cat   wait-for-NP
       head-word         =head-word
-   =lex>
+   =lexical>
       isa               lexical-entry
       cat               N
       word              =word
@@ -2276,7 +2276,7 @@
    next-goal               =next-goal
    gap                     none
    subj-word               =subj-word
-   =lex>
+   =lexical>
         isa                     lexical-entry
    word                    =word
    cat            V
@@ -2332,7 +2332,7 @@
    next-goal               =next-goal
    gap                     none
    subj-word               =subj-word
-   =lex>
+   =lexical>
         isa                     lexical-entry
    word                    =word
    cat            V
@@ -2386,7 +2386,7 @@
    gap                     spec
    subj-word               =subj-word
    subj-predicate          =subj-pred
-   =lex>
+   =lexical>
         isa                     lexical-entry
    word                    =word
    cat            V
@@ -2447,7 +2447,7 @@
      gap                     open
      subj-word               =subj-word
      subj-predicate          =subj-pred
-   =lex>
+   =lexical>
       isa                     lexical-entry
       word                    =word
       cat            V
@@ -2511,7 +2511,7 @@
       next-goal               =next-goal
       gap                     none
       subj-word               =subj-word
-   =lex>
+   =lexical>
       isa                     lexical-entry
       word                    =word
       cat            V
@@ -2568,7 +2568,7 @@
    subj-word               =subj-word
    subj-predicate          =subj-pred
 
-   =lex>
+   =lexical>
         isa                     lexical-entry
    word                    =word
    cat            V
@@ -2625,7 +2625,7 @@
    next-goal               =next-goal
    gap                     none
    subj-word               =subj-word
-   =lex>
+   =lexical>
         isa                     lexical-entry
    word                    =word
    cat            V
@@ -2698,7 +2698,7 @@
    gap                     spec
    subj-word               =subj-word
    subj-predicate          =subj-pred
-   =lex>
+   =lexical>
         isa                     lexical-entry
    word                    =word
    cat            V
@@ -2773,7 +2773,7 @@
    gap                     open
    subj-word               =subj-word
    subj-predicate          =subj-pred
-   =lex>
+   =lexical>
         isa                     lexical-entry
    word                    =word
    cat            V
@@ -2854,7 +2854,7 @@
    next-goal               =next-goal
    gap                     none
    subj-word               =subj-word
-   =lex>
+   =lexical>
         isa                     lexical-entry
    word                    =word
    cat            V
@@ -2909,7 +2909,7 @@
       - gap                     none
    subj-word               =subj-word
    subj-predicate          =subj-pred
-   =lex>
+   =lexical>
         isa                     lexical-entry
    word                    =word
    cat            V
@@ -2965,7 +2965,7 @@
       - gap                     none
    subj-word               =subj-word
    subj-predicate          =subj-pred
-   =lex>
+   =lexical>
         isa                     lexical-entry
    word                    =word
    cat            V
@@ -3015,7 +3015,7 @@
    next-goal               =next-goal
    gap                     none
    subj-word               =subj-word
-   =lex>
+   =lexical>
         isa                     lexical-entry
    word                    =word
    cat            V
@@ -3063,7 +3063,7 @@
 ;        gap                     none
    subj-word               =subj-word
    spec                    =subject
-   =lex>
+   =lexical>
         isa                     lexical-entry
    word                    =word
    cat            V
@@ -3125,7 +3125,7 @@
 -  gap                     none
    subj-word               =subj-word
    subj-predicate          =subj-pred
-   =lex>
+   =lexical>
         isa                     lexical-entry
    word                    =word
    cat            I-V
@@ -3173,7 +3173,7 @@
    next-goal               =next-goal
    gap                     none
    subj-word               =subj-word
-   =lex>
+   =lexical>
         isa                     lexical-entry
    word                    =word
    cat            I-V
@@ -3219,7 +3219,7 @@
       ID                =ID-RETR
       head              =head-word
       spec-of           nil
-   =lex>
+   =lexical>
       isa            lexical-entry
       cat            P
       subcat            transitive-DP-lex
@@ -3265,7 +3265,7 @@
       ID                =ID-RETR
       head              =head-word
       spec-of           =IP
-   =lex>
+   =lexical>
       isa            lexical-entry
       cat            P
       subcat            transitive-DP-lex
@@ -3313,7 +3313,7 @@
       cat            VP
       ID                =ID-RETR
       head              =head-word
-   =lex>
+   =lexical>
       isa            lexical-entry
       cat            P
       subcat            transitive-DP-lex
@@ -3358,7 +3358,7 @@
       next-goal         =next-goal
       head              =head-word
       subj-predicate    =subj-pred
-   =lex>
+   =lexical>
       isa      lexical-entry
       cat      P
       subcat            transitive-DP-lex
@@ -3408,7 +3408,7 @@
       next-goal         =next-goal
       head              =head-word
       subcat            past-participle-transitive      
-    =lex>
+    =lexical>
       isa      lexical-entry
       cat      P
       subcat            transitive-DP-lex
@@ -3461,7 +3461,7 @@
       number            sing
       head-word         =subj-word
       spec-of           =IP
-   =lex>
+   =lexical>
       isa         lexical-entry
       cat            C
       finite            finite-lex
@@ -3546,7 +3546,7 @@
       number            sing
       head-word         =subj-word
       spec-of           =ID-IP1
-   =lex>
+   =lexical>
       isa         lexical-entry
       cat            wh-pronoun
       word              =word
@@ -3631,7 +3631,7 @@
       subcat            transitive-CP-finite
       next-goal         =next-goal
       spec-of           nil
-   =lex>
+   =lexical>
       isa         lexical-entry
       cat            C
       finite            finite-lex
@@ -3690,7 +3690,7 @@
       subcat            transitive-CP-finite
       next-goal         =next-goal
       spec-of           =ID-IP1
-   =lex>
+   =lexical>
       isa         lexical-entry
       cat            C
       finite            finite-lex
@@ -3754,7 +3754,7 @@
       ID                =ID-RETR
       head              nil
       waiting-for-cat   wait-for-IP
-   =lex>
+   =lexical>
       isa      lexical-entry
       cat      C
       word              =word
@@ -3811,7 +3811,7 @@
       ID                =ID-RETR
       head              nil
       waiting-for-cat   wait-for-IP
-   =lex>
+   =lexical>
       isa      lexical-entry
       cat      C
       word              =word
@@ -3871,7 +3871,7 @@
       waiting-for-cat2  wait-for-IP
       subcat            transitive-CP-finite
       comp-of           =IP
-   =lex>
+   =lexical>
       isa         lexical-entry
       cat            I-V
       number      sing-lex
@@ -3973,7 +3973,7 @@
       waiting-for-cat2  wait-for-IP
       subcat            transitive-CP-finite
       comp-of           =IP
-   =lex>
+   =lexical>
       isa         lexical-entry
       cat            I-V
       number      sing-lex
