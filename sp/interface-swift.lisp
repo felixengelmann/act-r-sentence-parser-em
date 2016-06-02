@@ -58,15 +58,15 @@
   (let ((msg nil)
         (trgt nil)
         (time (* 1000 rawtime)))
-    (format t "swift-send-state ~S at time ~D~%" *word-processing-states* time)
+    (format t "swift-send-states ~S at time ~D~%" *word-processing-states* time)
     (write-listener (format nil "(~S)~S" time *word-processing-states*))
-    (sleep 0.01)
+    (sleep 0.10)
     (setf msg (read-listener))
     (setf *word-processing-states* (map 'list #'digit-char-p (prin1-to-string (car (first (string-to-list msg))))))
     (setf trgt (car (second (string-to-list msg))))
     ;; SWIFT sends target=0 when finished reading:
     (if (= 0 trgt) (setf *swift-running* nil))
-    (format t "Received new states: ~S~%" *word-processing-states*)
+    (format t "swift-read-states ~S~%" *word-processing-states*)
     (setf *attention-target* trgt)
     ; (format t "New target: ~S~%" *attention-target*)
     ))
@@ -101,11 +101,12 @@
 (defun start-swift nil
   (delete-listener)
   (connect-listener)
-  (sleep 0.2)
+  (sleep 0.3)
   (format t "Initializing SWIFT...~%")
   (cwd "../SWIFT/")
   (run-program "./swift" '() :wait nil)
   (setf *swift-running* T)
+  ; (cwd *working-dir*)
   )
 
 (defun stop-swift nil
