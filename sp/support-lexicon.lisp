@@ -79,6 +79,7 @@
                             (transitive-NP . transitive-NP-lex)
                             (transitive-CP-DP-finite . transitive-CP-DP-finite-lex)
                             (gerund . gerund-lex)
+                            (copula . copula-lex)
                             (past-participle-transitive . past-participle-transitive-lex)))
 
 (defvar *lex-mappings* '((nom . nom-lex)

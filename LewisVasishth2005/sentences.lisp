@@ -585,7 +585,10 @@ the writer said that the medic thought that the assistant admired the student *s
 		 (:lf .2 .4 .1)    (:mas 2 3.5 .5)))
 
 (setf *pspace1* '(
-     (:lf .2 .4 .1)))
+     (:lf .2 .3 .1)
+     (:VISUAL-ENCODING-FACTOR  0.002 .004 .001)
+     (:SACCADE-PREPARATION-TIME  0.110 0.115 0.005)
+     ))
 
 
 
@@ -614,6 +617,5 @@ the writer said that the medic thought that the assistant admired the student *s
   
   
 ; '(:VISUAL-ENCODING-FACTOR 0.002 :SACCADE-PREPARATION-TIME 0.110 :LF 0.2)  
-  
   
 

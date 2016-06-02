@@ -205,12 +205,25 @@
 ;;;   Eye Tracing
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; TODO: Move to EMMA module
+; (defun reset-emma ()
+;   (when (mymember :emma *features*)
+;     ;    (reset-emma-module (get-module :vision))
+;     (setf (trace-eye-p (get-module :vision)) t)   ;; ensure EMMA records eye trace
+;     (set-eye-loc (get-module :vision) #(10 150))  ;; make sure that the eccentricity of first word is not too enormous
+;     ))
+
 (defun reset-emma ()
   (when (mymember :emma *features*)
-    ;    (reset-emma-module (get-module :vision))
-    (setf (trace-eye-p (get-module :vision)) t)   ;; ensure EMMA records eye trace
-    (set-eye-loc (get-module :vision) #(10 150))  ;; make sure that the eccentricity of first word is not too enormous
-    ))
+  (setf (eye-trace (get-module :vision)) nil)
+  (setf (shift-start (get-module :vision)) 0)
+  (setf (shift-target (get-module :vision)) nil)
+  (setf (prep-event (get-module :vision)) nil)
+  (setf (next-loc (get-module :vision)) nil)
+  (clrhash (freq-ht (get-module :vision)))
+  (setf (trace-eye-p (get-module :vision)) t)   ;; ensure EMMA records eye trace
+  (set-eye-loc (get-module :vision) #(10 150))  ;; make sure that the eccentricity of first word is not too enormous
+  ))
+
 
 ;;
 (defun get-em-trace ()

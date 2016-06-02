@@ -72,7 +72,7 @@
 (p find-next-word
    =goal>
       ISA               comprehend-sentence
-    ; - state             "lexical-retrieval"
+    - state             "lexical-retrieval"
       em-state          "free"
       attend-to         "next-word"
       time-out          nil
@@ -211,6 +211,9 @@
     !eval! (register-new-visloc =visloc)
     !eval! (increase-ref-count =visloc)
     ; !eval! (set-current-wordnr =visual)
+    -structural>
+    -structural2>
+    -grammatical>
     -IPb>
     -CPb>
     -DPb>
@@ -537,7 +540,7 @@
        ; regression     t
     +visual-location>
         ISA           visual-location
-      ; < screen-x      current       ;; target before current attended loc (last attended loc)
+      < screen-x      current       ;; target before current attended loc (last attended loc)
       < screen-x      =eye-loc       ;; target before current fixation
         screen-x      highest       ;; target nearest to the left
           ; :attended       t             ;; target one of last two attended (with :visual-num-finsts 3)
@@ -548,6 +551,7 @@
    !eval! (reset-word-processing-state (parsing-get-index))
 )
 (spp start-time-out :at 0)
+;; set to 0 when using fixation-relative regressions
 
 
 (P exit-time-out
@@ -563,21 +567,22 @@
       ; last-parse-loc       =parse-loc
    ; =imaginal>
    ;     ISA            parsing-state
-    ?visual>
-       processor      free
+    ; ?visual>
+    ;    processor      free
     ?grammatical>
        state        free
  ==>
    =goal>
       time-out        nil
-      em-state        "looking"
-      ; em-state        "free"
+      ; em-state        "looking"
+      em-state        "free" ;; VERSION 2: back to normal reading
    ; =imaginal>
-   =visual-location> =last-loc  ;; VERSION 1: back to last lex-retrieved word (n+1)
+   ; =visual-location> =last-loc  ;; VERSION 1: back to last lex-retrieved word (n+1)
   ; +visual-location>      ;; VERSION 2: back to normal reading
-  ;    ISA               visual-location
+     ; ISA               visual-location
   ;  > screen-x          =last-loc
-  ;    screen-x          lowest
+     ; screen-x          lowest
+  -visual-location>
   -visual>
    
    !eval! (exit-time-out)

@@ -365,10 +365,10 @@
 ;;; MESSAGES
 ;;;
 (defun trialmessage (var val)
-  (push-last (list *experiment* *simulation* *item* (1+ *current-index*) *word* var val) *trialmessages*)
+  (push-last (list *experiment* *simulation* *item* (1+ (parsing-get-index)) (parsing-get-word) var val) *trialmessages*)
   (command-output 
     "*** ~6,3F   *** TRIALMESSAGE ***   ~s at ~s: ~s" 
-    (mp-time) var *word* val)
+    (mp-time) var (parsing-get-word) val)
 )
 
 
