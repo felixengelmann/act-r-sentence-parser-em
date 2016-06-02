@@ -10,20 +10,34 @@
 ## 				 - EXPNAME-results.pdf
 ##
 
+library(em2)
+library(reshape)
+library(ggplot2)
+
 
 data <- read.table("experiment-data.txt", header=T)
 expname <- data$exp[1]
 fullname <- data$fullname[1]
-# write.table(data, paste(expname,"-data.txt",sep=""))
+data[data=="NIL"] <- NA
+
+for(c in 8:12){
+	if(mean(is.na(data[,c]))==1) data[,c] <- data$data
+}
+write.table(data, paste(expname,"-data.txt",sep=""))
+
+data$AT <- NA
+data$ET <- NA
+data$timeout <- NA
+data <- melt(data, id=c("exp","cond","sent","pos","roi","condroi","fullname"), measure=c("data","FPRT","FFD","TFT","RRT","RPD","fp_reg","skip","reread","ACC","AT","ET"))
+colnames(data)[9] <- "M"
+data$M <- as.numeric(data$M)
+head(data)
 
 
 
 ##------------------------------------------------------------
 ## SOME HELPER FUNCTIONS
 ##------------------------------------------------------------
-library(em2)
-library(reshape)
-library(ggplot2)
 
 ## Function for computing confidence intervals
 ci <- function (x) 
@@ -54,6 +68,8 @@ data.cleanup <- function(m){
 	return(m)
 }
 
+
+prefix=""
 
 analyze <- function(prefix=""){
 
@@ -113,14 +129,14 @@ dim(m)
 m <- merge(m, att[,-5], by=c("exp","iteration","cond","pos"), all.x=TRUE, all.y=TRUE)
 dim(m)
 
-# ## ENCODING TIMES:
-# enc <- read.table(paste(prefix,"enctimes.txt",sep=""), header=F)
-# colnames(enc) <- c("exp","iteration","cond","pos","word","ET","ecc","freq")
-# enc$cond <- factor(enc$cond)
-# enc$iteration <- factor(enc$iteration)
-# dim(m)
-# m <- merge(m, enc[-5], by=c("exp","iteration","cond","pos"), all.x=TRUE)
-# dim(m)
+## ENCODING TIMES:
+enc <- read.table(paste(prefix,"enctimes.txt",sep=""), header=F)
+colnames(enc) <- c("exp","iteration","cond","pos","word","ET","ecc","freq")
+enc$cond <- factor(enc$cond)
+enc$iteration <- factor(enc$iteration)
+dim(m)
+m <- merge(m, enc[-5], by=c("exp","iteration","cond","pos"), all.x=TRUE)
+dim(m)
 
 ## TRIAL MESSAGES
 msg <- read.table(paste(prefix,"trialmessages.txt",sep=""), header=F)
@@ -162,6 +178,7 @@ if(file.exists(paste(prefix,"subjects.txt",sep=""))){
 	dim(m)
 	m <- merge(m, subjects, by=c("exp"), all.x=T)
 	dim(m)
+	data <- merge(data, subjects, by=c("exp"), all.x=T)
 	print(summary(subjects$wmc))
 	print(summary(subjects$ga))
 }else{
@@ -169,6 +186,7 @@ if(file.exists(paste(prefix,"subjects.txt",sep=""))){
 	m$ga = 1
 	m$wmc = 1
 	data$wmc = 1
+	data$wmc <- factor(data$wmc)
 	m$wmc <- factor(m$wmc)
 }
 
@@ -181,7 +199,7 @@ if(file.exists(paste(prefix,"subjects.txt",sep=""))){
 ##------------------------------------------------------------
 summary(factor(m$cond))
 dim(m)
-m <- merge(m, data[,c(2,4,5,7)], by=c("cond","pos"), all.x=TRUE)
+m <- merge(m, data[,c(2,4,5)], by=c("cond","pos"), all.x=TRUE)
 dim(m)
 
 summary(m$roi)
@@ -224,37 +242,41 @@ m <- subset(m, fail==0)
 
 
 ## TIMES:
-mlt <- melt(subset(m), id=c("roi","pos","cond","wmc","data"), measure=c("SFD","FFD","FPRT","TFT","RPD","RRT","AT"), na.rm = TRUE)
+mlt <- melt(subset(m), id=c("roi","pos","cond","wmc"), measure=c("SFD","FFD","FPRT","TFT","RPD","RRT","AT","ET"), na.rm = TRUE)
 ## by roi
-cst <- cast(subset(mlt, !variable%in%c("RRT","RPD") & !is.na(roi) & value>0), variable+roi+cond+wmc+data ~ ., function(x) c(M=mean(x), SE=sd(x, na.rm=T)/sqrt(length(x)), N=length(x), CI=ci(x)))
-try(cst <- cast(subset(mlt, !is.na(roi) & value>0), variable+roi+cond+wmc+data ~ ., function(x) c(M=mean(x), SE=sd(x, na.rm=T)/sqrt(length(x)), N=length(x), CI=ci(x))))
+cst <- cast(subset(mlt, !variable%in%c("RRT","RPD") & !is.na(roi) & value>0), variable+roi+cond+wmc ~ ., function(x) c(M=mean(x), SE=sd(x, na.rm=T)/sqrt(length(x)), N=length(x), CI=ci(x)))
+try(cst <- cast(subset(mlt, !is.na(roi) & value>0), variable+roi+cond+wmc ~ ., function(x) c(M=mean(x), SE=sd(x, na.rm=T)/sqrt(length(x)), N=length(x), CI=ci(x))))
 means.t <- cst
-# ## by pos
-# cst <- cast(subset(mlt, value>0 & variable%in%c("FPRT","TFT","data")), variable+pos+cond ~ ., function(x) c(M=mean(x), SE=sd(x)/sqrt(length(x))))
-# means.pos.t <- cst
+## by pos
+cst <- cast(subset(mlt, value>0 & variable%in%c("FPRT","TFT","RPD","RRT","AT","ET")), variable+pos+cond+wmc ~ ., function(x) c(M=mean(x), N=length(x)))
+cst$SE <- NA
+cst$CI.lower=NA
+cst$CI.upper=NA
+try(cst <- cast(subset(mlt, value>0 & variable%in%c("FPRT","TFT","RPD","RRT","AT","ET")), variable+pos+cond+wmc ~ ., function(x) c(M=mean(x), SE=sd(x)/sqrt(length(x)), N=length(x), CI=ci(x))))
+means.pos.t <- cst
 
 ## PROBABILITIES:
-mlt <- melt(subset(m), id=c("roi","pos","cond","wmc","data"), measure=c("refix","reread","fp_reg","skip","timeout"), na.rm=T)
+mlt <- melt(subset(m), id=c("roi","pos","cond","wmc"), measure=c("refix","reread","fp_reg","skip","timeout"), na.rm=T)
 ## by roi
-cst <- cast(subset(mlt, !is.na(roi)), variable+roi+cond+wmc+data ~ ., function(x) c(M=mean(x), N=length(x)))
+cst <- cast(subset(mlt, !is.na(roi)), variable+roi+cond+wmc ~ ., function(x) c(M=mean(x), N=length(x)))
 cst$SE <- sqrt(cst$M*(1-cst$M))/sqrt(cst$N)
 cst$CI.lower <- cst$M + qt(.025, df=cst$N-1) * cst$SE
 cst$CI.upper <- cst$M + qt(.975, df=cst$N-1) * cst$SE
 means.p <- cst
-# ## by pos
-# cst <- cast(subset(mlt), variable+pos+cond ~ ., function(x) c(M=mean(x), N=length(x)))
-# cst$SE <- sqrt(cst$M*(1-cst$M))/sqrt(cst$N)
-# # cst$CI.lower <- cst$M + qt(.025, df=cst$N-1) * cst$SE
-# # cst$CI.upper <- cst$M + qt(.975, df=cst$N-1) * cst$SE
-# means.pos.p <- cst
+## by pos
+cst <- cast(subset(mlt), variable+pos+cond+wmc ~ ., function(x) c(M=mean(x), N=length(x)))
+cst$SE <- sqrt(cst$M*(1-cst$M))/sqrt(cst$N)
+cst$CI.lower <- cst$M + qt(.025, df=cst$N-1) * cst$SE
+cst$CI.upper <- cst$M + qt(.975, df=cst$N-1) * cst$SE
+means.pos.p <- cst
 
 
 means <- rbind(means.t,means.p)
 summary(means)
-# means.pos <- rbind(means.pos.t,means.pos.p[,-5])
+means.pos <- rbind(means.pos.t,means.pos.p)
 
 write.table(means, paste(resultsfile,".txt",sep=""))
-# save(m, means, file="m.Rd")
+save(m, means, file="m.Rd")
 
 
 
@@ -278,7 +300,7 @@ print(pr <- ggplot(subset(means, (M!=0 & variable%in%c("FFD","FPRT","RPD","TFT",
 	+ theme_bw(base_size=10)
 # + facet_grid(variable~.)
 	+ facet_wrap(~variable, ncol=2, scales="free")
-	+ geom_point(aes(roi,data),shape=4, position=dodge3)
+	+ geom_point(data=subset(data, M!=0 & variable%in%c("FFD","FPRT","RPD","TFT","RRT","AT")),shape=4, position=dodge3) #color=c("gray30"))
 	)
 	# ggsave(pr, file=paste(prefix,"plot-reading-times.pdf",sep=""), height=7, width=9)
 
@@ -290,6 +312,7 @@ print(pp <- ggplot(subset(means, variable%in%c("reread","fp_reg","refix", "skip"
 + ggtitle("Model probabilities")
 + theme_bw(base_size=10)
 + facet_wrap(variable ~ wmc, ncol=2, scales="free")
++ geom_point(data=subset(data, variable%in%c("reread","fp_reg","refix", "skip","timeout")),shape=4, position=dodge) #color=c("gray30"))
 )
 	# ggsave(pp, file=paste(prefix,"plot-probabilities.pdf",sep=""), height=7, width=9)
 
@@ -313,77 +336,82 @@ print(pf <- ggplot(fail,
 boxplot(as.numeric(m$ga), main="WMC")
 
 
-# ## OVERVIEW RT
-# (por <- ggplot(subset(means.pos, (M!=0 & variable%in%c("AT","ET","FPRT","TFT"))), aes(pos, M, col=cond, linetype=cond))
-# 	+ geom_point() + geom_line()
-# 	+ geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0))
-# 	+ xlab("")
-# 	+ ylab("Mean duration in ms")
-# 	+ coord_cartesian()
-# 	+ ggtitle("Model overview RT")
-# 	+ theme_bw(base_size=10)
-# # + facet_grid(variable~.)
-# 	+ facet_wrap(~variable, ncol=1, scales="free")
-# 	+ theme(legend.position="bottom")
-# 	)
-# # ggsave(por, file=paste(prefix,"plot-overview1.pdf",sep=""), height=9, width=9)
+## OVERVIEW RT
+print(por <- ggplot(subset(means.pos, (M!=0 & variable%in%c("AT","ET","FPRT","TFT","RRT"))), aes(pos, M, col=cond, linetype=wmc, shape=wmc))
+	+ geom_point() + geom_line()
+	+ geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0))
+	+ xlab("")
+	+ ylab("Mean duration in ms")
+	+ coord_cartesian()
+	+ ggtitle("Model overview RT")
+	+ theme_bw(base_size=10)
+# + facet_grid(variable~.)
+	+ facet_wrap(~variable, ncol=1, scales="free")
+	+ theme(legend.position="bottom")
+	+ geom_point(data=subset(data, M!=0 & variable%in%c("FPRT","TFT","RRT","AT","ET")),shape=4, position=dodge3) #color=c("gray30"))
+		)
+# ggsave(por, file=paste(prefix,"plot-overview1.pdf",sep=""), height=9, width=9)
 
-# ## OVERVIEW PROB
-# (pop <- ggplot(subset(means.pos, variable%in%c("reread","fp_reg","refix", "skip","timeout")), 
-# 	aes(pos, M, col=cond, linetype=cond, group=cond))
-# + geom_line() + geom_point()
-# + geom_linerange(aes(max=CI.upper, min=CI.lower, width=0))
-# + ggtitle("Model overview Prob")
-# + theme_bw(base_size=10)
-# + facet_wrap(~variable, ncol=1, scales="free")
-# + theme(legend.position="bottom")
-# )
-# # ggsave(pop, file=paste(prefix,"plot-overview2.pdf",sep=""), height=9, width=9)
+## OVERVIEW PROB
+print(pop <- ggplot(subset(means.pos, variable%in%c("reread","fp_reg","refix", "skip","timeout")), 
+	aes(pos, M, col=cond, linetype=wmc, shape=wmc))
++ geom_line() + geom_point()
++ geom_linerange(aes(max=CI.upper, min=CI.lower, width=0))
++ ggtitle("Model overview Prob")
++ theme_bw(base_size=10)
++ facet_wrap(~variable, ncol=1, scales="free")
++ theme(legend.position="bottom")
++ geom_point(data=subset(data, variable%in%c("reread","fp_reg","refix", "skip","timeout")),shape=4, position=dodge) #color=c("gray30"))
+)
+# ggsave(pop, file=paste(prefix,"plot-overview2.pdf",sep=""), height=9, width=9)
 
 
 
-##----------------------------------------------------------
+##------------------------------------------------------------
 ## SCANPATHS
 ##------------------------------------------------------------
 
-# ## PLOT SCANPATH OF RANDOM TRIAL ##
-# i <- sample(unique(f$iteration),1)
-# t1 <- subset(f, iteration%in%i)
-# t1$index <- NA
-# for(i in unique(t1$iteration)){
-# 	for(c in t1$cond){
-# 		s <- (t1$iteration==i & t1$cond==c)
-# 		t1$index[s] <- 1:length(t1$pos[s])
-# 	}
-# }
-# (psc <- ggplot(t1, aes(index, pos, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() 
-# 	+ scale_y_discrete(labels=min(t1$pos):max(t1$pos)) 
-# 	+ ggtitle(i))
-# # ggsave(psc, file="plot-scanpath.pdf")
+## PLOT SCANPATH OF RANDOM TRIAL ##
+i <- sample(unique(f$iteration),1)
+e <- sample(unique(f$exp),1)
+t1 <- subset(f, iteration%in%i & exp%in%e)
+t1$index <- NA
+for(i in unique(t1$iteration)){
+	for(c in t1$cond){
+		s <- (t1$iteration==i & t1$cond==c)
+		t1$index[s] <- 1:length(t1$pos[s])
+	}
+}
+(psc <- ggplot(t1, aes(index, pos, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() 
+	+ scale_y_discrete(labels=min(t1$pos):max(t1$pos)) 
+	+ ggtitle(i))
 
 
-# ## PLOT SCANPATH OF 7 RANDOM TRIALS ##
-# i <- sample(unique(f$iteration),7)
-# t1 <- subset(f, iteration%in%i)
-# t1$index <- NA
-# for(i in unique(t1$iteration)){
-# 	for(c in t1$cond){
-# 		s <- (t1$iteration==i & t1$cond==c)
-# 		t1$index[s] <- 1:length(t1$pos[s])
-# 	}
-# }
-# (psc7 <- ggplot(t1, aes(index, pos, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() + facet_grid(.~iteration) + scale_y_discrete(labels=min(t1$pos):max(t1$pos)) + theme(legend.position="bottom"))
-# # ggsave(psc7, file="plot-scanpaths7.pdf", width=13, height=6)
+## PLOT SCANPATH OF 7 RANDOM TRIALS ##
+i <- sample(unique(f$iteration),7)
+e <- sample(unique(f$exp),1)
+t1 <- subset(f, iteration%in%i & exp%in%e)
+t1$index <- NA
+for(i in unique(t1$iteration)){
+	for(c in t1$cond){
+		s <- (t1$iteration==i & t1$cond==c)
+		t1$index[s] <- 1:length(t1$pos[s])
+	}
+}
+(psc7 <- ggplot(t1, aes(index, pos, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() + facet_grid(.~iteration) + scale_y_discrete(labels=min(t1$pos):max(t1$pos)) + theme(legend.position="bottom"))
 
 
 
 ##------------------------------------------------------------
 ## FIT WITH THE DATA
 ##------------------------------------------------------------
-result <- subset(means,variable=="TFT" & !roi%in%c("n-","n+","other"))
-result <- cast(result, variable+roi+cond+data~., mean, value="M")
-colnames(result)[5] <- "model"
+model <- subset(means,variable=="TFT" & !roi%in%c("n-","n+","other"))
+colnames(model)[5] <- "model"
+human <- subset(data,variable=="data" & !roi%in%c("n-","n+","other"))
+colnames(human)[9] <- "data"
+result <- merge(model, human[,c(2,5,9)], by=c("cond","roi"))
 result
+
 (error <- rmsd(result$data,result$model))
 (r <- cor(result$data,result$model))
 (score <- error-100*r)
@@ -401,5 +429,7 @@ dev.off()
 
 
 
-	return(list(m=m, means, error=error,r=r,score=score, effect1=effect1, effect2=effect2, effscore=effscore))
+	# return(list(m=m, means, error=error,r=r,score=score, effect1=effect1, effect2=effect2, effscore=effscore))
 }
+
+analyze()

@@ -237,7 +237,11 @@ print(ggplot(fit2, aes(factor(set), val, group=var))
   + ylab("")
   )
 
+
+
 ## fit by parameters
+param_names <- gsub("-",".",param_names)
+
 for(i in 1:(length(params)-1)){
   npoly <- min(c(4,length(unique(params[[i]]))-1))
   print(ggplot(fit2, aes(get(param_names[i]), val))

@@ -84,9 +84,14 @@
                                      ;;   available (in seconds) (default: 0.5)
 
   ;;; PARSING
-    :SURPRISAL-FACTOR          0.005
-    :SURPRISAL-HL-FACTOR       2
-
+  :SURPRISAL-FACTOR          0.005
+  :SURPRISAL-HL-FACTOR       2
+  :gram-force-merge          t
+  :gram-lf                   0.2
+  :gram-rt                   -1.5
+  :lex-lf                    0.1
+  :lex-rt                    -1.5
+    
   ;;; RETRIEVAL LATENCY FACTOR F
   ;;; (0.14 for for LV2005, VL2006) (0.46 for VBRD2008) (0.26 NPI ACTR6 replication)
      ; :lf .46 ; (VBRT2008)
@@ -95,10 +100,11 @@
     :lf .2
     ; :lf .14 ; (LV2005, VL2006)
 
+
   ;;; RETRIEVAL THRESHOLD T  (-1.5 for for LV2005, VL2006, VBRD2008)
     ; :rt -.5        ; retrieval threshold T
     ; :rt -1.0
-    :rt -1.5
+    ; :rt -1.5
 
   ;;; ACTIVATION
    ;; Decay parameter (0.5 for LV2005, VL2006, VBRD2008; 2 was used in Raluca's  model)   
@@ -113,7 +119,7 @@
 
    ;; Partial Matching
     ; :mp  3         ; match scale (mismatch penalty parameter)
-    :mp  1.5
+    :mp  1.4
     :md -.6         ; maximum difference penalty  (-0.6 for for LV2005, VL2006, VBRD2008)
 
    ;; Maximum associated strengh S (1.5 for LV2005, VL2006, VBRD2008) 
