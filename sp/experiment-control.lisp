@@ -646,7 +646,7 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
     (with-open-file (rfile data-file
          :direction :output
          :if-exists :supersede)
-      (format rfile "exp cond sent pos roi condroi data FPRT TFT FFD RRT RPD fp_reg skip reread ACC fullname~%")
+      (format rfile "exp fullname cond sent pos roi condroi data FPRT TFT FFD RRT RPD fp_reg skip reread ACC~%")
       ; 
       (dolist (c conditions)
         (let ((cname (pop c))
@@ -676,7 +676,7 @@ RUNNING PARAMSET ~A ~A~%" *paramset* params)
               (when (numberp RRT) (setf RRT (* 1000 RRT)))
               (when (numberp RPD) (setf RPD (* 1000 RPD)))
               (format rfile "~s ~s ~s ~d ~s ~s ~6,3F ~s ~s ~s ~s ~s ~s ~s ~s ~s ~s
-" name cname sent position rname newcond humandata FPRT TFT FFD RRT RPD fp_reg skip reread ACC full-name))))))
+" name full-name cname sent position rname newcond humandata FPRT TFT FFD RRT RPD fp_reg skip reread ACC))))))
     )
   )
 
