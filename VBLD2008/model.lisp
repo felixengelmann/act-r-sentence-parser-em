@@ -66,6 +66,7 @@
     :ncnar t         ; Normalize chunk names. Switch off for better performance.
     :dcnn nil            ; Dynamic chunk name normalizing during run time. Switch off for better performance.
     :short-copy-names t
+    ; :use-tree T         ; Controls whether a decision tree is created to use during production matching. This should result in a faster model run time.
 
   ;;; VISUAL + EMMA-P
     :VISUAL-ENCODING-FACTOR    0.002
