@@ -7,11 +7,11 @@
 ;; Set Working directory (not necessarily necessary):
 ; (setf *default-pathname-defaults* #P"/PATH_TO_YOUR_WORKSPACE/ACTR-SentenceParser-EM/LewisVasishth2005/")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Run ACT-R and load the model:
 (load "../actr6/load-act-r-6.lisp")
 (load "sp-lv05.lisp")
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; In case environment should be used:
 (run-environment)
@@ -21,37 +21,37 @@
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; SOME EXAMPLES
 ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(rl) 				;; reload model files
+(clear-sp) 	;; reload all files
+(delete-output)
 
 
 ;;;
 ;;; Demos
 ;;;
 (demo)
-(demo '(:lf 0.8))
 (demo1)
-(demo2)
+; (demo2)
+
+(rl)
+(delete-output)
+(demo '(:lf 0.8))
 
 
 ;;;
 ;;; Print information
 ;;;
+(parsing-print-info)
 (print-params)
 (print-interface-params)
-(print-runtime-vars)
-(parsing-print-info)
 
-
-;;;
-;;; Useful functions
-;;;
-(rl) 				;; reload model files
-(clear-sp) 	;; reload all files
-(delete-output)
 ;; Change trace output:
 (setprint full)
 (setprint firing)
@@ -63,11 +63,13 @@
 ;;;
 ;;; Run sentences
 ;;;
+(rl)
+(delete-output)
 (ps *gg-sr*) 
 (ps *gg-or* :params '(:lf 0.8)) 
 ;; For better eye movement presentation:
 (setf *real-time* T)
-
+(ps *gg-or* :params '(:lf 0.8)) 
 
 ;;;
 ;;; Set interface parameters
@@ -115,6 +117,6 @@
 ;;; Run external scripts or programs
 ;;;
 (cwd "output/")
-(run-program "Rscript" '("demo-analysis.R"))
+(run-program "Rscript" '("1_quick_results.R"))
 (cwd "../")
 ; (run-program "open" '("output/results.pdf"))
