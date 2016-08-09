@@ -13,9 +13,8 @@ This file documents the prerequisites and the model structure. See the wiki at h
 
 ---
 
-### I. Getting started
+### I. Prerequisites
 #### Lisp
-
 Lisp is required in order to run ACT-R. I recommend Clozure Common Lisp (formerly OpenMCL):
  
  1. On Mac, just install Clozure CL from the App Store.
@@ -30,15 +29,22 @@ Alternatively, download the source:
  5. Make the script(s) executable:  
    `> sudo chmod +x ccl*`  
 
+#### R packages
+In order to run the R scripts provided for analysis, you need to ensure the following packages are installed:  
 
+ - ggplot2
+ - tidyr
+ - dplyr
+ - em2 (http://cran.r-project.org/src/contrib/Archive/em2/)
+
+
+### II. Getting started
 #### ACT-R
-
 An ACT-R distribution is included. The model runs with ACT-R 6.0 and has not been tested on newer versions. If you want to use a different version, refer to:
  - http://act-r.psy.cmu.edu/
  - https://github.com/RyanHope/ACT-R
 
 #### Modules
-
 The parsing module `parsing-module.lisp` and an adjusted version of the EMMA eye movement control model `emma-p.lisp` are located in `actr6/other-files/`.
 If desired, you can also put `chunk-tree.lisp` in there to visualise trees.
 
@@ -69,7 +75,7 @@ If desired, you can also put `chunk-tree.lisp` in there to visualise trees.
 
 ---
 
-### II. Model structure
+### III. Model structure
 
 #### Files
 ###### Project-related
@@ -216,7 +222,7 @@ Example: `(search-param-space-subjects-em MV13 20 50 *pspace1*)`
 ---
 
 
-### III. Modeling functions
+### IV. Modeling functions
 
 #### Parser (support-parser.lisp)
 
