@@ -1,4 +1,4 @@
-## Toward an integrated model of eye movements in sentence comprehension ##
+## An integrated model of eye movement behaviour in sentence comprehension ##
 An ACT-R sentence parsing model based on Lewis & Vasishth (2005), interacting with eye movement control.  
 This is part of the PhD Thesis of Felix Engelmann, submitted to the University of Potsdam, 2016.  
 
