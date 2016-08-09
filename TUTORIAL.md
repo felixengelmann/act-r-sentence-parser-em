@@ -1,5 +1,3 @@
-Welcome to the act-r-sentence-parser-em wiki!
-
 ## Quick start tutorial
 
 Quick start for the demo model of the Lewis & Vasishth (2005) parser extended with eye movement control.
