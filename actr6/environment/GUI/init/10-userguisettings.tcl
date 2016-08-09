@@ -17,10 +17,10 @@ if $size_mismatch {
 if {$reset_window_sizes != "yes"} {
   set window_config(.declarative_tree) 1920x1031+0+23
   set changed_window_list(.declarative_tree) 1
+  set window_config(.control_panel) 198x864+1082+131
+  set changed_window_list(.control_panel) 1
   set window_config(.declarative) 420x300+750+390
   set changed_window_list(.declarative) 1
-  set window_config(.control_panel) 198x864+1682+131
-  set changed_window_list(.control_panel) 1
   set window_config(.copyright) 400x466+760+307
   set changed_window_list(.copyright) 1
 }
