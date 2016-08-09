@@ -66,15 +66,56 @@ m$skip[m$dur==0] <- 1
 
 
 
+
+# ============================
 # PLOTS
-# ---------------------------
+# ============================
 
 words <- unique(with(m[!is.na(m$word),], paste(pos,word)))
 m <- subset(m, !is.na(word))
 
-dodge <- position_dodge(width=.3)
-
 pdf("quick_results.pdf")
+
+
+# SCANPATHS
+# ---------------------------
+
+## PLOT SCANPATH OF RANDOM TRIAL ##
+i <- sample(unique(f$iteration),1)
+t1 <- subset(f, iteration%in%i)
+t1$index <- NA
+for(i in unique(t1$iteration)){
+	for(c in t1$cond){
+		s <- (t1$iteration==i & t1$cond==c)
+		t1$index[s] <- 1:length(t1$pos[s])
+	}
+}
+t1$pos <- factor(t1$pos)
+t1$index <- factor(t1$index)
+(psc <- ggplot(t1, aes(index, pos, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() 
+	+ scale_y_discrete(labels=words) 
+	+ ggtitle(i))
+
+
+## PLOT SCANPATH OF 7 RANDOM TRIALS ##
+i <- sample(unique(f$iteration),7)
+t1 <- subset(f, iteration%in%i)
+t1$index <- NA
+for(i in unique(t1$iteration)){
+	for(c in t1$cond){
+		s <- (t1$iteration==i & t1$cond==c)
+		t1$index[s] <- 1:length(t1$pos[s])
+	}
+}
+t1$pos <- factor(t1$pos)
+# t1$index <- factor(t1$index)
+(ggplot(t1, aes(index, pos, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() + facet_grid(.~iteration) +  theme(legend.position="bottom"))
+
+
+
+# OTHER PLOTS
+# ---------------------------
+dodge <- position_dodge(width=.3)
 
 ## PLOT ATTACHMENT TIMES ##
 (ggplot(m, aes(factor(pos), AT, col=cond, group=cond)) 
@@ -128,38 +169,5 @@ pdf("quick_results.pdf")
 
 
 
-# SCANPATHS
-# ---------------------------
-
-## PLOT SCANPATH OF RANDOM TRIAL ##
-i <- sample(unique(f$iteration),1)
-t1 <- subset(f, iteration%in%i)
-t1$index <- NA
-for(i in unique(t1$iteration)){
-	for(c in t1$cond){
-		s <- (t1$iteration==i & t1$cond==c)
-		t1$index[s] <- 1:length(t1$pos[s])
-	}
-}
-t1$pos <- factor(t1$pos)
-t1$index <- factor(t1$index)
-(psc <- ggplot(t1, aes(index, pos, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() 
-	+ scale_y_discrete(labels=words) 
-	+ ggtitle(i))
-
-
-## PLOT SCANPATH OF 7 RANDOM TRIALS ##
-i <- sample(unique(f$iteration),7)
-t1 <- subset(f, iteration%in%i)
-t1$index <- NA
-for(i in unique(t1$iteration)){
-	for(c in t1$cond){
-		s <- (t1$iteration==i & t1$cond==c)
-		t1$index[s] <- 1:length(t1$pos[s])
-	}
-}
-t1$pos <- factor(t1$pos)
-# t1$index <- factor(t1$index)
-(ggplot(t1, aes(index, pos, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() + facet_grid(.~iteration) +  theme(legend.position="bottom"))
 
 dev.off()
