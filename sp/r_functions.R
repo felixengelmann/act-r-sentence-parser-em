@@ -197,12 +197,8 @@ analyse_experiment <- function(prefix=""){
 	# m <- merge(m, d[,c(2,4,5,7)], by=c("cond","pos"), all.x=TRUE)
 	m <- merge(m, d[,c("cond","pos","roi","data")], by=c("cond","pos"), all.x=TRUE)
 
-	# m <- left_join(m, select(d, cond, pos, roi, data), by=c("cond","pos"))
-	# dim(m)
-
 	# summary(m$roi)
-	levels(m$roi)[length(levels(m$roi))+1] <- "n-"
-	levels(m$roi)[length(levels(m$roi))+1] <- "n+"
+	m$roi <- as.character(m$roi)
 	for(c in unique(d$cond)){
 		s <- subset(d, cond==c)
 		minp <- min(s$pos)
@@ -211,13 +207,12 @@ analyse_experiment <- function(prefix=""){
 		m$roi[m$cond==c & m$pos>maxp] <- "n+"
 	}
 
-	nLev <- length(levels(m$roi))
-	newLev <- unique(m$roi, na.rm=TRUE)[1:nLev]
-	levels(m$roi) <- newLev
-	levels(m$roi)[length(levels(m$roi))+1] <- "other"
 	m$roi[is.na(m$roi)] <- "other"
+	newLev <- unique(m$roi, na.rm=TRUE)	
+	m$roi <- factor(m$roi, levels=newLev)
 
 	words <- unique(with(m[!is.na(m$word),], paste(pos,word)))
+
 
 	# Cleanup
 	# ------------------------------
@@ -238,7 +233,7 @@ analyse_experiment <- function(prefix=""){
 	both <- bind_rows(m,d)
 	both$roi <- factor(both$roi, levels=as.character(newLev))
 
-	dodge <- position_dodge(width=.3)
+	dodge <- position_dodge(width=.2)
 	dodge2 <- position_dodge(width=.6)
 	dodge3 <- position_dodge(width=.1)
 
@@ -347,7 +342,7 @@ analyse_experiment <- function(prefix=""){
 		}
 		t1$pos <- factor(t1$pos)
 		t1$index <- factor(t1$index)
-		(ggplot(t1, aes(index, pos, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() 
+		print(ggplot(t1, aes(index, pos, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() 
 			+ scale_y_discrete(labels=words)
 			+ ggtitle(i))
 
@@ -364,7 +359,7 @@ analyse_experiment <- function(prefix=""){
 		}
 		t1$pos <- factor(t1$pos)
 		# t1$index <- factor(t1$index)		
-		(ggplot(t1, aes(index, pos, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() + facet_grid(.~iteration) 
+		print(ggplot(t1, aes(index, pos, group=cond, col=cond)) + geom_point(aes(size=dur)) + geom_line() + facet_grid(.~iteration) 
 			# + scale_y_discrete(labels=words)
 			+ theme(legend.position="bottom"))
 	}
@@ -373,10 +368,10 @@ analyse_experiment <- function(prefix=""){
 	# Fit with the data
 	# ------------------------------
 	result <- subset(m,Measure=="TFT" & !roi%in%c("n-","n+","other"))
-	result <- group_by(result, Measure, roi, cond, data) %>% summarise(model=mean(Value)) %>% ungroup() %>% filter(!is.na(data))
+	result <- group_by(result, Measure, roi, cond, data) %>% summarise(model=mean(Value, na.rm=TRUE)) %>% ungroup() %>% filter(!is.na(data))
 	(error <- rmsd(result$data,result$model))
 	(r <- cor(result$data,result$model))
-	(score <- error-100*r)
+	(score <- r*100 - error/25)
 
 	effect1 <- 0
 	effect2 <- 0
@@ -385,7 +380,7 @@ analyse_experiment <- function(prefix=""){
 	par(mfrow=c(1,3))
 	barplot(error,main="Root-mean-squared error (TFT)",ylim=c(0,error*1.5))
 	barplot(r,main="Correlation (TFT)", ylim=c(-1,1))
-	plot(score,main="Score",cex=2, pch=16)
+	barplot(score,main="Score", ylim=c(0,100))
 
 	dev.off()
 
