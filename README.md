@@ -1,8 +1,6 @@
-## An integrated model of eye movements in sentence comprehension ##
-
-> **The model and module code is under heavy development and at the moment in a kind of transition stage containing some redundant or deprecated code. Some things might not work.**
-
-An ACT-R sentence parsing model as described in Lewis & Vasishth (2005), extended to generate eye movements.
+## Toward an integrated model of eye movements in sentence comprehension ##
+An ACT-R sentence parsing model based on Lewis & Vasishth (2005), interacting with eye movement control.  
+This is part of the PhD Thesis of Felix Engelmann, submitted to the University of Potsdam, 2016.  
 
 This model includes:
 - an ACT-R 6.0 distribution
