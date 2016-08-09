@@ -13,10 +13,10 @@ This file documents the prerequisites and the model structure. See the wiki at h
 
 ---
 
-### I. Prerequisites
+### I. Getting started
 #### Lisp
 
-I recommend Clozure Common Lisp (formerly OpenMCL):
+Lisp is required in order to run ACT-R. I recommend Clozure Common Lisp (formerly OpenMCL):
  
  1. On Mac, just install Clozure CL from the App Store.
 
@@ -33,18 +33,14 @@ Alternatively, download the source:
 
 #### ACT-R
 
-An ACT-R distribution is included, but if you wish to retrieve a newer version, you can refer to the following sources:
+An ACT-R distribution is included. The model runs with ACT-R 6.0 and has not been tested on newer versions. If you want to use a different version, refer to:
  - http://act-r.psy.cmu.edu/
  - https://github.com/RyanHope/ACT-R
- - `svn://jordan.psy.cmu.edu/usr/local/svnroot/actr6`
-
 
 #### Modules
 
-Make sure the following modules (provided in `MODULES/`) are located in `actr6/other-files/`
-- `emma-p.lisp`
-- `parsing-module.lisp`
-- if desired: `chunk-tree.lisp`
+The parsing module `parsing-module.lisp` and an adjusted version of the EMMA eye movement control model `emma-p.lisp` are located in `actr6/other-files/`.
+If desired, you can also put `chunk-tree.lisp` in there to visualise trees.
 
 
 #### Running ACT-R and environment
@@ -52,15 +48,24 @@ Make sure the following modules (provided in `MODULES/`) are located in `actr6/o
  2. Start Lisp:  
    E.g., `> ccl`  or  `> ccl64`
   - When running ACT-R for the first time or something has changed in the modules, make sure ACT-R recompiles all files when loading:  
-  `> (push :actr-recompile *features*)`
+  `(push :actr-recompile *features*)`
  3. Load ACT-R:  
    `(load "../actr6/load-act-r-6.lisp")`
  4. Run environment:  
-   `> (run-environment)`
+   `(run-environment)`
   - Depending on the lisp distribution or the operating system, it may be necessary to start the environment manually (in actr6/environment/) and then connect ACT-R to it by:  
-   `> (start-environment)`
+   `(start-environment)`
  5. Now you can load the desired model, e.g., for loading the LewisVasishth2005 model, type:  
-   `> (load "sp-lv05.lisp")`
+   `(load "sp-lv05.lisp")`
+ 
+#### Functions to get started
+ - Run a demo sentence: `(demo)`
+ - Reload model: `(rl)`
+ - Delete output: `(delete-output)`
+ - Run a specific sentence, e.g.: `(ps *gg-sr*)` or `(ps "the dog bit the boy")`
+ - Run an experiment, e.g.: `(re 'gg-exp1 60)`
+
+
 
 ---
 
@@ -132,7 +137,6 @@ Example: `(search-param-space-subjects-em MV13 20 50 *pspace1*)`
 ###### Helpers
 `(print-params)` - Prints important parameters  
 `(print-interface-params)` - Prints interface parameters  
-`(print-runtime-vars)` -  Prints parsing state (soon obsolete)  
 `(parsing-print-info)` - Displays info about parsing state, current word and location, and attached items  
 `(delete-output)` - Delete output files for fixations etc. in output directory   
 
