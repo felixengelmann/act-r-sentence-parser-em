@@ -199,69 +199,7 @@ means$cond <- factor(means$cond, levels=c("SR","OR"))
 means2$cond <- factor(means2$cond, levels=c("SR","OR"))
 
 
-## TRIAL INFO
-fails <- cast(m.all, cond~., mean, value="fail")
-colnames(fails)[2] <- "fail"
-(p1 <- ggplot(fails, 
-	aes(cond, fail, fill=cond))
-+ geom_bar(stat="identity", position=dodge, show_guide=FALSE)
-+ ylim(0,1)
-+ xlab("")
-+ ylab("Failure rate")
-# + ggtitle("Model failure")
-+ theme_classic()
-)
-
-## RT
-(p1 <- ggplot(
-	droplevels(subset(means, (M!=0 & variable%in%c("FFD","FPRT","RPD") & roi%in%roilabels))), 
-	aes(roi, M, col=cond, linetype=cond, group=cond))
-+ facet_grid(variable~.)
-+ geom_line() + geom_point()
-+ geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0))
-+ ggtitle("Model reading times")
-+ theme_bw()
-)
-
-## PROB
-(p1 <- ggplot(
-	droplevels(subset(means, (variable%in%c("reread","fp_reg","refix", "skip","timeout") & roi%in%roilabels))), 
-	aes(roi, M, col=cond, linetype=cond, group=cond))
-+ facet_grid(variable~., scales="free")
-# + facet_wrap(~ variable, ncol=2)
-+ geom_line() + geom_point() 
-+ geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0))
-# + geom_bar(stat="identity", position=dodge)
-# + geom_linerange(aes(max=CI.upper, min=CI.lower, width=0), position=dodge)
-+ ggtitle("Model probabilities")
-+ theme_bw()
-)
-
-## WORD INFO
-(p1 <- ggplot(
-	droplevels(subset(means, (variable%in%c("AT","ET") & roi%in%roilabels))), 
-	aes(roi, M, col=cond, linetype=cond, group=cond))
-+ facet_grid(variable~.)
-+ geom_line() + geom_point()
-+ geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0))
-+ ggtitle("Attachment and encoding times")
-+ theme_bw()
-)
-
-
-## ATTACHMENT TIME
-(p.att <- ggplot(
-	droplevels(subset(means2, (M!=0 & variable%in%c("AT") & roi2%in%c("DET N","RC-V","V")))), aes(roi2, M, fill=cond))
-+ geom_bar(stat="identity", position=dodge)
-+ geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0), position=dodge)
-+ guides(fill=guide_legend(title=""))
-+ xlab("")
-+ ylab("Mean duration in ms")
-+ coord_cartesian(ylim=c(10,200))
-+ ggtitle("Model attachment time")
-+ theme_classic()
-)
-ggsave("staub10-model-attachment.pdf", p.att, width=5, height=4)
+pdf("Staub2010-analysis.pdf", onefile=T)
 
 
 ## READING TIME
@@ -277,25 +215,93 @@ dodge2 <- position_dodge(0.07)
 # + ylim(200, 380)
 # + coord_cartesian(ylim=c(200,600))
 + ggtitle("First fixation duration (data in gray)")
-+ theme_bw()
+# + theme_bw()
 + facet_grid(variable ~., scales="free")
 )
-ggsave("staub10-model+data-rt.pdf", p.rt, width=5, height=5)
+# ggsave("staub10-model+data-rt.pdf", p.rt, width=5, height=5)
 
 
 ## REGRESSION PROB
 (p.reg <- ggplot(
 	droplevels(subset(means2, (variable%in%c("fp_reg") & roi2%in%c("DET N","RC-V","V")))), aes(roi2, M, fill=cond))
-+ geom_point(colour="gray80", size=3, aes(y=data), position=dodge)
 + geom_bar(stat="identity", position=dodge)
++ geom_point(colour="black", size=3, aes(y=data, fill=cond), position=dodge, shape=21)
 + geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0), position=dodge)
 + xlab("")
 + ylab("Probability")
 # + ylim(0,.7)
 + coord_cartesian(ylim=c(-0.01,.7))
-+ ggtitle("First-pass regressions (data in gray)")
-+ theme_bw()
++ ggtitle("First-pass regressions (data as points)")
+# + theme_bw()
 # + facet_grid(variable ~., scales="free")
 )
-ggsave("staub10-model+data-prob.pdf", p.reg, width=5, height=4)
+# ggsave("staub10-model+data-prob.pdf", p.reg, width=5, height=4)
 
+
+## TRIAL INFO
+fails <- cast(m.all, cond~., mean, value="fail")
+colnames(fails)[2] <- "fail"
+(p1 <- ggplot(fails, 
+	aes(cond, fail, fill=cond))
++ geom_bar(stat="identity", position=dodge, show_guide=FALSE)
++ ylim(0,1)
++ xlab("")
++ ylab("Failure rate")
++ ggtitle("Model failure")
+# + theme_classic()
+)
+
+## RT
+(p1 <- ggplot(
+	droplevels(subset(means, (M!=0 & variable%in%c("FFD","FPRT","RPD") & roi%in%roilabels))), 
+	aes(roi, M, col=cond, linetype=cond, group=cond))
++ facet_grid(variable~., scales="free")
++ geom_line() + geom_point()
++ geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0))
++ ggtitle("Model reading times")
+# + theme_bw()
+)
+
+## PROB
+(p1 <- ggplot(
+	droplevels(subset(means, (variable%in%c("reread","fp_reg","refix", "skip","timeout") & roi%in%roilabels))), 
+	aes(roi, M, col=cond, linetype=cond, group=cond))
++ facet_grid(variable~., scales="free")
+# + facet_wrap(~ variable, ncol=2)
++ geom_line() + geom_point() 
++ geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0))
+# + geom_bar(stat="identity", position=dodge)
+# + geom_linerange(aes(max=CI.upper, min=CI.lower, width=0), position=dodge)
++ ggtitle("Model probabilities")
+# + theme_bw()
+)
+
+## WORD INFO
+(p1 <- ggplot(
+	droplevels(subset(means, (variable%in%c("AT","ET") & roi%in%roilabels))), 
+	aes(roi, M, col=cond, linetype=cond, group=cond))
++ facet_grid(variable~., scales="free")
++ geom_line() + geom_point()
++ geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0))
++ ggtitle("Attachment and encoding times")
+# + theme_bw()
+)
+
+
+## ATTACHMENT TIME
+(p.att <- ggplot(
+	droplevels(subset(means2, (M!=0 & variable%in%c("AT") & roi2%in%c("DET N","RC-V","V")))), aes(roi2, M, fill=cond))
++ geom_bar(stat="identity", position=dodge)
++ geom_errorbar(aes(max=CI.upper, min=CI.lower, width=0), position=dodge)
++ guides(fill=guide_legend(title=""))
++ xlab("")
++ ylab("Mean duration in ms")
+# + coord_cartesian(ylim=c(10,200))
++ ggtitle("Model attachment time")
+# + theme_classic()
+)
+# ggsave("staub10-model-attachment.pdf", p.att, width=5, height=4)
+
+
+
+dev.off()
