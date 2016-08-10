@@ -86,7 +86,7 @@ Test the model's eye movement predictions by simulating an eye-tracking experime
 `> (rl)`  
 `> (re 'staub10 100)`  
 
-Then, run the R script `2_analyse_experiment.R` again.
+Then, run the R script `staub10-analysis.R`, which creates `Staub2010-analysis.pdf`.
 
 
 #### V. Define new experiments
