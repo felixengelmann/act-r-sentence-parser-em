@@ -248,7 +248,7 @@ analyse_experiment <- function(prefix=""){
 		+ stat_summary(fun.y="mean", geom="line", position=dodge) 
 		+ stat_summary(fun.data="mean_cl_normal", position=dodge, size=.2)
 		+	scale_linetype_manual(values=c(2,1))
-		+	facet_wrap(~Measure)
+		+	facet_wrap(~Measure, scales="free")
 		+	ggtitle("Reading times")
 		+	myTheme
 		))
