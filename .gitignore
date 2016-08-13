@@ -6,25 +6,112 @@
 
 *.dx64fsl
 
+*/backup/*
+*/bak/*
+*/SNAPSHOTS/*
+backup/*
+bak/*
+SNAPSHOTS/*
+*/paramsearch/GG-EXP*
+*/paramsearch/STAUB10-*
+*/paramsearch/_TEST*
+
+*/output/*.pdf
+*/output/*.txt
+
 LewisVasishth2005/Paramsearch/GG-EXP*
+LewisVasishth2005/Staub10-estimation/*
 
 VBLD2008/Paramsearch/vbld08-*
 
 actr6/environment/GUI/init/10-userguisettings.tcl
 
-*/backup/*
-*/bak/*
-
-*backup/*
-*bak/*
+SwetsEtAl2008/*
+SWIFT/*
+swift-demo/*
 
 VBLD2008/experiments-original/*
 
 VBLD2008/experiments/old-plots/*
 
-*/output/*.pdf
-*/output/*.txt
+
 
 VBLD2008/paramsearch/.RData
 
 VBLD2008/paramsearch/.Rhistory
+
+LewisVasishth2005/output/m.Rd
+
+VBLD2008/paramsearch/fit-experiment_old.R
+
+VBLD2008/paramsearch/fit-experiment_error.R.RData
+
+VBLD2008/paramsearch/kate_fit-experiment.R
+
+VBLD2008/paramsearch/kate-fit-experiment.R
+
+VBLD2008/output/m.Rd
+
+VBLD2008/kate_commands.lisp
+
+sp/support-parser_new.lisp
+
+sp/productions-parser-old.lisp
+
+sp/productions-control-old.lisp
+
+actr6/environment/GUI/init/10-userguisettings.tcl
+
+actr6/environment/GUI/init/10-userguisettings.tcl
+
+VBLD2008/paramsearch/_kate-analyze.R
+
+*.sublime-project
+
+*.sublime-workspace
+
+LewisVasishth2005/paramsearch/fit-experiment.R
+
+LewisVasishth2005/output/bak/1_quick_results.R
+
+LewisVasishth2005/output/bak/results.R
+
+LewisVasishth2005/output/bak/results3.r
+
+LewisVasishth2005/SNAPSHOTS/2015-0706-1528/model/output/quick-analysis.R
+
+LewisVasishth2005/paramsearch/STAUB10-20150813-1620/results.R
+
+LewisVasishth2005/SNAPSHOTS/2015-0706-1528/model/output/results.R
+
+LewisVasishth2005/SNAPSHOTS/2015-0706-1528/model/paramsearch/results.R
+
+LewisVasishth2005/SNAPSHOTS/2015-0706-1528/model/output/results2.R
+
+SwetsEtAl2008/.Rapp.history
+
+SwetsEtAl2008/experiments/to-lf03/.Rapp.history
+
+LewisVasishth2005/output/bak/results2.R
+
+SwetsEtAl2008/output/.Rapp.history
+
+Docs/differences-between-6-and-6.1.pdf
+
+Docs/Exercise-dec14.txt
+
+IMAGINAL-REMOVAL TODO.txt
+
+sp/template.lisp
+
+LewisVasishth2005/output/simulations.Rd
+
+VBLD2008/experiments/old-NPI-analysis.R
+
+LewisVasishth2005/paramsearch/bak/results.R
+
+LewisVasishth2005/paramsearch/bak/fit-experiment.R
+
+VBLD2008/paramsearch/.Rapp.history
+
+VBLD2008/paramsearch/copy-files.R
