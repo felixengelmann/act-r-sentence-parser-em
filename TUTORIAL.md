@@ -87,6 +87,7 @@ Test the model's eye movement predictions by simulating an eye-tracking experime
 `> (re 'staub10 100)`  
 
 Then, run the R script `staub10-analysis.R`, which creates `Staub2010-analysis.pdf`.
+It shows predicted fixation durations and first-pass regressions on the embedded NP, embedded verb, and main verb together with the empirical data.
 
 
 #### V. Define new experiments
