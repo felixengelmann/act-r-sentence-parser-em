@@ -519,7 +519,7 @@
        regression     nil
        ; last-loc       =loc            ;; use this for regression to previous attention location
    ?visual>
-       processor      free              ;; no current encoding
+       ; processor      free              ;; no current encoding
        execution      free              ;; no current saccade execution
        ; preparation       free           ;; no current saccade preparation
     =visual>
@@ -554,41 +554,81 @@
 ;; set to 0 when using fixation-relative regressions
 
 
+; ;; Exit time-out VERSION I: free state
+; (P exit-time-out
+;    =goal>
+;       ISA             comprehend-sentence
+;       time-out        t
+;       em-state        "attending"
+;       state           "read"
+;       ; attend-to       "next-word"
+;       ; regression      nil
+;       last-loc        =last-loc
+;       ; last-parse-loc  =ploc
+;       ; last-parse-loc       =parse-loc
+;    ; =imaginal>
+;    ;     ISA            parsing-state
+;     ; ?visual>
+;     ;    processor      free
+;     ?grammatical>
+;        state        free
+;  ==>
+;    =goal>
+;       time-out        nil
+;       em-state        "free"
+;   -visual-location>
+;   -visual>   
+;    !eval! (exit-time-out)
+; )
+; (spp exit-time-out :at 0.00)
+
+
+
+; ; Exit time-out VERSION II: back to last lex-retrieved word (n+1)
+; (P exit-time-out
+;    =goal>
+;       ISA             comprehend-sentence
+;       time-out        t
+;       em-state        "attending"
+;       state           "read"
+;       last-loc        =last-loc
+;     ?grammatical>
+;        state        free
+;  ==>
+;    =goal>
+;       time-out        nil
+;       em-state        "looking"
+;    =visual-location> =last-loc
+;   -visual>
+;    !eval! (exit-time-out)
+; )
+; (spp exit-time-out :at 0.00)
+
+
+
+; Exit time-out VERSION III: looking for next word
 (P exit-time-out
    =goal>
       ISA             comprehend-sentence
       time-out        t
       em-state        "attending"
       state           "read"
-      ; attend-to       "next-word"
-      ; regression      nil
       last-loc        =last-loc
-      ; last-parse-loc  =ploc
-      ; last-parse-loc       =parse-loc
-   ; =imaginal>
-   ;     ISA            parsing-state
-    ; ?visual>
-    ;    processor      free
     ?grammatical>
        state        free
  ==>
    =goal>
       time-out        nil
-      ; em-state        "looking"
-      em-state        "free" ;; VERSION 2: back to normal reading
-   ; =imaginal>
-   ; =visual-location> =last-loc  ;; VERSION 1: back to last lex-retrieved word (n+1)
-  ; +visual-location>      ;; VERSION 2: back to normal reading
-     ; ISA               visual-location
+      em-state        "looking"
+  +visual-location>
+     ISA               visual-location
   ;  > screen-x          =last-loc
-     ; screen-x          lowest
-  -visual-location>
+   > screen-x          current
+     screen-x          lowest
   -visual>
-   
    !eval! (exit-time-out)
 )
 (spp exit-time-out :at 0.00)
-
 
 
 
