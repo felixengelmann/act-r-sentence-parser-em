@@ -3,11 +3,11 @@
    =NPb>
       ISA               syn-obj
       ID                =ID
-   =retrieval>
+   =grammatical>
       ISA               syn-obj
       comp              =ID
 ==>
-   =retrieval>
+   =grammatical>
       comp              =NPb
    =NPb>
 )
@@ -15,11 +15,11 @@
    =DPb>
       ISA               syn-obj
       ID                =ID
-   =retrieval>
+   =grammatical>
       ISA               syn-obj
       comp              =ID
 ==>
-   =retrieval>
+   =grammatical>
       comp              =DPb
    =DPb>
 )
@@ -63,13 +63,13 @@
    =CPb>
       ISA               syn-obj
       ID                =ID
-   =retrieval>
+   =grammatical>
       ISA               syn-obj
       modifier          =ID
 ==>
    =CPb>
-      modif-of          =retrieval
-   =retrieval>
+      modif-of          =grammatical
+   =grammatical>
       modifier          =CPb
 )
 (P fill-slots-7
@@ -89,63 +89,63 @@
    =PPb>
       ISA               syn-obj
       ID                =ID
-   =retrieval>
+   =grammatical>
       ISA               syn-obj
       modifier          =ID
 ==>
    =PPb>
-      modif-of          =retrieval
-   =retrieval>
+      modif-of          =grammatical
+   =grammatical>
       modifier          =PPb
 )
 (P fill-slots-9
    =VPb>
       ISA               syn-obj
       ID                =ID
-   =retrieval>
+   =grammatical>
       ISA               syn-obj
       comp              =ID
 ==>
    =VPb>
-      comp-of           =retrieval
-   =retrieval>
+      comp-of           =grammatical
+   =grammatical>
       comp              =VPb
 )
 (P fill-slots-10
    =DPb>
       ISA               syn-obj
       ID                =ID
-   =retrieval>
+   =grammatical>
       ISA               syn-obj
       spec              =ID
 ==>
    =DPb>
-      spec-of           =retrieval
-   =retrieval>
+      spec-of           =grammatical
+   =grammatical>
       spec              =DPb
 )
 (P fill-slots-11
    =CPb>
       ISA               syn-obj
       ID                =ID
-   =retrieval>
+   =grammatical>
       ISA               syn-obj
       comp              =ID
 ==>
    =CPb>
-      comp-of           =retrieval
-   =retrieval>
+      comp-of           =grammatical
+   =grammatical>
       comp              =CPb
 )
 (P fill-slots-12
    =DPb>
       ISA               syn-obj
       ID                =ID
-   =retrieval>
+   =grammatical>
       ISA               syn-obj
       conjunct          =ID
 ==>
-   =retrieval>
+   =grammatical>
       conjunct          =DPb
    =DPb>
 )
@@ -153,11 +153,11 @@
    =AdvPb>
       ISA               syn-obj
       ID                =ID
-   =retrieval>
+   =grammatical>
       ISA               syn-obj
       adjunct           =ID
 ==>
-   =retrieval>
+   =grammatical>
       adjunct          =AdvPb
    =AdvPb>
 )
