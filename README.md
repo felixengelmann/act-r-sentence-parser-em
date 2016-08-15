@@ -80,9 +80,34 @@ If desired, you can also put `chunk-tree.lisp` in there to visualise trees.
 
 
 
+### III. R analysis scripts
+
+##### 1. Quick results 
+`../output/1_quick_results.R`  
+Generically plots fixations and attachment times for single sentences or experiments with multiple conditions. The resulting PDF is `quick_results.pdf`.
+
+##### 2. Experiment analysis
+`../output/2_analyse_experiment.R`  
+This generic script plots an overview of the simulation results together with the experimental data into `[EXPNAME]-results.pdf` (e.g. `GG-EXP1-results.pdf`). 
+The script receives data and regions of interest from ACT-R (stored in „sentences.lisp“). The analysis also works for simulation results on individual subjects.  
+
+This script uses the R package `em2` to analyze fixation durations and probabilities in more detail than the quick results script.
+
+##### 3. Fit parameters
+`../paramsearch/1_fit_parameters.R`  
+After running a parameter search with `(search-param-space-em ...)` or `(search-param-space-subjects-em ...)`, copy this script into the respective experiment folder and run from within. 
+
+This script analyzes all parameter sets and compares their fit to the data. A resulting PDF is written into the paramsearch/ directory. It contains plots of the fit (error, correlation, and a score combining both) as a function of the parameter sets and of individual parameters.
+
+##### Adjusting the R code
+Except for `1_quick_results.R`, the R code is stored centrally in `sp/r_functions.R`.
+
+
+
+
 ---
 
-### III. Model structure
+### IV. Model structure
 
 #### Files
 ###### Project-related
@@ -229,7 +254,7 @@ Example: `(search-param-space-subjects-em MV13 20 50 *pspace1*)`
 ---
 
 
-### IV. Modeling functions
+### V. Modeling functions
 
 #### Parser (support-parser.lisp)
 

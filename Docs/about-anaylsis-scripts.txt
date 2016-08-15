@@ -1,8 +1,8 @@
 
 === ../output/results.R ===
-In output/, there is a generic script „results.R“ that plots an overview of the simulation results together with the data into „[EXPNAME]-results.pdf“ (e.g. „GG-EXP1-results.pdf“).
+In output/, there is a generic script „2_analyse_experiment.R“ that plots an overview of the simulation results together with the data into „[EXPNAME]-results.pdf“ (e.g. „GG-EXP1-results.pdf“).
 
-The script is called automatically at the end of an experiment simulation started with (re …) or (res …). It receives data and regions of interest from ACT-R (stored in „sentences.lisp“).
+The script receives data and regions of interest from ACT-R (stored in „sentences.lisp“).
 The analysis also works for simulation results including subjects with individual working memory capacity with (res …).
 
 
