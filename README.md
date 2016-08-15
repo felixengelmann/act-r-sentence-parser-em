@@ -28,7 +28,9 @@ Alternatively, download the source:
    `> sudo chmod +x ccl*`  
 
 #### R packages
-In order to run the R scripts provided for analysis, you need to ensure the following packages are installed:  
+In order to run the scripts provided for analysis, you need to ensure that R and the following packages are installed:  
+
+If you don not already have R installed, you can retrieve it from https://www.r-project.org/.
 
  - ggplot2 (plotting)
  - tidyr (data wrangling)
