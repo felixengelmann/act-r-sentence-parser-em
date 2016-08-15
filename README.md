@@ -13,11 +13,11 @@ This file documents the prerequisites and the model structure. See the wiki at h
 
 ### I. Prerequisites
 #### Lisp
-Lisp is required in order to run ACT-R. I recommend Clozure Common Lisp (formerly OpenMCL):
+Lisp is required in order to run ACT-R. I recommend Clozure Common Lisp (formerly OpenMCL): http://trac.clozure.com/ccl/.
  
  1. On Mac, just install Clozure CL from the App Store.
 
-Alternatively, download the source:
+Alternatively (on Mac), download the source:
 
  1. Download CCL from http://trac.clozure.com/ccl/
  2. Copy the contents, e.g., to `/Applications/ccl`
@@ -26,6 +26,7 @@ Alternatively, download the source:
  4. Edit both and replace value after `=` of `CCL_DEFAULT_DIRECTORY=...` with `/Applications/ccl/`
  5. Make the script(s) executable:  
    `> sudo chmod +x ccl*`  
+
 
 #### R packages
 In order to run the scripts provided for analysis, you need to ensure that R and the following packages are installed:  
