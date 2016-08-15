@@ -30,10 +30,16 @@ Alternatively, download the source:
 #### R packages
 In order to run the R scripts provided for analysis, you need to ensure the following packages are installed:  
 
- - ggplot2
- - tidyr
- - dplyr
- - em2 (http://cran.r-project.org/src/contrib/Archive/em2/)
+ - ggplot2 (plotting)
+ - tidyr (data wrangling)
+ - dplyr (data wrangling)
+ - em2 (eye movemet measures, download at http://cran.r-project.org/src/contrib/Archive/em2/)
+
+Packages other than em2 can be installed by typing `install.packages("PACKAGENAME")` in R.  
+
+**em2** has to be downloaded from http://cran.r-project.org/src/contrib/Archive/em2/. Then type `R CMD INSTALL em2_0.9.tar.gz` on the command line.
+
+
 
 
 ### II. Getting started
