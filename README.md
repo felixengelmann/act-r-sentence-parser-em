@@ -77,6 +77,7 @@ If desired, you can also put `chunk-tree.lisp` in there to visualise trees.
  - Delete output: `(delete-output)`
  - Run a specific sentence, e.g.: `(ps *gg-sr*)` or `(ps "the dog bit the boy")`
  - Run an experiment, e.g.: `(re 'gg-exp1 60)`
+ - If you run into a Lisp error message, type `:pop` to return to the normal Lisp prompt.
 
 
 
