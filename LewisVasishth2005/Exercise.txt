@@ -1,0 +1,72 @@
+
+Grodner & Gibson (2005)
+=======================
+Run the Grodner & Gibson (2005) Experiment 1 comparing subject- and object-relative clauses with 60 iterations:
+
+(re 'gg-exp1 60)
+
+Run the R script gg05-analysis.R to generate plots that compare attachment times and reading times on the main verb and embedded verb for both sentence types. These can be compared to the data (self-paced reading) and model prediction in Lewis & Vasishth (2005).
+
+
+Staub (2010)
+============
+Test the model's eye movement predictions by simulating an eye-tracking experiment by Staub (2010): Additionally to the inflated reading times on the embedded verb in an object-relative clause, as also seen in Grodner & Gibson (2005), he found more first-pass regressions from the subject NP of an object-relative clause. This was interpreted as an effect of a general expectation for a subject-relative that has to be revised at this position. Run the experiment:
+
+(re 'staub10 100)
+
+Then, run the R script "staub10-analysis.R". It will save two plots in the output directory that show predicted first-pass regressions and first-fixation durations on the embedded NP, embedded verb, and main verb together with the empirical data.
+
+
+More practice:
+==============
+## 1. Get familiar with the productions that fire for a simple SUBJ-VERB-OBJ sentence like „the dog bit the boy *“ or „The writer surprised the editors *":
+
+demo.txt in LewisVasishth2005/ lists the productions that fire one by one for such an SVO sentence.
+demo-productions.txt contains the actual productions in the correct order.
+
+You can restrict the trace output to just showing the productions by tying
+(setprint firing)
+before running a sentence.
+
+You can print out the parser bookkeeping state with:
+(print-runtime-vars)
+
+
+## 2. Create lexicon entries for a new sentence with the same structure.
+The model provides a function „rps“  to do a repeated sentence presentation, e.g.: 
+(rps „The dog bit the boy *“ 10)
+
+Run your sentence about 100 times.
+
+Look at the output:
+- fixations.txt (The columns stand for: EXPERIMENT ITERATION SENT# WORDPOS WORD DURATION)
+- attachments.txt (EXPERIMENT ITERATION SENT# WORDPOS WORD DURATION)
+- trialmessages.txt (EXPERIMENT ITERATION SENT# WORDPOS WORD VARIABLE VALUE)
+
+Run the R script „demo-analysis.R“ to create plots of:
+- attachment times
+- reading times
+- skipping rate
+- time-out rate
+- failure rate
+- a scanpath of a random trial
+- scanpaths of 7 random trials
+
+
+## 3. Play with parameters.
+Find the following parameters in „model.lisp“:
+:gram-lf (latency factor, currently 0.2)
+:VISUAL-ENCODING-FACTOR (0.002)
+:SACCADE-PREPARATION-TIME (0.110)
+:ans (noise, 0.15)
+
+Change one or multiple of these parameters to produce the following behaviors:
+- Make the model read every word (look at the scanpath plots or the reading-times plot. Note that the RTs for the first word are ignored!)
+- Produce many time-outs
+- skip often 
+- fail often
+
+You can also provide the parameters as an argument to the rps function, e.g.:
+
+(rps "The dog bit the boy *" 100 :params '(:gram-lf 0.8 :VISUAL-ENCODING-FACTOR 0.006))
+
