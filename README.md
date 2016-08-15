@@ -35,7 +35,7 @@ If you don not already have R installed, you can retrieve it from https://www.r-
  - ggplot2 (plotting)
  - tidyr (data wrangling)
  - dplyr (data wrangling)
- - em2 (eye movemet measures, download at http://cran.r-project.org/src/contrib/Archive/em2/)
+ - em2 (eye movement measures, download at http://cran.r-project.org/src/contrib/Archive/em2/)
 
 Packages other than em2 can be installed by typing `install.packages("PACKAGENAME")` in R.  
 
