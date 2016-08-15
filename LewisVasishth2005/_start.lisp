@@ -42,7 +42,7 @@
 
 (rl)
 (delete-output)
-(demo '(:lf 0.8))
+(demo '(:gram-lf 0.8))
 
 
 ;;;
@@ -92,19 +92,19 @@
 ;;;
 ;; Run experiment:
 (re 'gg-exp1 60) 
-(re 'gg-exp1 60 :params '(:lf 0.4 :mp 2))
+(re 'gg-exp1 60 :params '(:gram-lf 0.4 :mp 2))
 (re 'staub10 60)
 ;; Run experiment with subjects:
 (res 'gg-exp1 30 10) 
-(res 'gg-exp1 10 5 :params '(:lf 0.3 :mp 3))
-(res 'gg-exp1 100 2 :ga '(0.75 1.25) :params '(:lf 0.3))
+(res 'gg-exp1 10 5 :params '(:gram-lf 0.3 :mp 3))
+(res 'gg-exp1 100 2 :ga '(0.75 1.25) :params '(:gram-lf 0.3))
 
 
 ;;;
 ;;; Search param-space
 ;;;
 (setf *paramspace* '(
-                     (:lf .2 .4 .1)
+                     (:gram-lf .2 .4 .1)
                      (:mp 1.5 2 .5)
                      ))
 
