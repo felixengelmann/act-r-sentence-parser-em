@@ -9,23 +9,22 @@ Consult the README for steps required before running the model.
 #### II. Run the model
 
  1. Download the act-r-sentence-parser-em and extract
- 2. Start Lisp (If CCL is properly installed, it should start with `ccl` or `ccl64`)
+ 2. Start Lisp
  3. If not already there, navigate to act-r-sentence-parser-em/LewisVasishth2005/ with the `cwd` command:  
    `> (cwd „XXX/act-r-sentence-parser-em/LewisVasishth2005“)`
     - replace `XXX` by the rest of the path if necessary
- 4. Make sure ACT-R recompiles all files when loading the next time:  
-   `> (push :actr-recompile *features*)`  
  5. Load ACT-R:  
    `> (load "../actr6/load-act-r-6.lisp")`  
  6. Run environment:  
    `> (run-environment)`  
+    - Depending on the lisp distribution or the operating system, it may be necessary to start the environment manually (in actr6/environment/) and then connect ACT-R to it by:  
+   `(start-environment)`
  7. Load LewisVasishth model:  
    `> (load "sp-lv05.lisp")`  
  8. Run demo sentence "the dog bit the boy":  
    `> (demo)`  
 
 You should see a trace with the final notice `SENTENCE PARSED SUCCESSFULLY` (mostly; it might fail from time to time due to noise).
-
 
 #### III. Run a sentence
 Now reload and switch on real-time mode to better observe the eye movements (blue) and attention shifts (red) in the experiment window:  

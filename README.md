@@ -49,12 +49,9 @@ If desired, you can also put `chunk-tree.lisp` in there to visualise trees.
 
 
 #### Running ACT-R and environment
- 1. In terminal, navigate to the directory of the project you want to load, e.g., `act-r-sentence-parser-em/LewisVasishth2005/`
- 2. Start Lisp:  
-   E.g., `> ccl`  or  `> ccl64`
-  - When running ACT-R for the first time or something has changed in the modules, make sure ACT-R recompiles all files when loading:  
-  `(push :actr-recompile *features*)`
- 3. Load ACT-R:  
+ 1. Start Lisp and make sure the working directory is pointed to the project you want to load, e.g., `act-r-sentence-parser-em/LewisVasishth2005/`.
+ - You can change the working directory with `(cwd "PATH")` (replace `PATH` with the desired directory).
+2. Load ACT-R:  
    `(load "../actr6/load-act-r-6.lisp")`
  4. Run environment:  
    `(run-environment)`
