@@ -72,6 +72,9 @@ If desired, you can also put `chunk-tree.lisp` in there to visualise trees.
 
 ### III. R analysis scripts
 
+These scripts have to be run from the directory they are in. E.g., quick_results.R can be run from the command line after navigating to `act-r-sentence-parser-em/LewisVasishth2005/output/` and then typing `Rscript quick_results.R`.
+You can also open the file inside the R GUI and run it from there after making sure to set the working directory correctly.
+
 ##### 1. Quick results 
 `../output/1_quick_results.R`  
 Generically plots fixations and attachment times for single sentences or experiments with multiple conditions. The resulting PDF is `quick_results.pdf`.
